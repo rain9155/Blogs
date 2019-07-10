@@ -11,19 +11,19 @@
 <meta name="keywords" content="window,windowManager,WMS,activity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activity应用窗口的添加过程">
-<meta property="og:url" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window1.png">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window2.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window3.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window4.png">
-<meta property="og:updated_time" content="2019-07-10T07:10:48.534Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/window1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/window2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/window3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/window4.png">
+<meta property="og:updated_time" content="2019-07-10T07:20:57.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity应用窗口的添加过程">
 <meta name="twitter:description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/window1.png">
   
     <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
   
@@ -72,8 +72,8 @@
       <div class="outer">
         <section id="main"><article id="post-Activity应用窗口的添加过程" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/22/Activity应用窗口的添加过程/" class="article-date">
-  <time datetime="2019-03-22T14:36:32.000Z" itemprop="datePublished">2019-03-22</time>
+    <a href="/2019/07/10/Activity应用窗口的添加过程/" class="article-date">
+  <time datetime="2019-07-10T07:20:32.000Z" itemprop="datePublished">2019-07-10</time>
 </a>
     
   <div class="article-category">
@@ -115,7 +115,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WindowManagerImpl.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> WindowManagerImpl <span class="title">createLocalWindowManager</span><span class="params">(Window parentWindow)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> WindowManagerImpl(mContext, parentWindow);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="title">WindowManagerImpl</span><span class="params">(Context context, Window parentWindow)</span> </span>&#123;</span><br><span class="line">        mContext = context;</span><br><span class="line">        mParentWindow = parentWindow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个方法很简单，只是简单的返回一个WindowManagerImpl对象，注意它传入了一个parentWindow参数，它是Window类型，说明此时构建的WindowManagerImpl是与具体的Window关联的，至此，在java层上Window就已经与WindowManager建立起联系。 </p>
 <h2 id="Activity的Window的视图创建-Window-setContentView"><a href="#Activity的Window的视图创建-Window-setContentView" class="headerlink" title="Activity的Window的视图创建 - Window :: setContentView()"></a>Activity的Window的视图创建 - Window :: setContentView()</h2><p>从上一篇文章我们知道，View是依附在Window上的，在Activity的启动过程中的attach方法里已经完成了Activity的Window的创建和与WindowManager的关联，那么Activity的视图即View是在哪里创建的呢？答案是在我们熟悉的setContentView方法中，我们先来看一张图：</p>
-<img src="/2019/03/22/Activity应用窗口的添加过程/window1.png" title="window1">
+<img src="/2019/07/10/Activity应用窗口的添加过程/window1.png" title="window1">
 <p>如图所示每一个Activity都有一个顶级View叫做DecorView，一般情况下它会包含一个竖直方向的LinearLayout，在这个LinearLayout中包含两部分(具体情况与Android的版本与主题有关)，上面是标题栏，下面是内容布局，内容布局其实是一个FrameLayout，我们平时setContentView指定的布局其实是set到了这个FrameLayout中，所以这个方法叫setContentView也是也是很贴和实际的，因为FrameLayout的id就是android.R.id.content，理解了这些知识后，我们来看Activity中的setContentView方法，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Activity.java</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContentView</span><span class="params">(@LayoutRes <span class="keyword">int</span> layoutResID)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1、关注这里，其实调用的是PhoneWindow的setContentView，setContentView里面会加载内容布局并添加进DecorView中</span></span><br><span class="line">    getWindow().setContentView(layoutResID);</span><br><span class="line">    <span class="comment">//如果Activity主题是带ActionBar的话，这里面就会创建ActionBar并添加进DecorView中</span></span><br><span class="line">    initWindowDecorActionBar();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们看注释1，前面已经讲过Activity的Window的创建，所以这里的getWindow其实返回的是Window，而Window的实现类是PhoneWindow，所以这里调用的是PhoneWindow的setContentView，并传入了我们的内容布局id，PhoneWindow的setContentView方法的相应源码如下：</p>
@@ -143,7 +143,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <p>我们来分析PhoneWindow的setContentView方法的第二部分。</p>
 <h3 id="2、mLayoutInflater-inflate-layoutResID-mContentParent"><a href="#2、mLayoutInflater-inflate-layoutResID-mContentParent" class="headerlink" title="2、mLayoutInflater.inflate(layoutResID, mContentParent)"></a>2、mLayoutInflater.inflate(layoutResID, mContentParent)</h3><p>layoutResID就是我们setContentView传进来的内容布局id，所以这里就把内容布局加载进mContentParent中了。至此Window的setContentView分析完毕。</p>
 <p>这个过程如下图：</p>
-<img src="/2019/03/22/Activity应用窗口的添加过程/window2.jpg" title="window2">
+<img src="/2019/07/10/Activity应用窗口的添加过程/window2.jpg" title="window2">
 <p>我们回到Activity的setContentView方法，其实到这里Activity的视图，也可以是说Activity的Window的视图DecorView就创建好了，接下来就是把这个DecorView显示到屏幕上。</p>
 <h2 id="Activity的Window的视图添加-WindowManager-addView"><a href="#Activity的Window的视图添加-WindowManager-addView" class="headerlink" title="Activity的Window的视图添加  - WindowManager :: addView()"></a>Activity的Window的视图添加  - WindowManager :: addView()</h2><p>熟悉Activity的启动流程的都知道，Activity会在handleResumeActivity方法中把DecorView显示出来，而添加一个Winow是通过WindowManager的addView方法实现的，但是Window只是View的载体，并不是真实存在的，所以addView其实就是添加一个View，这个View是依附在Window上，并且这个View是 View Hierarchy 最顶端的根 View，而Activity的的顶级View是DecorView, 所以Activity的Window的添加DecorView。我们来看一下handleResumeActivity方法，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ActivityThread.java</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">handleResumeActivity</span><span class="params">(IBinder token,  <span class="keyword">boolean</span> clearHide, <span class="keyword">boolean</span> isForward, <span class="keyword">boolean</span> reallyResume, <span class="keyword">int</span> seq, String reason)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//ActivityClientRecord里面保存了Activity的信息</span></span><br><span class="line">    ActivityClientRecord r = mActivities.get(token);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//这个方法里面最终会回调Activity的onResume方法</span></span><br><span class="line">    r = performResumeActivity(token, clearHide, reason);</span><br><span class="line">    <span class="comment">//所以下面都是在执行onResume方法后的行为</span></span><br><span class="line">    <span class="keyword">if</span> (r != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//得到Activity</span></span><br><span class="line">        <span class="keyword">final</span> Activity a = r.activity;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">//面if（r.window == null &amp;&amp; !a.mFinished &amp;&amp; willBeVisible）&#123;&#125;分支里面的逻辑主要是把Activity的Window的DecorView添加到WMS中</span></span><br><span class="line">        <span class="keyword">if</span> (r.window == <span class="keyword">null</span> &amp;&amp; !a.mFinished &amp;&amp; willBeVisible) &#123;</span><br><span class="line">            <span class="comment">//获取前面Activit创建的Window</span></span><br><span class="line">            r.window = r.activity.getWindow();</span><br><span class="line">            <span class="comment">//获取前面Window创建的DecorView</span></span><br><span class="line">            View decor = r.window.getDecorView();</span><br><span class="line">            <span class="comment">//先把DecorView设为不可见</span></span><br><span class="line">            decor.setVisibility(View.INVISIBLE);</span><br><span class="line">            <span class="comment">//Activity关联的WindowManager</span></span><br><span class="line">            ViewManager wm = a.getWindowManager();</span><br><span class="line">            <span class="comment">//下面设置Window的布局参数</span></span><br><span class="line">            WindowManager.LayoutParams l = r.window.getAttributes();</span><br><span class="line">            a.mDecor = decor;</span><br><span class="line">            <span class="comment">//窗口的类型是TYPE_BASE_APPLICATION，应用类型窗口</span></span><br><span class="line">            l.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">            <span class="keyword">if</span> (a.mVisibleFromClient) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!a.mWindowAdded) &#123;</span><br><span class="line">                    a.mWindowAdded = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="comment">//1、关注这里，调用WindowManager的addView方法</span></span><br><span class="line">                    wm.addView(decor, l);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="comment">//...</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (!willBeVisible) &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">//面if（r.window == null &amp;&amp; !a.mFinished &amp;&amp; willBeVisible）&#123;&#125;分支里面的逻辑主要是把DecorView显示出来</span></span><br><span class="line">        <span class="keyword">if</span> (!r.activity.mFinished &amp;&amp; willBeVisible</span><br><span class="line">            &amp;&amp; r.activity.mDecor != <span class="keyword">null</span> &amp;&amp; !r.hideForNow) &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">            <span class="keyword">if</span> (r.activity.mVisibleFromClient) &#123;</span><br><span class="line">                <span class="comment">//2、关注这里，上面已经把Window添加到WMS中了，所以里面会把DecorView显示出来, 见下面Activity.java</span></span><br><span class="line">                r.activity.makeVisible();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Activity.java</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">makeVisible</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="comment">//...</span></span><br><span class="line">   <span class="comment">//把DecorView设为可见</span></span><br><span class="line">   mDecor.setVisibility(View.VISIBLE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -175,9 +175,9 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <li>5、一系列的检查后，WMS会为每一个Window会创建一个WindowState，并以传过来的W类为Key，新创建的WindowState为Value建立映射存放进WindowHashMap中，这个WindowState维护着窗口的状态以及根据适当的机制来调整窗口的状态。</li>
 </ul>
 <p>这个添加过程如下图：</p>
-<img src="/2019/03/22/Activity应用窗口的添加过程/window3.jpg" title="window3">
+<img src="/2019/07/10/Activity应用窗口的添加过程/window3.jpg" title="window3">
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是Activity的Window的添加过程，我们发现添加一个Window最重要的是View、type和token，至于其他类型窗口的添加相似的，一图总结本文，如下：</p>
-<img src="/2019/03/22/Activity应用窗口的添加过程/window4.png" title="window4">
+<img src="/2019/07/10/Activity应用窗口的添加过程/window4.png" title="window4">
 <p>从图中可以看到，添加一个Window，会涉及到两个进程的交互，一个是Activity所在的应用进程，一个是WMS所在的系统服务进程，所以绿色的那部分就代表着IPC，ViewRootImpl通过WindonManagerGlobal的静态变量sWindowSession负责与WMS通信，它是Session类型，在ViewRootImpl构造中被赋值，WMS中的每个Window的WindowState的mClient负责与Activity所在的应用进程通信，它是W类型，在创建WindowState构造中被赋值，在Activity所在的应用进程的WindonManagerGlobal中会为每一个添加的Window中的View创建一个ViewRootImpl，所以多个Window就对应多个ViewRootImpl，而在WMS中，Window对应着一个View，它会为每一个Window创建一个WindowState以维护Window的状态，所以多个Window就多个WindowState，如果WMS接收到外界的状态变化，就会把这些事件分发给合适的Window，然后Window再转发给View。</p>
 <p>从应用窗口的添加过程中，对Window的机制也有了一些了解，以后如果遇到有关于Window的添加的异常也懂得去哪里找原因。</p>
 <p>参考资料：</p>
@@ -187,7 +187,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/" data-id="cjxwwn28e0026zcuqryq8ramm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/" data-id="cjxwwn28e0026zcuqryq8ramm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
@@ -198,19 +198,10 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
     
 <nav id="article-nav">
   
-    <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Window,WindowManager和WindowManagerService之间的关系
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/03/09/RecyclerView之观察者模式/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/19/Activity的启动流程（2）/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">RecyclerView之观察者模式</div>
+      <div class="article-nav-title">Activity的启动流程（2）</div>
     </a>
   
 </nav>
@@ -255,7 +246,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
     </div>
   </div>
 
@@ -268,6 +259,10 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
       <ul>
         
           <li>
+            <a href="/2019/07/10/Activity应用窗口的添加过程/">Activity应用窗口的添加过程</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/19/Activity的启动流程（2）/">Activity的启动流程（2）</a>
           </li>
         
@@ -277,10 +272,6 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
         
           <li>
             <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/Activity应用窗口的添加过程/">Activity应用窗口的添加过程</a>
           </li>
         
           <li>
