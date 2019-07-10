@@ -17,7 +17,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window1.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window2.jpg">
-<meta property="og:updated_time" content="2019-07-10T05:05:10.842Z">
+<meta property="og:updated_time" content="2019-07-10T06:30:16.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Window,WindowManager和WindowManagerService之间的关系">
 <meta name="twitter:description" content="前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS">
@@ -149,9 +149,9 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <h3 id="2、输入事件的管理与分发"><a href="#2、输入事件的管理与分发" class="headerlink" title="2、输入事件的管理与分发"></a>2、输入事件的管理与分发</h3><p>当我们的触摸屏幕时就会产生输入事件，在Android中负责管理事件的输入是InputManagerService，它会寻找一个最合适的窗口来处理输入事件，WMS是窗口的管理者，因此WMS会把这些输入事件分发给合适的窗口，然后就会涉及我们熟悉的事件分发机制。我们来再来看在ViewRootImp的setView中调用mWindowSession.addToDisplay方法时传入的参数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view, WindowManager.LayoutParams attrs, View panelParentView)</span> </span>&#123;</span><br><span class="line">  	<span class="comment">//...	</span></span><br><span class="line">   	mInputChannel = <span class="keyword">new</span> InputChannel();</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//通过session与WMS建立通信,同时通过InputChannel接收输入事件回调</span></span><br><span class="line">     res = mWindowSession.addToDisplay(mWindow, mSeq, mWindowAttributes,</span><br><span class="line">                                getHostVisibility(), mDisplay.getDisplayId(),</span><br><span class="line">                                mAttachInfo.mContentInsets, mAttachInfo.mStableInsets,</span><br><span class="line">                                mAttachInfo.mOutsets, mInputChannel);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">     <span class="keyword">if</span> (mInputChannel != <span class="keyword">null</span>) &#123;</span><br><span class="line">         <span class="comment">//...</span></span><br><span class="line">         <span class="comment">//处理输入事件回调</span></span><br><span class="line">         mInputEventReceiver = <span class="keyword">new</span> WindowInputEventReceiver(mInputChannel, Looper.myLooper());</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意这个传入的mInputChannel参数，它实现了Parcelable接口，用于接受WMS返回来的输入事件。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上面简单的介绍，我们知道Window是View的载体，我们想要对Window进行删除，添加，更新View就得通过WindowManager，WindowManager与WMS通过Session进行通信，具体的实现就交给了WMS处理，WMS会为每一个Window创建一个WindowState并管理它们，具体的渲染工作WMS就交给SurfaceFinger处理。它们之间的类图关系如下：</p>
+<p>它们之间的类图关系如下：</p>
 <img src="/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window1.jpg" title="Window,WindowManager, WMS之间的关系">
-<p>如果不讨论具体的实现，本文所讨论的WMS系统相关结构如下：</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上面简单的介绍，我们知道Window是View的载体，我们想要对Window进行删除，添加，更新View就得通过WindowManager，WindowManager与WMS通过Session进行通信，具体的实现就交给了WMS处理，WMS会为每一个Window创建一个WindowState并管理它们，具体的渲染工作WMS就交给SurfaceFinger处理。本文所讨论的WMS系统相关结构如下：</p>
 <img src="/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window2.jpg" title="WMS系统结构">
 <p>参考资料：</p>
 <p>《Anddroid开发艺术探索》</p>
@@ -161,7 +161,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-id="cjxws80r3001ezkuq1x0mqcna" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-id="cjxwv6inn001ezcuq28x3vgoj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>

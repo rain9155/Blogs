@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190420181934413.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JhaW5fOTE1NQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190420181958732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JhaW5fOTE1NQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190420182008912.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JhaW5fOTE1NQ==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-07-10T05:05:10.811Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity2.png">
+<meta property="og:updated_time" content="2019-07-10T06:24:25.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity的启动流程（1）">
 <meta name="twitter:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190420181934413.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JhaW5fOTE1NQ==,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity3.jpg">
   
     <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
   
@@ -97,10 +97,10 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家有没有想过它在底层是怎么启动的呢？Activity的生命周期方法是如何被回调的？它启动过程中涉及到多少个进程？接下来我们通过撸一篇源码来了解Activity的大概启动流程，然后解答这几个问题。</p>
 <a id="more"></a>
-<blockquote>
-<p>本文源码基于Android8.0，本文涉及的源码文件位置如下：<br>frameworks/base/core/java/android/app/Activity.java<br>frameworks/base/services/core/java/com/android/server/am/<em>.java(</em>代表ActivityManagerService，ActivityStack，ActivityStarter，ActivityStackSupervisor，ActivityStack)</p>
-</blockquote>
-<h2 id="Activity-startActivity"><a href="#Activity-startActivity" class="headerlink" title="Activity::startActivity()"></a>Activity::startActivity()</h2><p>startActivity有好几种重载方法，如下：</p>
+<pre><code>本文源码基于Android8.0，本文涉及的源码文件位置如下：
+frameworks/base/core/java/android/app/Activity.java
+frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityManagerService，ActivityStack，ActivityStarter，ActivityStackSupervisor，ActivityStack)
+</code></pre><h2 id="Activity-startActivity"><a href="#Activity-startActivity" class="headerlink" title="Activity::startActivity()"></a>Activity::startActivity()</h2><p>startActivity有好几种重载方法，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivity</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.startActivity(intent, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivity</span><span class="params">(Intent intent, @Nullable Bundle options)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (options != <span class="keyword">null</span>) &#123;</span><br><span class="line">            startActivityForResult(intent, -<span class="number">1</span>, options);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//我们一般没有传options参数给startActivity，所以options为空，就会走到这个分支</span></span><br><span class="line">            <span class="comment">//第二参数requestCode为-1，表示不需要知道Activity启动的结果</span></span><br><span class="line">            startActivityForResult(intent, -<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//发现两个参数的startActivityForResult方法最终还是调用三个参数的startActivityForResult方法，options参数传入null</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startActivityForResult</span><span class="params">(@RequiresPermission Intent intent, <span class="keyword">int</span> requestCode)</span> </span>&#123;</span><br><span class="line">        startActivityForResult(intent, requestCode, <span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>可以发现startActivity最终都会调用到startActivityForResult方法。</p>
 <h3 id="1、Activity-startActivityForResult"><a href="#1、Activity-startActivityForResult" class="headerlink" title="1、Activity::startActivityForResult()"></a>1、Activity::startActivityForResult()</h3><p>这里我们来到了具有三个参数的startActivityForResult方法，如下：</p>
@@ -189,7 +189,7 @@
 <li>Activity的启动流程是怎样的？</li>
 </ul>
 <p>从应用调用一个startActivity方法开始，应用进程开始请求AMS启动Activity，然后在AMS中Activity完成它的一系列准备，最后再回到应用进程中开始回调Activity的生命周期，本文回答了一半这个问题，即本文讲解了应用进程开始请求AMS启动Activity，然后在AMS中完成它的一系列准备的过程，这个过程用时序图表示如下：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190420181934413.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JhaW5fOTE1NQ==,size_16,color_FFFFFF,t_70" alt></p>
+<img src="/2019/05/19/Activity的启动流程（1）/activity3.jpg" title="activity3">
 <ul>
 <li>Activity的生命周期方法是如何被回调的？</li>
 </ul>
@@ -198,10 +198,10 @@
 <li>它启动过程中涉及到多少个进程？</li>
 </ul>
 <p>答案是2个，前言已经讲过本文讨论的是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity，所以本文这个过程涉及的进程可以可以用下面这个图表示：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190420181958732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JhaW5fOTE1NQ==,size_16,color_FFFFFF,t_70" alt></p>
+<img src="/2019/05/19/Activity的启动流程（1）/activity1.png" title="activity1">
 <p>图中AppProcess代表应用所在进程，systemServer代表AMS所在进程，两个进程之间通过Binder进行通信，实现了XX.Stub的类就可以进行Binder通信，如本文的ApplicationThread和AMS都实现了各自的Stub类，所以应用进程startActivity时请求AMS启动Activity，AMS准备好后，再发送scheduleLaunchActivity请求告诉应用可以开始启动Activity了。</p>
 <p>那么如果是前言所讲的第一种启动Activity的过程，即即在Launch界面点击一个应用图标启动应用程序，那么会涉及多少个进程？答案是4个，如图：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190420182008912.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JhaW5fOTE1NQ==,size_16,color_FFFFFF,t_70" alt></p>
+<img src="/2019/05/19/Activity的启动流程（1）/activity2.png" title="activity2">
 <p>可以看到会涉及Launcher进程、SystemServer进程、App进程、Zygote进程。关于这些进程的简单信息可以看这篇<a href="https://blog.csdn.net/Rain_9155/article/details/88831678" target="_blank" rel="noopener">从进程的角度看Android的系统架构</a></p>
 <p>阅读源码真的是一个漫长的过程，又时候看别人写的那么简单，但是当自己去写，才发现要考虑的东西很多，所以这是一个日积月累的过程，所以阅读源码的时候，最后跟着前人的文章阅读，这样理解的更快。</p>
 <p>参考文章：</p>
@@ -212,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="cjxws80s50026zkuqjcis3d3c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="cjxwv6ioq0026zcuqfxt70d68" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li></ul>
