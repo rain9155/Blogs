@@ -5,18 +5,25 @@
   
 
   
-  <title>jianyu的博客</title>
+  <title>Window,WindowManager和WindowManagerService之间的关系 | jianyu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每天进步一点点">
-<meta property="og:type" content="website">
-<meta property="og:title" content="jianyu的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
+<meta name="keywords" content="window,windowManager,WMS,activity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Window,WindowManager和WindowManagerService之间的关系">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/index.html">
 <meta property="og:site_name" content="jianyu的博客">
-<meta property="og:description" content="每天进步一点点">
+<meta property="og:description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window4.png">
+<meta property="og:updated_time" content="2019-07-10T06:48:26.238Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jianyu的博客">
-<meta name="twitter:description" content="每天进步一点点">
+<meta name="twitter:title" content="Window,WindowManager和WindowManagerService之间的关系">
+<meta name="twitter:description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window1.png">
   
     <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
   
@@ -63,153 +70,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Activity的启动流程（2）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/19/Activity的启动流程（2）/" class="article-date">
-  <time datetime="2019-05-19T08:12:34.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/四大组件/">四大组件</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/19/Activity的启动流程（2）/">Activity的启动流程（2）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li>上一篇文章<a href="https://rain9155.github.io/2019/05/19/Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%EF%BC%881%EF%BC%89/" target="_blank" rel="noopener">Activity的启动流程（1）</a></li>
-</ul>
-<p>上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，<strong>Activity的生命周期方法是如何被回调的？</strong>，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中ApplicationThread启动Activity的过程。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/19/Activity的启动流程（2）/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（2）/" data-id="cjxwvtuau001ydwuq58f4h5nu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Activity的启动流程（1）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/19/Activity的启动流程（1）/" class="article-date">
-  <time datetime="2019-05-19T08:11:17.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/四大组件/">四大组件</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/19/Activity的启动流程（1）/">Activity的启动流程（1）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家有没有想过它在底层是怎么启动的呢？Activity的生命周期方法是如何被回调的？它启动过程中涉及到多少个进程？接下来我们通过撸一篇源码来了解Activity的大概启动流程，然后解答这几个问题。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/19/Activity的启动流程（1）/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="cjxwvtubm0026dwuqb3i1rhpq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Window, WindowManager和WindowManagerService之间的关系" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" class="article-date">
-  <time datetime="2019-03-22T14:36:32.000Z" itemprop="datePublished">2019-03-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Window机制/">Window机制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS）。下面分别介绍它们，理清它们的基本脉络。<br>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-id="cjxwvtual001hdwuqks5uxzi1" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Activity应用窗口的添加过程" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Activity应用窗口的添加过程" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/22/Activity应用窗口的添加过程/" class="article-date">
   <time datetime="2019-03-22T14:36:32.000Z" itemprop="datePublished">2019-03-22</time>
@@ -226,8 +87,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/Activity应用窗口的添加过程/">Window,WindowManager和WindowManagerService之间的关系</a>
+    <h1 class="article-title" itemprop="name">
+      Window,WindowManager和WindowManagerService之间的关系
     </h1>
   
 
@@ -334,63 +195,28 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-RecyclerView之观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/09/RecyclerView之观察者模式/" class="article-date">
-  <time datetime="2019-03-09T09:39:00.000Z" itemprop="datePublished">2019-03-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/recyclerView/">recyclerView</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          Window,WindowManager和WindowManagerService之间的关系
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/09/RecyclerView之观察者模式/">RecyclerView之观察者模式</a>
-    </h1>
   
+    <a href="/2019/03/09/RecyclerView之观察者模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RecyclerView之观察者模式</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客<a href="https://blog.csdn.net/Rain_9155/article/details/83004247" target="_blank" rel="noopener">观察者模式</a>, RecyclerView在更新数据时也算是对观察者模式的一种应用。<br>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/09/RecyclerView之观察者模式/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/09/RecyclerView之观察者模式/" data-id="cjxwvtu930005dwuq96yg1uqa" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
 
 </section>
         
