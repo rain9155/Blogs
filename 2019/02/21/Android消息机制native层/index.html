@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android消息机制native层 | jianyu的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言在Android消息机制（java层）中讲到MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，MessageQueue中有多个native方法，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制。">
+<meta name="keywords" content="handler">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android消息机制native层">
+<meta property="og:url" content="http://yoursite.com/2019/02/21/Android消息机制native层/index.html">
+<meta property="og:site_name" content="jianyu的博客">
+<meta property="og:description" content="前言在Android消息机制（java层）中讲到MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，MessageQueue中有多个native方法，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制native层/Android消息机制(native层).jpg">
+<meta property="og:updated_time" content="2019-07-10T05:05:10.824Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android消息机制native层">
+<meta name="twitter:description" content="前言在Android消息机制（java层）中讲到MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，MessageQueue中有多个native方法，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制。">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/21/Android消息机制native层/Android消息机制(native层).jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jianyu的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android消息机制native层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/21/Android消息机制native层/" class="article-date">
+  <time datetime="2019-02-21T05:51:51.000Z" itemprop="datePublished">2019-02-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/消息机制/">消息机制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android消息机制native层
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<a href="https://rain9155.github.io/2019/02/21/Android消息机制java层" target="_blank" rel="noopener">Android消息机制（java层）</a>中讲到MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，MessageQueue中有多个native方法，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制。<br><a id="more"></a></p>
+<pre><code>本文基于Android8.0，相关源码文件如下:
+frameworks/base/core/jni/android_os_MessageQueue.cpp
+frameworks/base/core/jni/android_os_MessageQueue.h
+system/core/libutils/Looper.cpp 
+system/core/libutils/Looper.h
+</code></pre><h2 id="native层消息机制架构图"><a href="#native层消息机制架构图" class="headerlink" title="native层消息机制架构图"></a>native层消息机制架构图</h2><img src="/2019/02/21/Android消息机制native层/Android消息机制(native层).jpg">
+<ul>
+<li>MessageQueue  — 里面有一个Looper。</li>
+<li>NativeMessageQueue  —  MessageQueue的继承类，见名知意，native层的消息队列，只是一个代理类，其大部分方法操作都转交给Looper的方法。</li>
+<li>Looper  —  native层的Looper，其功能相当于java层的Handler，它可以取出消息，发送消息，处理消息。</li>
+<li>MessageHandler  —  消息处理类，Looper把处理消息逻辑转交给此类。</li>
+<li>WeakMessageHanlder  —  MessageHandler的继承类，也是处理消息类，但最终还会把消息处理逻辑转交给MessageHandler。</li>
+</ul>
+<h2 id="java层的MessageQueue"><a href="#java层的MessageQueue" class="headerlink" title="java层的MessageQueue"></a>java层的MessageQueue</h2><p>要讲解native层的消息机制，我们可以从java层消息机制调用到的MessageQueue的native方法讲起，MessageQueue中所有的native方法如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageQueue</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">nativeInit</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">nativeDestroy</span><span class="params">(<span class="keyword">long</span> ptr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">nativePollOnce</span><span class="params">(<span class="keyword">long</span> ptr, <span class="keyword">int</span> timeoutMillis)</span></span>; </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">nativeWake</span><span class="params">(<span class="keyword">long</span> ptr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">nativeIsPolling</span><span class="params">(<span class="keyword">long</span> ptr)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">nativeSetFileDescriptorEvents</span><span class="params">(<span class="keyword">long</span> ptr, <span class="keyword">int</span> fd, <span class="keyword">int</span> events)</span></span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们主要讲解三个：nativeInit()， nativePollOnce(long ptr, int timeoutMillis)， nativeWake(long ptr)。</p>
+<h3 id="1、MessageQueue-nativeInit"><a href="#1、MessageQueue-nativeInit" class="headerlink" title="1、MessageQueue#nativeInit()"></a>1、MessageQueue#nativeInit()</h3><p>在java层中，MessageQueue是在Looper中创建的，在MessageQueue的构造中:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MessageQueue.java</span></span><br><span class="line"> MessageQueue(<span class="keyword">boolean</span> quitAllowed) &#123;</span><br><span class="line">        mQuitAllowed = quitAllowed;</span><br><span class="line">        mPtr = nativeInit();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在java层中，mPtr保存了nativeInit()返回的值，nativeInit方法的实现在android_os_MessageQueue.cpp文件中的android_os_MessageQueue_nativeInit方法中，该方法源码如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> jlong <span class="title">android_os_MessageQueue_nativeInit</span><span class="params">(JNIEnv* env, jclass clazz)</span> </span>&#123;   </span><br><span class="line">    <span class="comment">//创建native消息队列NativeMessageQueue</span></span><br><span class="line">    NativeMessageQueue* nativeMessageQueue = <span class="keyword">new</span> NativeMessageQueue();</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//增加引用计数</span></span><br><span class="line">    nativeMessageQueue-&gt;incStrong(env);</span><br><span class="line">    <span class="comment">//使用C++强制类型转换符reinterpret_cast把NativeMessageQueue指针强转成long类型并返回到java层</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;jlong&gt;(nativeMessageQueue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到在android_os_MessageQueue_nativeInit方法中会创建一个NativeMessageQueue对象，并增加其引用计数，并将NativeMessageQueue指针mPtr保存在Java层的MessageQueue中。现在我们来看NativeMessageQueue的构造函数, 如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NativeMessageQueue::NativeMessageQueue() :</span><br><span class="line">   	 mPollEnv(<span class="literal">NULL</span>), mPollObj(<span class="literal">NULL</span>), mExceptionObj(<span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="comment">//获取TLS中的Looper(Looper::getForThread相当于java层的Looper.mLooper中的ThreadLocal.get) </span></span><br><span class="line">    mLooper = Looper::getForThread();</span><br><span class="line">    <span class="keyword">if</span> (mLooper == <span class="literal">NULL</span>) &#123;</span><br><span class="line"> 	<span class="comment">//创建native层的Looper</span></span><br><span class="line">        mLooper = <span class="keyword">new</span> Looper(<span class="literal">false</span>);</span><br><span class="line">        <span class="comment">//保存Looper到TLS中(Looper::setForThread相当于java层的ThreadLocal.set)</span></span><br><span class="line">        Looper::setForThread(mLooper);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>（关于TLS更多信息可以查看<a href="https://rain9155.github.io/2019/02/21/ThreadLocal解析" target="_blank" rel="noopener">ThreadLocal原理解析</a>），在NativeMessageQueue的构造中会先调用Looper的getForThread方法从当前线程获取Looper对象，如果为空，就会创建一个Looper并调用Looper的setForThread方法设置给当前线程。也就是说Looper和MessageQueue在java层和native层都有，但它们的功能并不是一一对应，此处native层的Looper与Java层的Looper没有任何的关系，只是在native层重实现了一套类似功能的逻辑。我们来看看native层在创建Looper时做了什么，Looper的构造函数如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Looper::Looper(<span class="keyword">bool</span> allowNonCallbacks) :</span><br><span class="line">        mAllowNonCallbacks(allowNonCallbacks), mSendingMessage(<span class="literal">false</span>),</span><br><span class="line">        mPolling(<span class="literal">false</span>), mEpollFd(<span class="number">-1</span>), mEpollRebuildRequired(<span class="literal">false</span>),</span><br><span class="line">        mNextRequestSeq(<span class="number">0</span>), mResponseIndex(<span class="number">0</span>), mNextMessageUptime(LLONG_MAX) &#123;</span><br><span class="line">    <span class="comment">//构造唤醒事件的fd（文件描述符）</span></span><br><span class="line">    mWakeEventFd = eventfd(<span class="number">0</span>, EFD_NONBLOCK | EFD_CLOEXEC);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//重建epoll事件</span></span><br><span class="line">    rebuildEpollLocked();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们忽略一大堆字段赋值，只关注一个函数:  rebuildEpollLocked(), 该函数核心源码如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Looper::rebuildEpollLocked() &#123;</span><br><span class="line">    <span class="comment">//1、关闭旧的管道</span></span><br><span class="line">    <span class="keyword">if</span> (mEpollFd &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">       close(mEpollFd);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//2、创建新的epoll实例（文件描述符），并注册wake管道</span></span><br><span class="line">    mEpollFd = epoll_create(EPOLL_SIZE_HINT);</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">eventItem</span>;</span></span><br><span class="line">    <span class="built_in">memset</span>(&amp; eventItem, <span class="number">0</span>, <span class="keyword">sizeof</span>(epoll_event)); <span class="comment">//置空eventItem</span></span><br><span class="line">    <span class="comment">//3、设置事件类型和文件描述符</span></span><br><span class="line">    eventItem.events = EPOLLIN;<span class="comment">//可读事件</span></span><br><span class="line">    eventItem.data.fd = mWakeEventFd;<span class="comment">//唤醒事件的fd（文件描述符）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//4、将唤醒事件(mWakeEventFd)添加到epoll实例(mEpollFd)，并监听事件</span></span><br><span class="line">    <span class="keyword">int</span> result = epoll_ctl(mEpollFd, EPOLL_CTL_ADD, mWakeEventFd, &amp; eventItem);   </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Looper的构造函数中涉及到Linux的epoll机制，关于更多资料可以自行查找资料(有Linux基础的可以阅读<a href="http://gityuan.com/2019/01/06/linux-epoll/" target="_blank" rel="noopener">源码解读epoll内核机制</a> )，这里简单介绍一下:</p>
+<pre><code>epoll机制是Linux最高效的I/O复用机制, 使用一个文件描述符管理多个描述符。
+epoll操作过程有3个方法，分别是:
+1、int epoll_create(int size)；   用于创建一个epoll的文件描述符，size是指监听的描述符个数。
+2、int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)； 用于对需要监听的文件描述符(fd)执行op操作，比如将fd加入到epoll文件描述符, 参数:
+epfd：是epoll_create()的返回值
+op：表示op操作，用三个宏来表示，分别代表添加(EPOLL_CTL_ADD)、删除(EPOLL_CTL_DEL)和修改( EPOLL_CTL_MOD)对fd的监听事件
+fd：需要监听的文件描述符
+epoll_event：需要监听的事件
+3、int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout)； 等待事件的上报, 该函数返回需要处理的事件数目，如返回0表示已超时,参数：
+epfd：等待epfd上的io事件，最多返回maxevents个事件；
+events：用来从内核得到事件的集合；
+maxevents：events数量，该maxevents值不能大于创建epoll_create()时的size；
+timeout：超时时间（毫秒，0会立即返回）。
+</code></pre><p>要使用epoll机制，首先通过 epoll_create创建一个epoll专用文件描述符，并创建了一个管道，最后通过epoll_ctl函数来设置监听的事件类型为EPOLLIN（可读事件），在这里Looper对象中的mWakeEventFd(唤醒事件的文件描述符)添加到epoll监控范围内。至此，native层的MessageQueue和Looper就构建完毕，底层通过管道与epoll机制也建立了一套消息机制。</p>
+<p>我们跟着MessageQueue#nativeInit()一路走下来，这里小结一下：</p>
+<ul>
+<li>1、首先java层的Looper对象会在构造函数中创建java层的MessageQueue对象。</li>
+<li>2、 java层的MessageQueue对象又会调用nativeInit函数初始化native层的NativeMessageQueue，NativeMessageQueue的构造函数又会创建native层的Looper，并且在Looper中通过管道与epoll机制建立一套消息机制。</li>
+<li>3、native层构建完毕，将NativeMessageQueue对象转换为一个long类型存储到java层的MessageQueue的mPtr中。</li>
+</ul>
+<p>在此之后就会在java层中启动消息循环，Looper.loop -&gt; Looper.next -&gt; MessageQueue.next -&gt;<br>MessageQueue.nativePollOnce，下面我们来看MessageQueue#nativePollOnce()。</p>
+<h3 id="2、MessageQueue-nativePollOnce"><a href="#2、MessageQueue-nativePollOnce" class="headerlink" title="2、MessageQueue#nativePollOnce()"></a>2、MessageQueue#nativePollOnce()</h3><p>在java层中每次循环去读消息时，都会调用这个函数，如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MessageQueue.java</span></span><br><span class="line"> <span class="function">Message <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> 	<span class="comment">//...</span></span><br><span class="line"> 	<span class="keyword">for</span>(;;)&#123;</span><br><span class="line"> 		 nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line"> 		 <span class="comment">//...</span></span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="comment">//...</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>nativePollOnce函数的实现在android_os_MessageQueue.cpp文件中的android_os_MessageQueue_nativePollOnce方法中，该方法的源码如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">android_os_MessageQueue_nativePollOnce</span><span class="params">(JNIEnv* env, jobject obj,</span></span></span><br><span class="line"><span class="function"><span class="params">        jlong ptr, jint timeoutMillis)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//把ptr强转为NativeMessageQueue</span></span><br><span class="line">    NativeMessageQueue* nativeMessageQueue = <span class="keyword">reinterpret_cast</span>&lt;NativeMessageQueue*&gt;(ptr);</span><br><span class="line">    nativeMessageQueue-&gt;pollOnce(env, obj, timeoutMillis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ptr是从java层传过来的mPtr的值，mPtr在初始化时保存了NativeMessageQueue的指针，此时首先把传递进来的ptr转换为NativeMessageQueue，然后调用NativeMessageQueue的pollOnce函数，该函数核心源码如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> NativeMessageQueue::pollOnce(JNIEnv* env, jobject pollObj, <span class="keyword">int</span> timeoutMillis) &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//核心是调用了native层的Looper的pollOnce方法</span></span><br><span class="line">    mLooper-&gt;pollOnce(timeoutMillis);  </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码主要就是调用了native层的Looper的pollOnce(timeoutMillis)方法，该方法会调用Looper的 pollOnce(timeoutMillis, NULL, NULL, NULL)，相关源码如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> Looper::pollOnce(<span class="keyword">int</span> timeoutMillis, <span class="keyword">int</span>* outFd, <span class="keyword">int</span>* outEvents, <span class="keyword">void</span>** outData) &#123;</span><br><span class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">     <span class="comment">//...</span></span><br><span class="line">     <span class="comment">//处理内部轮询</span></span><br><span class="line">     result = pollInner(timeoutMillis);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该方法核心在于调用了pollInner函数，该函数相关源码如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> Looper::pollInner(<span class="keyword">int</span> timeoutMillis) &#123;    </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//事件集合，EPOLL_MAX_EVENTS为最大事件数量</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> <span class="title">eventItems</span>[<span class="title">EPOLL_MAX_EVENTS</span>];</span></span><br><span class="line">    <span class="comment">//1、等待事件发生或者超时，从管道中读取事件</span></span><br><span class="line">    <span class="keyword">int</span> eventCount = epoll_wait(mEpollFd, eventItems, EPOLL_MAX_EVENTS, timeoutMillis);  </span><br><span class="line">    <span class="comment">//获取锁</span></span><br><span class="line">    mLock.lock();</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    Done:;</span><br><span class="line">    <span class="comment">//处理Native的Message，调用相应回调方法</span></span><br><span class="line">    mNextMessageUptime = LLONG_MAX;</span><br><span class="line">    <span class="keyword">while</span> (mMessageEnvelopes.size() != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">nsecs_t</span> now = systemTime(SYSTEM_TIME_MONOTONIC);</span><br><span class="line">        <span class="keyword">const</span> MessageEnvelope&amp; messageEnvelope = mMessageEnvelopes.itemAt(<span class="number">0</span>);</span><br><span class="line">        <span class="comment">//2、判断消息的执行时间</span></span><br><span class="line">        <span class="keyword">if</span> (messageEnvelope.uptime &lt;= now) &#123;</span><br><span class="line">            &#123;</span><br><span class="line">        	<span class="comment">//3、获取native层的Handler</span></span><br><span class="line">                sp&lt;MessageHandler&gt; handler = messageEnvelope.handler;</span><br><span class="line">                <span class="comment">//4、获取native层的消息</span></span><br><span class="line">                Message message = messageEnvelope.message;</span><br><span class="line">                mMessageEnvelopes.removeAt(<span class="number">0</span>);</span><br><span class="line">                mSendingMessage = <span class="literal">true</span>;</span><br><span class="line">                <span class="comment">//释放锁</span></span><br><span class="line">                mLock.unlock();</span><br><span class="line">                <span class="comment">//5、处理消息事件</span></span><br><span class="line">                handler-&gt;handleMessage(message);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//请求锁</span></span><br><span class="line">            mLock.lock();</span><br><span class="line">            mSendingMessage = <span class="literal">false</span>;</span><br><span class="line">            <span class="comment">// 发生回调</span></span><br><span class="line">            result = POLL_CALLBACK;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="comment">//消息还没到执行时间</span></span><br><span class="line">            mNextMessageUptime = messageEnvelope.uptime;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//释放锁</span></span><br><span class="line">    mLock.unlock();</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>pollInner函数很长，省略了一大堆代码，这里讲解一些核心的点，在此之前先讲解一下MessageEnvelope，正如其名字，信封，其结构体定义在Looper类中，如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Looper</span> :</span> <span class="keyword">public</span> RefBase &#123; </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">MessageEnvelope</span> &#123;</span></span><br><span class="line">        MessageEnvelope() : uptime(<span class="number">0</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">        MessageEnvelope(<span class="keyword">nsecs_t</span> u, <span class="keyword">const</span> sp&lt;MessageHandler&gt; h,</span><br><span class="line">                <span class="keyword">const</span> Message&amp; m) : uptime(u), handler(h), message(m) &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">nsecs_t</span> uptime;</span><br><span class="line">        sp&lt;MessageHandler&gt; handler;</span><br><span class="line">        Message message;</span><br><span class="line">    &#125;;   </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>MessageEnvelope里面记录着收信人（handler，MessageHandler类型，是一个消息处理类），发信时间(uptime)，信件内容(message，Message类型)。Message结构体，消息处理类，Looper类都定义在Looper.h/ Looper.cpp文件中。pollInner函数的流程如下：</p>
+<ul>
+<li>1、先调用epoll_wait()，这是阻塞方法，从管道取到事件或等待超时都会返回。</li>
+<li>2、进入Done标记位的代码段, 处理Native的Message，调用Native 的Handler来处理该Message。</li>
+</ul>
+<p>pollInner实际上就是从管道中读取事件，并且处理这些事件。在native中事件存储在管道中，而在java层中事件存储在消息链表中，但这俩个层次的事件都通过java层的Looper消息循环进行不断的获取，处理等操作。</p>
+<p>我们更着MessageQueue#nativePollOnce()一路走下来，小结一下：</p>
+<ul>
+<li>1、当在java层通过Looper启动消息循环后，就会走到MessageQueue的nativePollOnce方法，在该方法native实现中，会把保存在java层的mPtr再转换为NativeMessageQueue。</li>
+<li>2、然后调用NativeMessageQueue的pollOnce方法，该方法中最终会调用native层的Looper的pollInner方法，Looper的pollInner方法是阻塞方法，等从管道取到事件或超时就会返回，并通过native层的Handler处理native层的Message消息。</li>
+<li>3、处理完native层消息后，又会返回到java层处理java层的消息。</li>
+</ul>
+<p>可以看到，native层的NativeMessageQueue实际上并没有做什么实际工作，只是把操作转发给native层的Looper，而native层的Looper则扮演了java层的Handle角色，它可以取出，发送，处理消息。</p>
+<h3 id="3、MessageQueue-nativeWake"><a href="#3、MessageQueue-nativeWake" class="headerlink" title="3、MessageQueue#nativeWake()"></a>3、MessageQueue#nativeWake()</h3><p>nativeWake()用于唤醒功能，我们在Java层通过Hanlder发送消息时，实际是把消息添加到消息队列，会调用到MessageQueue的enqueueMessage方法, 该方法中会调用到nativeWake方法，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MessageQueue.java</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">enqueueMessage</span><span class="params">(Message msg, <span class="keyword">long</span> when)</span> </span>&#123;</span><br><span class="line">  	<span class="comment">//...</span></span><br><span class="line">  	<span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">  		<span class="comment">//...</span></span><br><span class="line">  		 <span class="keyword">if</span> (needWake) &#123;</span><br><span class="line">                nativeWake(mPtr);</span><br><span class="line">            &#125;</span><br><span class="line">  	&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p> 或者把消息从消息队列中全部移除，调用MessageQueue的quit方法，在有需要时都会调用nativeWake方法。MessageQueue的nativeWake方法的实现在android_os_MessageQueue.cpp文件中的android_os_MessageQueue_nativeWake方法中，该方法的源码如下:<br> <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">android_os_MessageQueue_nativeWake</span><span class="params">(JNIEnv* env, jclass clazz, jlong ptr)</span> </span>&#123;</span><br><span class="line">    NativeMessageQueue* nativeMessageQueue = <span class="keyword">reinterpret_cast</span>&lt;NativeMessageQueue*&gt;(ptr);</span><br><span class="line">    nativeMessageQueue-&gt;wake();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 可以看到，步骤和上面讲的差不多，首先把传递进来的ptr转换为NativeMessageQueue，然后调用NativeMessageQueue的wake函数，该函数源码如下:<br> <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">void</span> NativeMessageQueue::wake() &#123;</span><br><span class="line">    mLooper-&gt;wake();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>前面说过在native层中NativeMessageQueue只是一个代理Looper的角色，该方法把操作转发给native层的Looper，Looper的wake方法核心源码如下:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Looper::wake() &#123;</span><br><span class="line">    <span class="keyword">uint64_t</span> inc = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//通过write函数向管道mWakeEventFd写入字符inc</span></span><br><span class="line">    <span class="keyword">ssize_t</span> nWrite = TEMP_FAILURE_RETRY(write(mWakeEventFd, &amp;inc, <span class="keyword">sizeof</span>(<span class="keyword">uint64_t</span>)));</span><br><span class="line">   <span class="comment">//...</span></span><br></pre></td></tr></table></figure></p>
+<p>其中TEMP_FAILURE_RETRY 是一个宏定义， 当执行write失败后，会不断重复执行，直到执行成功为止。Looper的wake方法就是向管道mWakeEventfd写入字符。</p>
+<p>我们跟着MessageQueue#nativeWake一路走下来，小结一下：</p>
+<ul>
+<li>1、在java层插入消息到消息队列后，就会根据需要判断是否要调用nativeWake方法，如果调用，就转到2。</li>
+<li>2、在nativeWake方法native实现中，会把保存在java层的mPtr再转换为NativeMessageQueue，然后调用NativeMessageQueue的wake方法，最终调用Looper的wake方法。</li>
+<li>3、前面讲到Looper::pollInner方法是一个阻塞操作，当管道中没有事件时当前线程就会进入等待，当管道有事件就会立即返回，从管道中读取事件并处理。而Looper::wake方法就是一个唤醒操作，它就是通过前面创建的唤醒事件文件描述符mWakeEventFd来往管道中写入内容，这时另外等待管道事件的线程就会被唤醒。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Java层和Native层的MessageQueue通过JNI建立关联，从而使得MessageQueue成为Java层和Native层的枢纽，既能处理上层消息，也能处理native层消息。Handler/Looper/Message这三大类Java层与Native层并没有任何的真正关联，只是分别在Java层和Native层的handler消息模型中具有相似的功能。都是彼此独立的，各自实现相应的逻辑。另外，消息处理流程是先处理Native Message，最后处理Java Message。</p>
+<p>参考资料：</p>
+<p>《Android源码设计与分析》</p>
+<p><a href="http://gityuan.com/2015/12/27/handler-message-native/" target="_blank" rel="noopener">Android消息机制2-Handler(Native层)</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/21/Android消息机制native层/" data-id="cjxws80r0001azkuqdenqne89" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/21/ThreadLocal解析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ThreadLocal解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/21/Android消息机制java层/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android消息机制java层</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 10px;">WMS</a> <a href="/tags/activity/" style="font-size: 15px;">activity</a> <a href="/tags/handler/" style="font-size: 15px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/recyclerView/" style="font-size: 20px;">recyclerView</a> <a href="/tags/window/" style="font-size: 10px;">window</a> <a href="/tags/windowManager/" style="font-size: 10px;">windowManager</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/19/Activity的启动流程（2）/">Activity的启动流程（2）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/19/Activity的启动流程（1）/">Activity的启动流程（1）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/09/RecyclerView之观察者模式/">RecyclerView之观察者模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/08/RecyclerView之缓存设计/">RecyclerView之缓存设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <a href="https://blog.csdn.net/guolin_blog" title="guolin_blog" target="_blank">郭霖</a>
+	  <a href="https://blog.csdn.net/lmj623565791" title="hong_yang" target="_blank">鸿洋</a>
+	  <a href="https://blog.csdn.net/harvic880925/article/list/1" title="启舰" target="_blank">启舰</a>
+	  <a href="http://gityuan.com/android/" title="gityuan" target="_blank">Gityuan</a>
+	  <a href="https://blog.csdn.net/innost?viewmode=contents" title="Innost的专栏" target="_blank">Innost的专栏</a>
+	  <a href="https://jsonchao.github.io/" title="jsonchao" target="_blank">Jsonchao</a>
+	  <a href="https://www.gcssloop.com/#blog" title="gcssloop" target="_blank">Gcssloop</a>
+	  <a href="http://liuwangshu.cn/" title="刘望舒" target="_blank">刘望舒</a>
+	  <a href="https://hencoder.com/" title="HenCoder" target="_blank">HenCoder</a>
+	  <a href="http://cyc2018.gitee.io/cs-notes/#/" title="cs-notes" target="_blank">CsNotes</a>
+	  <a href="https://snailclimb.top/JavaGuide/#/" title="cs-JavaGuide" target="_blank">JavaGuide</a>
+	  <a href="https://tamicer.github.io/" title="tamicer" target="_blank">Tamic</a>
+	  <a href="http://www.toly1994.com/" title="张风捷特烈" target="_blank">张风捷特烈</a>
+    </div>
+  </div>
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <p><a href="https://github.com/rain9155" title="github" target="_blank">Github</a></p>
+	  <p><a href="https://blog.csdn.net/Rain_9155?t=1" title="csdn" target="_blank">CSDN</a></p>
+    </div>
+  </div>
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Jian Yu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

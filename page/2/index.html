@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>jianyu的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="每天进步一点点">
+<meta property="og:type" content="website">
+<meta property="og:title" content="jianyu的博客">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="jianyu的博客">
+<meta property="og:description" content="每天进步一点点">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jianyu的博客">
+<meta name="twitter:description" content="每天进步一点点">
+  
+    <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jianyu的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-RecyclerView之布局设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/01/RecyclerView之布局设计/" class="article-date">
+  <time datetime="2019-03-01T07:10:00.000Z" itemprop="datePublished">2019-03-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/recyclerView/">recyclerView</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/01/RecyclerView之布局设计/">RecyclerView之布局设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式，例如ListView、GridView样式、瀑布流样式，所以加深对于RecyclerView的学习对于开发有很重要的意义。关于RecyclerView如何使用网上有很多文章，本篇文章从源码讲解RecyclerView如何通过layoutManager来进行布局。<br>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/01/RecyclerView之布局设计/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-id="cjxws80rf001zzkuq9zyipg0i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ThreadLocal解析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/21/ThreadLocal解析/" class="article-date">
+  <time datetime="2019-02-21T05:55:50.000Z" itemprop="datePublished">2019-02-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/21/ThreadLocal解析/">ThreadLocal解析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在研究<a href="https://rain9155.github.io/2019/02/21/Android消息机制java层" target="_blank" rel="noopener">Android的消息机制</a>时遇到了一个疑问:<strong>在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？</strong>，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。<br>
+        
+          <p class="article-more-link">
+            <a href="/2019/02/21/ThreadLocal解析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/21/ThreadLocal解析/" data-id="cjxws80q3000nzkuqyrvg3pke" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Android消息机制native层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/21/Android消息机制native层/" class="article-date">
+  <time datetime="2019-02-21T05:51:51.000Z" itemprop="datePublished">2019-02-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/消息机制/">消息机制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/21/Android消息机制native层/">Android消息机制native层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<a href="https://rain9155.github.io/2019/02/21/Android消息机制java层" target="_blank" rel="noopener">Android消息机制（java层）</a>中讲到MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，MessageQueue中有多个native方法，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制。<br>
+        
+          <p class="article-more-link">
+            <a href="/2019/02/21/Android消息机制native层/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/21/Android消息机制native层/" data-id="cjxws80r0001azkuqdenqne89" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Android消息机制java层" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/21/Android消息机制java层/" class="article-date">
+  <time datetime="2019-02-21T05:33:11.000Z" itemprop="datePublished">2019-02-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/消息机制/">消息机制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/21/Android消息机制java层/">Android消息机制java层</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中有大量的交互都是通过消息机制，比如Android的四大组件的启动过程的交互就离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/02/21/Android消息机制java层/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/21/Android消息机制java层/" data-id="cjxws80qz0019zkuqg2be3d5q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Http网络请求浅析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/31/Http网络请求浅析/" class="article-date">
+  <time datetime="2018-12-31T07:33:15.000Z" itemprop="datePublished">2018-12-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/31/Http网络请求浅析/">Http网络请求浅析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着互联网的发展，网络已经越来越普及了，对于Android开发来说，绝大多数的应用都需要网络的请求，而HTTP在网络开发是使用频率最高，也是最为重要的手段，因此了解HTTP的基本原理是必要的。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/12/31/Http网络请求浅析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/31/Http网络请求浅析/" data-id="cjxws80q2000mzkuquhqj1lo3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 10px;">WMS</a> <a href="/tags/activity/" style="font-size: 15px;">activity</a> <a href="/tags/handler/" style="font-size: 15px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/recyclerView/" style="font-size: 20px;">recyclerView</a> <a href="/tags/window/" style="font-size: 10px;">window</a> <a href="/tags/windowManager/" style="font-size: 10px;">windowManager</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/19/Activity的启动流程（2）/">Activity的启动流程（2）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/19/Activity的启动流程（1）/">Activity的启动流程（1）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/09/RecyclerView之观察者模式/">RecyclerView之观察者模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/08/RecyclerView之缓存设计/">RecyclerView之缓存设计</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <a href="https://blog.csdn.net/guolin_blog" title="guolin_blog" target="_blank">郭霖</a>
+	  <a href="https://blog.csdn.net/lmj623565791" title="hong_yang" target="_blank">鸿洋</a>
+	  <a href="https://blog.csdn.net/harvic880925/article/list/1" title="启舰" target="_blank">启舰</a>
+	  <a href="http://gityuan.com/android/" title="gityuan" target="_blank">Gityuan</a>
+	  <a href="https://blog.csdn.net/innost?viewmode=contents" title="Innost的专栏" target="_blank">Innost的专栏</a>
+	  <a href="https://jsonchao.github.io/" title="jsonchao" target="_blank">Jsonchao</a>
+	  <a href="https://www.gcssloop.com/#blog" title="gcssloop" target="_blank">Gcssloop</a>
+	  <a href="http://liuwangshu.cn/" title="刘望舒" target="_blank">刘望舒</a>
+	  <a href="https://hencoder.com/" title="HenCoder" target="_blank">HenCoder</a>
+	  <a href="http://cyc2018.gitee.io/cs-notes/#/" title="cs-notes" target="_blank">CsNotes</a>
+	  <a href="https://snailclimb.top/JavaGuide/#/" title="cs-JavaGuide" target="_blank">JavaGuide</a>
+	  <a href="https://tamicer.github.io/" title="tamicer" target="_blank">Tamic</a>
+	  <a href="http://www.toly1994.com/" title="张风捷特烈" target="_blank">张风捷特烈</a>
+    </div>
+  </div>
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <p><a href="https://github.com/rain9155" title="github" target="_blank">Github</a></p>
+	  <p><a href="https://blog.csdn.net/Rain_9155?t=1" title="csdn" target="_blank">CSDN</a></p>
+    </div>
+  </div>
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Jian Yu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
