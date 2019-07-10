@@ -5,12 +5,12 @@
   
 
   
-  <title>Window,WindowManager和WindowManagerService之间的关系 | jianyu的博客</title>
+  <title>Activity应用窗口的添加过程 | jianyu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
 <meta name="keywords" content="window,windowManager,WMS,activity">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Window,WindowManager和WindowManagerService之间的关系">
+<meta property="og:title" content="Activity应用窗口的添加过程">
 <meta property="og:url" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
@@ -19,9 +19,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window2.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window3.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window4.png">
-<meta property="og:updated_time" content="2019-07-10T06:48:26.238Z">
+<meta property="og:updated_time" content="2019-07-10T07:10:48.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Window,WindowManager和WindowManagerService之间的关系">
+<meta name="twitter:title" content="Activity应用窗口的添加过程">
 <meta name="twitter:description" content="## 前言  上一篇文章Window, WindowManager和WindowManagerService之间的关系  从上一篇文章中，我们了解到了Window的体系机制，也知道了window分为三种类型，分别是应用窗口(Application Window)、子窗口(Sub Window)、系统窗口(System Window），本文通过源码以Activity为例讲解一下应用窗口的添加过程，">
 <meta name="twitter:image" content="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/window1.png">
   
@@ -88,7 +88,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Window,WindowManager和WindowManagerService之间的关系
+      Activity应用窗口的添加过程
     </h1>
   
 
@@ -187,7 +187,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/" data-id="cjxwvtubn0027dwuq96h38js3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/Activity应用窗口的添加过程/" data-id="cjxwwn28e0026zcuqryq8ramm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
@@ -280,7 +280,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
           </li>
         
           <li>
-            <a href="/2019/03/22/Activity应用窗口的添加过程/">Window,WindowManager和WindowManagerService之间的关系</a>
+            <a href="/2019/03/22/Activity应用窗口的添加过程/">Activity应用窗口的添加过程</a>
           </li>
         
           <li>
