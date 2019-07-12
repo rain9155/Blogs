@@ -65,6 +65,100 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Window, WindowManager和WindowManagerService之间的关系" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" class="article-date">
+  <time datetime="2019-03-22T14:36:32.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Window机制/">Window机制</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS）。下面分别介绍它们，理清它们的基本脉络。<br>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-id="cjy024xev001x24uqj6ba23z8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-RecyclerView之观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/09/RecyclerView之观察者模式/" class="article-date">
+  <time datetime="2019-03-09T09:39:00.000Z" itemprop="datePublished">2019-03-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/recyclerView/">recyclerView</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/09/RecyclerView之观察者模式/">RecyclerView之观察者模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客<a href="https://blog.csdn.net/Rain_9155/article/details/83004247" target="_blank" rel="noopener">观察者模式</a>, RecyclerView在更新数据时也算是对观察者模式的一种应用。<br>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/09/RecyclerView之观察者模式/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/09/RecyclerView之观察者模式/" data-id="cjy024xcr000a24uq2h9j4iyr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-RecyclerView之缓存设计" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/08/RecyclerView之缓存设计/" class="article-date">
@@ -103,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/08/RecyclerView之缓存设计/" data-id="cjxwwn276001hzcuqx8ki4qs1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/08/RecyclerView之缓存设计/" data-id="cjy024xf8002f24uqhf2nc3wj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li></ul>
@@ -150,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-id="cjxwwn27m001zzcuqlx2r1yau" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-id="cjy024xfc002i24uq6e21yu98" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li></ul>
@@ -197,104 +291,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/21/ThreadLocal解析/" data-id="cjxwwn26d000szcuqyr1qwl3s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/21/ThreadLocal解析/" data-id="cjy024xeq001p24uqmpnnrwln" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android消息机制native层" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/21/Android消息机制native层/" class="article-date">
-  <time datetime="2019-02-21T05:51:51.000Z" itemprop="datePublished">2019-02-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/消息机制/">消息机制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/21/Android消息机制native层/">Android消息机制native层</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<a href="https://rain9155.github.io/2019/02/21/Android消息机制java层" target="_blank" rel="noopener">Android消息机制（java层）</a>中讲到MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，MessageQueue中有多个native方法，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制。<br>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/21/Android消息机制native层/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/21/Android消息机制native层/" data-id="cjxwwn274001czcuqwra51xnh" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android消息机制java层" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/21/Android消息机制java层/" class="article-date">
-  <time datetime="2019-02-21T05:33:11.000Z" itemprop="datePublished">2019-02-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/消息机制/">消息机制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/21/Android消息机制java层/">Android消息机制java层</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中有大量的交互都是通过消息机制，比如Android的四大组件的启动过程的交互就离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/21/Android消息机制java层/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/21/Android消息机制java层/" data-id="cjxwwn272001azcuq5pcirnov" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li></ul>
 
     </footer>
   </div>
@@ -328,7 +328,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -338,7 +338,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 15px;">WMS</a> <a href="/tags/activity/" style="font-size: 20px;">activity</a> <a href="/tags/handler/" style="font-size: 15px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/recyclerView/" style="font-size: 20px;">recyclerView</a> <a href="/tags/window/" style="font-size: 15px;">window</a> <a href="/tags/windowManager/" style="font-size: 15px;">windowManager</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 15px;">WMS</a> <a href="/tags/activity/" style="font-size: 20px;">activity</a> <a href="/tags/android/" style="font-size: 15px;">android</a> <a href="/tags/handler/" style="font-size: 15px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/recyclerView/" style="font-size: 20px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/window/" style="font-size: 15px;">window</a> <a href="/tags/windowManager/" style="font-size: 15px;">windowManager</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -360,6 +360,14 @@
       <ul>
         
           <li>
+            <a href="/2019/07/12/如何获取Android应用与系统信息/">如何获取Android应用和系统信息</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/SVG入门学习/">SVG入门学习</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/10/Activity应用窗口的添加过程/">Activity应用窗口的添加过程</a>
           </li>
         
@@ -369,14 +377,6 @@
         
           <li>
             <a href="/2019/05/19/Activity的启动流程（1）/">Activity的启动流程（1）</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/09/RecyclerView之观察者模式/">RecyclerView之观察者模式</a>
           </li>
         
       </ul>
