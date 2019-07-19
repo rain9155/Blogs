@@ -19,8 +19,10 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/realization.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/aggregation.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/composition.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/association.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/directedassociation.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/dependency.png">
-<meta property="og:updated_time" content="2019-07-19T05:50:38.476Z">
+<meta property="og:updated_time" content="2019-07-19T05:57:54.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java面向对象">
 <meta name="twitter:description" content="前言 上一篇文章java基础本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。">
@@ -98,7 +100,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li>上一篇文章<a href="https://blog.csdn.net/Rain_9155/article/details/89219696" target="_blank" rel="noopener">java基础</a><br>本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。</li>
+<li>上一篇文章<a href="https://rain9155.github.io/2019/07/19/java%E5%9F%BA%E7%A1%80/#more" target="_blank" rel="noopener">java基础</a><br>本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。</li>
 </ul>
 <a id="more"></a>
 <h2 id="接口和抽象类"><a href="#接口和抽象类" class="headerlink" title="接口和抽象类"></a>接口和抽象类</h2><h3 id="1、抽象类"><a href="#1、抽象类" class="headerlink" title="1、抽象类"></a>1、抽象类</h3><p>抽象类和抽象方法都用abstract关键字进行声明，抽象类不能被实例化，不能直接创建，抽象方法必须放在抽象类中。</p>
@@ -212,9 +214,9 @@
 <h3 id="4、组合关系-Composition"><a href="#4、组合关系-Composition" class="headerlink" title="4、组合关系  ( Composition )"></a>4、组合关系  ( Composition )</h3><p>组合关系是用一条带实心菱形箭头的直线表示，和聚合关系不同，组合关系中整体和部分是强依赖的，即整体不存在了部分也不存在，组合关系是一种强依赖的特殊聚合关系。例如下面表示Department组合到Company中，或者说Company是由Department组成的，但是公司不存在了，部门也将不存在。</p>
 <img src="/2019/07/19/java面向对象/composition.png" title="composition">
 <h3 id="5、关联关系（Association）"><a href="#5、关联关系（Association）" class="headerlink" title="5、关联关系（Association）"></a>5、关联关系（Association）</h3><p>关联关系用一条直线表示，表示不同类对象之间有关联，这是一种静态关系，与运行过程的状态无关，在最开始就可以确定。因此也可以用 1 对 1、多对 1、多对多这种关联关系来表示.。例如下面学生和学校就是一种关联关系，一个学校可以有很多学生，但是一个学生只属于一个学校，因此这是一种多对一的关系，在运行开始之前就可以确定。</p>
-
+<img src="/2019/07/19/java面向对象/association.png" title="association">
 <p>关联关系默认不强调方向，表示对象之间相互知道，如果要特别强调方向，如下图，表示A知道B，但是B不知道A，这又叫DirectedAssociation。</p>
-
+<img src="/2019/07/19/java面向对象/directedassociation.png" title="directedassociation">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps: 在最终代码中，关联对象通常以成员变量的形式存在。</span><br></pre></td></tr></table></figure>
 <h3 id="6、依赖关系（Dependency）"><a href="#6、依赖关系（Dependency）" class="headerlink" title="6、依赖关系（Dependency）"></a>6、依赖关系（Dependency）</h3><p>依赖关系用一条带箭头的虚线表示，与关联关系不同的是，他描述一个对象在运行期间会用到另一个对象的关系，是一种动态关系，并且随着运行时的变化， 依赖关系也可能发生变化。依赖也有方向，但是我们总是应该保持单向依赖，避免双向依赖的产生。例如下面表示A依赖于B，A的一个方法中使用到了B作为参数。</p>
 <img src="/2019/07/19/java面向对象/dependency.png" title="dependency">
