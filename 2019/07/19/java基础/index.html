@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java基础 | jianyu的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java基础">
+<meta property="og:url" content="http://yoursite.com/2019/07/19/java基础/index.html">
+<meta property="og:site_name" content="jianyu的博客">
+<meta property="og:description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java2.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java3.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java4.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java5.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java6.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java7.png">
+<meta property="og:updated_time" content="2019-07-19T04:24:58.412Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java基础">
+<meta name="twitter:description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/19/java基础/java1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jianyu的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/19/java基础/" class="article-date">
+  <time datetime="2019-07-19T04:24:58.000Z" itemprop="datePublished">2019-07-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java基础
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。</p>
+<a id="more"></a>
+<h2 id="java代码的运行过程"><a href="#java代码的运行过程" class="headerlink" title="java代码的运行过程"></a>java代码的运行过程</h2><img src="/2019/07/19/java基础/java1.png" title="java1">
+<ul>
+<li>创建java源程序，扩展名为.java</li>
+<li>使用javac命令编译源程序为字节码文件，扩展名为.class</li>
+<li>使用java命令运行字节码文件，在不同平台执行<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2>下面用一张表概括：<br>|   数据类型   |    类型说明符    | 位数 | 字节 |<br>| :———-: | :————–: | :–: | :–: |<br>|     整形     |       int        |  32  |  4   |<br>|    短整型    |      short       |  16  |  2   |<br>|    长整形    |       long       |  64  |  8   |<br>|    字节型    |       byte       |  8   |  1   |<br>| 单精度浮点型 |      float       |  32  |  4   |<br>| 双精度浮点型 |      double      |  64  |  8   |<br>|   布尔类型   |     boolean      |  8   |  1   |<br>|   字符类型   |       char       |  16  |  2   |<br>|  字符串类型  |      String      |  -   |  -   |<br>|  自定义类型  | public class … |  -   |  -   |<br>其中java的数据类型又分为：</li>
+<li>基本类型/原始类型（primitive type）：用来保存简单的单个数据，如：int、short、long、byte、float、double、boolean、char共8种。</li>
+<li>类类型/引用类型（class type or reference types）：用来保存复杂的组合数据，如String和自定义类型。<blockquote>
+<p>ps: 在java中，char类型实际是一个16位的无符号整数（&lt;=65535）,可以保存中文和转义字符(<code>\b</code>,<code>\t</code>,<code>\n</code>等)</p>
+</blockquote>
+<h2 id="成员变量和局部变量"><a href="#成员变量和局部变量" class="headerlink" title="成员变量和局部变量"></a>成员变量和局部变量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 类名</span>&#123;</span><br><span class="line"></span><br><span class="line">    数据类型 变量<span class="number">1</span>；<span class="comment">//成员变量</span></span><br><span class="line">    </span><br><span class="line">    返回值类型 方法名()&#123;</span><br><span class="line">    </span><br><span class="line">        数据类型 变量<span class="number">2</span>；<span class="comment">//局部变量</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>1、成员变量的作用域在整个类都是可见的。<br>2、局部变量的作用域仅在定义它们的方法中可见。<br>3、成员变量有默认的初始值（数字为0，对象为null）。<br>4、局部变量没有默认的初始值，需要赋初值再使用。<br>5、成员变量和局部变量重名时，局部变量的优先级更高。</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="1、String类型"><a href="#1、String类型" class="headerlink" title="1、String类型"></a>1、String类型</h3><p>在java中String是引用类型，它的构造器如下：</p>
+<img src="/2019/07/19/java基础/java2.png" title="java2">
+<p>除了用以上new的方法创建一个字符串，还可以用以下方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String name1 = <span class="string">"rain"</span>;</span><br><span class="line">String name2 = <span class="string">"rain"</span>;</span><br></pre></td></tr></table></figure>
+<p>那么用<code>new</code>和用<code>=</code>有什么不同的呢? new出来字符串是一个String对象，它被放在堆中，地址不一样。用=赋值的字符串是从字符串池（String Pool，保存着所有字符串字面量，这些字面量在编译时期就确定）中拿的，如果这个字符串在池中没有，就会先放进池，所以上面两个name1和name2是同一个字符串。<br><strong>String中常用的方法：</strong></p>
+<img src="/2019/07/19/java基础/java3.png" title="java3">
+<p><strong>String的比较：</strong></p>
+<img src="/2019/07/19/java基础/java4.png" title="java4">
+<p><strong>获取String的字串的方法：</strong></p>
+<img src="/2019/07/19/java基础/java5.png" title="java5">
+<blockquote>
+<p>ps:<br>1、在字符串的比较中<code>==</code>是用来比较地址的，String的equals方法才是用来比较两个字符串是否相等<br>2、字符串的拼接可以使用<code>+</code>,这个运算符的底层其实是调用了String的concat方法，返回一个新的字符串</p>
+<p>3、在 Java 7 之前，String Pool 被放在运行时常量池中，它属于永久代。而在 Java 7，String Pool 被移到堆中。这是因为永久代的空间有限，在大量使用字符串的场景下会导致 OutOfMemoryError 错误</p>
+<p>4、在 Java 8 中，String 内部使用 char 数组存储数据，在 Java 9 之后，String 类的实现改用 byte 数组存储字符串，这些数组在都用final修饰，所以才保证String是不可变的</p>
+</blockquote>
+<h3 id="2、StringBuffer和StringBuilder"><a href="#2、StringBuffer和StringBuilder" class="headerlink" title="2、StringBuffer和StringBuilder"></a>2、StringBuffer和StringBuilder</h3><p>与String类不同的是，StringBuffer和StringBuilder的对象可以被多次修改，并且不产生新的未使用对象，而String是不可变的。StringBuilder是在JDK5中被提出来的，它和StringBuffer之间最大的不同是StringBuilder的方法都不是线程安全的，而StringBuffer的方法都是线程安全的。<br><strong>StringBuffer的构造方法（StringBuilder类似）：</strong></p>
+<img src="/2019/07/19/java基础/java6.png" title="java6">
+<p><strong>StringBuffer的常用方法：</strong></p>
+<img src="/2019/07/19/java基础/java7.png" title="java7">
+<h3 id="3、-思考："><a href="#3、-思考：" class="headerlink" title="3、 思考："></a>3、 思考：</h3><p>分别使用+、StringBuffer和StringBuilder来拼接字符串，各自的效率怎么样？</p>
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><p>包装类就是将java的基本数据类型打包成对象处理，包装类都在java.lang包中，下面用一个表显示：<br>| 基本数据类型 |  包装类   |<br>| :———-: | :——-: |<br>|     int      | Interger  |<br>|    short     |   Short   |<br>|     long     |   Long    |<br>|     char     | Character |<br>|     byte     |   Byte    |<br>|    float     |   Float   |<br>|    double    |  Double   |<br>|   boolean    |  Boolean  |<br>它涉及到以下两种操作：</p>
+<h3 id="1、装箱-boxing"><a href="#1、装箱-boxing" class="headerlink" title="1、装箱(boxing)"></a>1、装箱(boxing)</h3><p>以double装箱为例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> num = <span class="number">3.14</span>；</span><br><span class="line">Double dnum1 = <span class="keyword">new</span> Double(num);<span class="comment">//1</span></span><br><span class="line">Double dnum2 = Double.valueOf(num);<span class="comment">//2</span></span><br><span class="line">Double dnum3 = num;<span class="comment">//3</span></span><br></pre></td></tr></table></figure></p>
+<p>注释1、2都是手动装箱，注释3是自动装箱。</p>
+<h3 id="2、拆箱-unboxing"><a href="#2、拆箱-unboxing" class="headerlink" title="2、拆箱(unboxing)"></a>2、拆箱(unboxing)</h3><p>同样上述double拆箱为例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = dnum1;<span class="comment">//1</span></span><br><span class="line">num = dnum2.doubleValue;<span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+<p>注释1是自动拆箱，注释2是手动拆箱。</p>
+<blockquote>
+<p>ps:<br>1、包装类没有无参构造，所有包装类的实例都是不可变的，一旦创建对象后，它们的内部值就不能再改变。<br>2、每个基本类型包装类都有常量MAX_VALUE和MIN_VALUE。</p>
+<p>3、每个包装类都会有一个默认大小的缓存池，例如Integer，缓存池默认大小是-128-127</p>
+<p>3、编译器会在自动装箱过程中会调用 valueOf() 方法，因此多个值相同，且值在缓存池范围内的包装类实例使用自动装箱来创建，那么就会引用相同的对象。</p>
+</blockquote>
+<h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><h3 id="1、final"><a href="#1、final" class="headerlink" title="1、final"></a>1、final</h3><p>防止扩展和重写。</p>
+<ul>
+<li>修饰成员变量：常量（可以是编译时常量，也可以是在运行时被初始化后不能被改变的常量），不可更改（对于基本数据类型，final使数值不能改变，对于引用类型，final使引用不能改变，即不能引用其他对象，但引用本身可以更改）</li>
+<li>修饰方法：不可被重写</li>
+<li>修饰类：不可被继承</li>
+</ul>
+<h3 id="2、static"><a href="#2、static" class="headerlink" title="2、static"></a>2、static</h3><p>可以通过类名直接访问它修饰的属性，静态属性和方法都是优先于类的实例存在。</p>
+<ul>
+<li>修饰变量：称为静态变量（区别于实例变量）、类变量，类的所有实例都共享静态变量，静态变量在内存中只存在一份</li>
+<li>修饰方法：称为静态方法，静态方法必须有实现，它不依赖于任何实例，静态方法中只能调用类的静态属性和静态方法，方法中不能有 this 和 super 关键字</li>
+<li>修饰语句块：称为静态语句块，在类初始化时运行一次</li>
+<li>修饰内部类：称为静态内部类，非静态内部类依赖于外部类的实例，而静态内部类不需要</li>
+</ul>
+<p>存在继承的情况下，初始化顺序为：</p>
+<p>父类(静态变量、静态语句块) -&gt; 子类（静态变量、静态语句块） -&gt; 父类（实例变量、普通语句块）-&gt; 父类（构造函数）-&gt; 子类（实例变量、普通语句块） -&gt; 子类（构造函数）</p>
+<h2 id="关于hashCode（）和equal（）方法"><a href="#关于hashCode（）和equal（）方法" class="headerlink" title="关于hashCode（）和equal（）方法"></a>关于hashCode（）和equal（）方法</h2><p>hashCode()用来返回hash值，而equal()是用来判断两个对象是否等价，所以：</p>
+<ul>
+<li><p>要比较两个对象是否相等，必须使用equal方法，如果相等，那么调用两个对象的 hashCode 方法必须返回相同的结果</p>
+</li>
+<li><p>如果两个对象根据 equals方法比较是不相等的，则 hashCode 方法不一定得返回不同的整数</p>
+</li>
+<li><p>对同一个对象调用多次hashcode方法必须返回相同的hash值</p>
+</li>
+<li><p>两个不同对象的hashcode可能相等</p>
+</li>
+<li><p>两个不同hashcode的对象一定不相等</p>
+</li>
+</ul>
+<blockquote>
+<p>ps:  在使用hashXX集合添加对象时，集合先调用该对象的equal方法查看当前集合是否有与之相等的对象，如果有，就再调用该对象的hashCode方法返回hash值，看是否与相等的对象的hashCode方法返回的hash值相等，如果相等，就不添加这个对象，否则就添加，因此在覆盖 equals() 方法时应当总是覆盖 hashCode() 方法，保证等价的两个对象hash值也相等，不然会导致集合中出现重复的元素。</p>
+</blockquote>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>异常就是一种对象(Exception), 表示阻止程序正常执行的错误。异常类的层次结构如下：</p>
+
+<ul>
+<li>1、RuntimeException和Error以及它们的子类都称为免检异常</li>
+<li>2、除了免检异常，其他异常都称为必检异常</li>
+</ul>
+<p>由于免检异常可能在程序的任何一个地方出现，为了避免过多的使用try-catch块，java语言不强制要求编写代码捕获免检异常，也不要求在方法头显示声明免检异常。</p>
+<h3 id="1、常见的异常类型"><a href="#1、常见的异常类型" class="headerlink" title="1、常见的异常类型"></a>1、常见的异常类型</h3>
+<h3 id="2、java中的异常处理机制"><a href="#2、java中的异常处理机制" class="headerlink" title="2、java中的异常处理机制"></a>2、java中的异常处理机制</h3><p>异常处理机制就是可以使程序处理非预期的情景，并继续正常执行，异常处理机制的主要组成如下：</p>
+<ul>
+<li>try：监控有可能产生异常的语句块</li>
+<li>catch：以合理的方式捕获异常</li>
+<li>finally：不管有没有异常，一定会执行的语句块（一般用来释放资源），除了遇到System.exit(0)语句</li>
+<li>throw：手动引发异常</li>
+<li>throws: 指定由方法引发的异常</li>
+</ul>
+<p>所以一个异常捕获处理语句可以如下形式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">//监控可能产生异常的语句块</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception1 e)&#123;</span><br><span class="line">    <span class="comment">//捕获异常，处理异常，如打印异常信息，日志纪录</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception2 e)&#123;</span><br><span class="line">    <span class="comment">//JDK7后简化写法catch(Exception1|Exception2|Exception3|... e)</span></span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    <span class="comment">//不管有无异常，一定会执行的语句，用来释放资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>try块中的代码可能会引发多种类型的异常，当引发异常时，会按照catch的顺序进行匹配异常类型，并执行第一个匹配的catch语句</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文简单整理了一下java语言的基本知识点。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/19/java基础/" data-id="cjy9lpilx00100wuqb28ej4h6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/19/java线程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          java线程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/12/如何获取Android应用与系统信息/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何获取Android应用和系统信息</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 13.33px;">WMS</a> <a href="/tags/activity/" style="font-size: 16.67px;">activity</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/handler/" style="font-size: 13.33px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/recyclerView/" style="font-size: 16.67px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/window/" style="font-size: 13.33px;">window</a> <a href="/tags/windowManager/" style="font-size: 13.33px;">windowManager</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/19/java面向对象/">java面向对象</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/java线程池/">java线程池</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/java线程/">java线程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/java基础/">java基础</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/如何获取Android应用与系统信息/">如何获取Android应用和系统信息</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <a href="https://blog.csdn.net/guolin_blog" title="guolin_blog" target="_blank">郭霖</a>
+	  <a href="https://blog.csdn.net/lmj623565791" title="hong_yang" target="_blank">鸿洋</a>
+	  <a href="https://blog.csdn.net/harvic880925/article/list/1" title="启舰" target="_blank">启舰</a>
+	  <a href="http://gityuan.com/android/" title="gityuan" target="_blank">Gityuan</a>
+	  <a href="https://blog.csdn.net/innost?viewmode=contents" title="Innost的专栏" target="_blank">Innost的专栏</a>
+	  <a href="https://jsonchao.github.io/" title="jsonchao" target="_blank">Jsonchao</a>
+	  <a href="https://www.gcssloop.com/#blog" title="gcssloop" target="_blank">Gcssloop</a>
+	  <a href="http://liuwangshu.cn/" title="刘望舒" target="_blank">刘望舒</a>
+	  <a href="https://hencoder.com/" title="HenCoder" target="_blank">HenCoder</a>
+	  <a href="http://cyc2018.gitee.io/cs-notes/#/" title="cs-notes" target="_blank">CsNotes</a>
+	  <a href="https://snailclimb.top/JavaGuide/#/" title="cs-JavaGuide" target="_blank">JavaGuide</a>
+	  <a href="https://tamicer.github.io/" title="tamicer" target="_blank">Tamic</a>
+	  <a href="http://www.toly1994.com/" title="张风捷特烈" target="_blank">张风捷特烈</a>
+    </div>
+  </div>
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <p><a href="https://github.com/rain9155" title="github" target="_blank">Github</a></p>
+	  <p><a href="https://blog.csdn.net/Rain_9155?t=1" title="csdn" target="_blank">CSDN</a></p>
+    </div>
+  </div>
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Jian Yu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

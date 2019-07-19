@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>java面向对象 | jianyu的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言 上一篇文章java基础本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java面向对象">
+<meta property="og:url" content="http://yoursite.com/2019/07/19/java面向对象/index.html">
+<meta property="og:site_name" content="jianyu的博客">
+<meta property="og:description" content="前言 上一篇文章java基础本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/generalization.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/aggregation.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/composition.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/dependency.png">
+<meta property="og:updated_time" content="2019-07-19T04:28:19.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java面向对象">
+<meta name="twitter:description" content="前言 上一篇文章java基础本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/19/java面向对象/generalization.png">
+  
+    <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jianyu的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-java面向对象" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/19/java面向对象/" class="article-date">
+  <time datetime="2019-07-19T04:29:50.000Z" itemprop="datePublished">2019-07-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java面向对象
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li>上一篇文章<a href="https://blog.csdn.net/Rain_9155/article/details/89219696" target="_blank" rel="noopener">java基础</a><br>本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。</li>
+</ul>
+<a id="more"></a>
+<h2 id="接口和抽象类"><a href="#接口和抽象类" class="headerlink" title="接口和抽象类"></a>接口和抽象类</h2><h3 id="1、抽象类"><a href="#1、抽象类" class="headerlink" title="1、抽象类"></a>1、抽象类</h3><p>抽象类和抽象方法都用abstract关键字进行声明，抽象类不能被实例化，不能直接创建，抽象方法必须放在抽象类中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">fight</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类实现抽象方法，完成实际操作</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Warrior</span> <span class="keyword">extends</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fight</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类继续声明为抽象类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">LongRange</span> <span class="keyword">extends</span> <span class="title">Hero</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2、接口"><a href="#2、接口" class="headerlink" title="2、接口"></a>2、接口</h3><p>接口被认为是一种特殊的抽象类，同样不能使用new实例化，包含常量和待实现的方法，java8以后接口中可以有方法的实现，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Eat</span></span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eating</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"eating"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、接口和抽象类的比较"><a href="#3、接口和抽象类的比较" class="headerlink" title="3、接口和抽象类的比较"></a>3、接口和抽象类的比较</h3><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">变量</th>
+<th style="text-align:center">成员方法</th>
+<th style="text-align:center">构造方法</th>
+<th style="text-align:center">使用场合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">抽象类</td>
+<td style="text-align:center">无限制</td>
+<td style="text-align:center">无限制</td>
+<td style="text-align:center">可以有</td>
+<td style="text-align:center">强的“is a”关系（是一种）</td>
+</tr>
+<tr>
+<td style="text-align:center">接口</td>
+<td style="text-align:center">所有变量必须是public static final</td>
+<td style="text-align:center">所有方法必须是public abstract</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">弱的“is a”关系（is kind of，是一类）</td>
+</tr>
+</tbody>
+</table>
+<p>在很多情况下，接口优先于抽象类。因为接口没有抽象类严格的类层次结构要求，可以灵活地为一个类添加行为。并且从 Java 8 开始，接口也可以有默认的方法实现，使得修改接口的成本也变的很低，而且接口可以实现多继承。</p>
+<h2 id="面向对象三大特性"><a href="#面向对象三大特性" class="headerlink" title="面向对象三大特性"></a>面向对象三大特性</h2><h3 id="1、封装"><a href="#1、封装" class="headerlink" title="1、封装"></a>1、封装</h3><p>尽可能地隐藏对象内部的实现细节，只保留一些对外接口使之与外部发生联系。用户无需知道对象内部的细节，但可以通过对象对外提供的接口来访问该对象。</p>
+<h3 id="2、继承"><a href="#2、继承" class="headerlink" title="2、继承"></a>2、继承</h3><p>继承是一种“is a”关系，父类和子类之间必须存在“is a”关系，父类的私有属性在子类中不能直接访问，例如Cat 和 Animal 就是一种 “is a” 关系，因此 Cat 可以继承自 Animal，从而获得 Animal 非 private 的属性和方法。</p>
+<h4 id="2-1、父类构造和子类构造"><a href="#2-1、父类构造和子类构造" class="headerlink" title="2.1、父类构造和子类构造"></a>2.1、父类构造和子类构造</h4><ul>
+<li>构造方法不可继承，使用super关键字调用父类构造</li>
+<li>默认会先调用父类构造，再调用子类构造</li>
+</ul>
+<h4 id="2-2、子类调用父类信息"><a href="#2-2、子类调用父类信息" class="headerlink" title="2.2、子类调用父类信息"></a>2.2、子类调用父类信息</h4><ul>
+<li>使用super关键字</li>
+<li>可以调用父类的公有属性和方法</li>
+<li>可以调用父类的protected属性和方法</li>
+</ul>
+<p>下面一张表给出java中访问权限修饰符的访问范围：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">修饰符</th>
+<th style="text-align:center">在同一类中可访问</th>
+<th style="text-align:center">在同一包内可访问</th>
+<th style="text-align:center">在子类内可访问</th>
+<th style="text-align:center">在不同包可访问</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">public</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">可以</td>
+</tr>
+<tr>
+<td style="text-align:center">protected</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">–</td>
+</tr>
+<tr>
+<td style="text-align:center">default</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">–</td>
+</tr>
+<tr>
+<td style="text-align:center">private</td>
+<td style="text-align:center">可以</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">–</td>
+<td style="text-align:center">–</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-3、方法重写"><a href="#2-3、方法重写" class="headerlink" title="2.3、方法重写"></a>2.3、方法重写</h4><p>在子类中提供一个对方法的新的实现。</p>
+<ul>
+<li>方法重写发生在通过继承而相关的不同类中</li>
+<li>方法重写具有相同的方法签名和返回值</li>
+<li>子类重写方法时子类方法访问权限大于父类的</li>
+<li>子类重写方法时子类抛出的异常类型是父类抛出异常的子类。</li>
+<li>@Overiide称为重写标注，用来保证重写的方法和原方法的签名和返回值一致</li>
+</ul>
+<blockquote>
+<p>ps:方法重载：方法重载是指在于同一个类中，一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。应该注意的是，返回值不同，其它都相同不算是重载。</p>
+</blockquote>
+<h3 id="3、多态"><a href="#3、多态" class="headerlink" title="3、多态"></a>3、多态</h3><p>同一个实体，具有多种形式，多态分为以下两种：</p>
+<ul>
+<li>编译时多态：主要指方法的重载</li>
+<li>运行时多态：指程序中定义的对象引用所指向的具体类型在运行期间才确定（运行时多态有三个条件：继承，方法重写，向上转型）</li>
+</ul>
+<p>例如下面的代码中，子类Warrior<strong>继承</strong>父类Hero，它<strong>重写</strong>了父类的fight方法，并且在main函数中父类Hero引用子类Warrior（父类引用指向子类对象称为<strong>向上转型</strong>），在Hero引用调用fight方法时，会执行实际对象所在类的fight方法，即Warrior类的fight方法，而不是Hero的fight方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fight</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hero"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Warrior</span> <span class="keyword">extends</span> <span class="title">Hero</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fight</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Warrior"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Hero warrior = <span class="keyword">new</span> Warrior();</span><br><span class="line">    warrior.fight();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：Warrior</span><br></pre></td></tr></table></figure>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><p>了解下面6种关系有助于看懂UML图。</p>
+<h3 id="1、泛化关系（Generalization）"><a href="#1、泛化关系（Generalization）" class="headerlink" title="1、泛化关系（Generalization）"></a>1、泛化关系（Generalization）</h3><p>泛化关系用一条带空心箭头的直线表示，在类图中表示为类的继承关系（“is a”关系），在java中用extends关键字表示，最终代码中，泛化关系表现为继承非抽象类。例如下面ASUS继承自Laptop，ASUS是一台笔记本，ASUS与Laptop之间是泛化关系。</p>
+<img src="/2019/07/19/java面向对象/generalization.png" title="generalization">
+<h3 id="2、实现关系（Realization）"><a href="#2、实现关系（Realization）" class="headerlink" title="2、实现关系（Realization）"></a>2、实现关系（Realization）</h3><p>实现关系用一条带空心箭头的虚线表示，在类图中表示实现了一个接口（在java中用implements 关键字表示），或继承抽象类，实现了抽象类中的方法。例如下面Laptop实现了IO接口，同时它继承Computer这个抽象类，Laptop是它们的具体实现。</p>
+
+<h3 id="3、聚合关系（Aggregation）"><a href="#3、聚合关系（Aggregation）" class="headerlink" title="3、聚合关系（Aggregation）"></a>3、聚合关系（Aggregation）</h3><p>聚合关系用一条带空心菱形箭头的直线表示，表示整体是由部分组成的，但是整体和部分之间并不是强依赖的，整体不存在了，部分还是会存在。例如下面表示Staff聚合到Department，或者说部门是由员工组成的，部门不存在了，员工还是会存在的。</p>
+<img src="/2019/07/19/java面向对象/aggregation.png" title="aggregation">
+<h3 id="4、组合关系-Composition"><a href="#4、组合关系-Composition" class="headerlink" title="4、组合关系  ( Composition )"></a>4、组合关系  ( Composition )</h3><p>组合关系是用一条带实心菱形箭头的直线表示，和聚合关系不同，组合关系中整体和部分是强依赖的，即整体不存在了部分也不存在，组合关系是一种强依赖的特殊聚合关系。例如下面表示Department组合到Company中，或者说Company是由Department组成的，但是公司不存在了，部门也将不存在。</p>
+<img src="/2019/07/19/java面向对象/composition.png" title="composition">
+<h3 id="5、关联关系（Association）"><a href="#5、关联关系（Association）" class="headerlink" title="5、关联关系（Association）"></a>5、关联关系（Association）</h3><p>关联关系用一条直线表示，表示不同类对象之间有关联，这是一种静态关系，与运行过程的状态无关，在最开始就可以确定。因此也可以用 1 对 1、多对 1、多对多这种关联关系来表示.。例如下面学生和学校就是一种关联关系，一个学校可以有很多学生，但是一个学生只属于一个学校，因此这是一种多对一的关系，在运行开始之前就可以确定。</p>
+
+<p>关联关系默认不强调方向，表示对象之间相互知道，如果要特别强调方向，如下图，表示A知道B，但是B不知道A，这又叫DirectedAssociation。</p>
+
+<blockquote>
+<p>ps: 在最终代码中，关联对象通常以成员变量的形式存在。</p>
+</blockquote>
+<h3 id="6、依赖关系（Dependency）"><a href="#6、依赖关系（Dependency）" class="headerlink" title="6、依赖关系（Dependency）"></a>6、依赖关系（Dependency）</h3><p>依赖关系用一条带箭头的虚线表示，与关联关系不同的是，他描述一个对象在运行期间会用到另一个对象的关系，是一种动态关系，并且随着运行时的变化， 依赖关系也可能发生变化。依赖也有方向，但是我们总是应该保持单向依赖，避免双向依赖的产生。例如下面表示A依赖于B，A的一个方法中使用到了B作为参数。</p>
+<img src="/2019/07/19/java面向对象/dependency.png" title="dependency">
+<blockquote>
+<p>ps: 在最终代码中，依赖关系主要表现为：</p>
+<p>1、A 类是 B 类方法的局部变量；</p>
+<p>2、A 类是 B 类方法或构造的传入参数；</p>
+<p>3、A 类向 B 类发送消息，从而影响 B 类发生变化;</p>
+<p>箭头的指向为调用关系。</p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文都是关于面向对象的一些知识，虽然简单，但是也挺繁琐的，积少成多，希望大家阅读过后有所收获。</p>
+<p>参考资料：</p>
+<p><a href="https://www.jianshu.com/p/00cb3c4e6336" target="_blank" rel="noopener">看懂UML类图和时序图</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/19/java面向对象/" data-id="cjy9lseqv00004suq5xidahqj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/19/java线程池/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java线程池</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 13.33px;">WMS</a> <a href="/tags/activity/" style="font-size: 16.67px;">activity</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/handler/" style="font-size: 13.33px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/recyclerView/" style="font-size: 16.67px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/window/" style="font-size: 13.33px;">window</a> <a href="/tags/windowManager/" style="font-size: 13.33px;">windowManager</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/19/java面向对象/">java面向对象</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/java线程池/">java线程池</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/java线程/">java线程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/java基础/">java基础</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/12/如何获取Android应用与系统信息/">如何获取Android应用和系统信息</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <a href="https://blog.csdn.net/guolin_blog" title="guolin_blog" target="_blank">郭霖</a>
+	  <a href="https://blog.csdn.net/lmj623565791" title="hong_yang" target="_blank">鸿洋</a>
+	  <a href="https://blog.csdn.net/harvic880925/article/list/1" title="启舰" target="_blank">启舰</a>
+	  <a href="http://gityuan.com/android/" title="gityuan" target="_blank">Gityuan</a>
+	  <a href="https://blog.csdn.net/innost?viewmode=contents" title="Innost的专栏" target="_blank">Innost的专栏</a>
+	  <a href="https://jsonchao.github.io/" title="jsonchao" target="_blank">Jsonchao</a>
+	  <a href="https://www.gcssloop.com/#blog" title="gcssloop" target="_blank">Gcssloop</a>
+	  <a href="http://liuwangshu.cn/" title="刘望舒" target="_blank">刘望舒</a>
+	  <a href="https://hencoder.com/" title="HenCoder" target="_blank">HenCoder</a>
+	  <a href="http://cyc2018.gitee.io/cs-notes/#/" title="cs-notes" target="_blank">CsNotes</a>
+	  <a href="https://snailclimb.top/JavaGuide/#/" title="cs-JavaGuide" target="_blank">JavaGuide</a>
+	  <a href="https://tamicer.github.io/" title="tamicer" target="_blank">Tamic</a>
+	  <a href="http://www.toly1994.com/" title="张风捷特烈" target="_blank">张风捷特烈</a>
+    </div>
+  </div>
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <p><a href="https://github.com/rain9155" title="github" target="_blank">Github</a></p>
+	  <p><a href="https://blog.csdn.net/Rain_9155?t=1" title="csdn" target="_blank">CSDN</a></p>
+    </div>
+  </div>
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Jian Yu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
