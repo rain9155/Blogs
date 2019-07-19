@@ -16,10 +16,11 @@
 <meta property="og:description" content="前言 上一篇文章java基础本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/generalization.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/realization.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/aggregation.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/composition.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/dependency.png">
-<meta property="og:updated_time" content="2019-07-19T04:28:19.930Z">
+<meta property="og:updated_time" content="2019-07-19T05:50:38.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java面向对象">
 <meta name="twitter:description" content="前言 上一篇文章java基础本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。">
@@ -193,9 +194,7 @@
 <li>子类重写方法时子类抛出的异常类型是父类抛出异常的子类。</li>
 <li>@Overiide称为重写标注，用来保证重写的方法和原方法的签名和返回值一致</li>
 </ul>
-<blockquote>
 <p>ps:方法重载：方法重载是指在于同一个类中，一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。应该注意的是，返回值不同，其它都相同不算是重载。</p>
-</blockquote>
 <h3 id="3、多态"><a href="#3、多态" class="headerlink" title="3、多态"></a>3、多态</h3><p>同一个实体，具有多种形式，多态分为以下两种：</p>
 <ul>
 <li>编译时多态：主要指方法的重载</li>
@@ -207,7 +206,7 @@
 <h3 id="1、泛化关系（Generalization）"><a href="#1、泛化关系（Generalization）" class="headerlink" title="1、泛化关系（Generalization）"></a>1、泛化关系（Generalization）</h3><p>泛化关系用一条带空心箭头的直线表示，在类图中表示为类的继承关系（“is a”关系），在java中用extends关键字表示，最终代码中，泛化关系表现为继承非抽象类。例如下面ASUS继承自Laptop，ASUS是一台笔记本，ASUS与Laptop之间是泛化关系。</p>
 <img src="/2019/07/19/java面向对象/generalization.png" title="generalization">
 <h3 id="2、实现关系（Realization）"><a href="#2、实现关系（Realization）" class="headerlink" title="2、实现关系（Realization）"></a>2、实现关系（Realization）</h3><p>实现关系用一条带空心箭头的虚线表示，在类图中表示实现了一个接口（在java中用implements 关键字表示），或继承抽象类，实现了抽象类中的方法。例如下面Laptop实现了IO接口，同时它继承Computer这个抽象类，Laptop是它们的具体实现。</p>
-
+<img src="/2019/07/19/java面向对象/realization.png" title="realization">
 <h3 id="3、聚合关系（Aggregation）"><a href="#3、聚合关系（Aggregation）" class="headerlink" title="3、聚合关系（Aggregation）"></a>3、聚合关系（Aggregation）</h3><p>聚合关系用一条带空心菱形箭头的直线表示，表示整体是由部分组成的，但是整体和部分之间并不是强依赖的，整体不存在了，部分还是会存在。例如下面表示Staff聚合到Department，或者说部门是由员工组成的，部门不存在了，员工还是会存在的。</p>
 <img src="/2019/07/19/java面向对象/aggregation.png" title="aggregation">
 <h3 id="4、组合关系-Composition"><a href="#4、组合关系-Composition" class="headerlink" title="4、组合关系  ( Composition )"></a>4、组合关系  ( Composition )</h3><p>组合关系是用一条带实心菱形箭头的直线表示，和聚合关系不同，组合关系中整体和部分是强依赖的，即整体不存在了部分也不存在，组合关系是一种强依赖的特殊聚合关系。例如下面表示Department组合到Company中，或者说Company是由Department组成的，但是公司不存在了，部门也将不存在。</p>
@@ -216,18 +215,11 @@
 
 <p>关联关系默认不强调方向，表示对象之间相互知道，如果要特别强调方向，如下图，表示A知道B，但是B不知道A，这又叫DirectedAssociation。</p>
 
-<blockquote>
-<p>ps: 在最终代码中，关联对象通常以成员变量的形式存在。</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps: 在最终代码中，关联对象通常以成员变量的形式存在。</span><br></pre></td></tr></table></figure>
 <h3 id="6、依赖关系（Dependency）"><a href="#6、依赖关系（Dependency）" class="headerlink" title="6、依赖关系（Dependency）"></a>6、依赖关系（Dependency）</h3><p>依赖关系用一条带箭头的虚线表示，与关联关系不同的是，他描述一个对象在运行期间会用到另一个对象的关系，是一种动态关系，并且随着运行时的变化， 依赖关系也可能发生变化。依赖也有方向，但是我们总是应该保持单向依赖，避免双向依赖的产生。例如下面表示A依赖于B，A的一个方法中使用到了B作为参数。</p>
 <img src="/2019/07/19/java面向对象/dependency.png" title="dependency">
-<blockquote>
-<p>ps: 在最终代码中，依赖关系主要表现为：</p>
-<p>1、A 类是 B 类方法的局部变量；</p>
-<p>2、A 类是 B 类方法或构造的传入参数；</p>
-<p>3、A 类向 B 类发送消息，从而影响 B 类发生变化;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ps: 在最终代码中，依赖关系主要表现为：</span><br><span class="line">1、A 类是 B 类方法的局部变量；</span><br><span class="line">2、A 类是 B 类方法或构造的传入参数；</span><br><span class="line">3、A 类向 B 类发送消息，从而影响 B 类发生变化;</span><br></pre></td></tr></table></figure>
 <p>箭头的指向为调用关系。</p>
-</blockquote>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文都是关于面向对象的一些知识，虽然简单，但是也挺繁琐的，积少成多，希望大家阅读过后有所收获。</p>
 <p>参考资料：</p>
 <p><a href="https://www.jianshu.com/p/00cb3c4e6336" target="_blank" rel="noopener">看懂UML类图和时序图</a></p>

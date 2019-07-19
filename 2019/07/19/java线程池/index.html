@@ -16,7 +16,7 @@
 <meta property="og:description" content="前言 上一篇文章：java线程  当我们需要频繁的创建多个线程时，每次都通过new一个Thread是一种不好的操作，创建一个线程是要消耗资源，频繁的创建会导致性能较差，而且我们还要管理多个线程的状态，管理不好还可能会出现死锁，浪费资源。这时就需要java提供的线程池，它能够有效的管理、调度线程，避免过多资源的消耗，通过线程池的统一调度、管理，使得多线程开发变得更简单。本文讲解一下有关线程池的知识点">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java线程池/thread1.jpg">
-<meta property="og:updated_time" content="2019-07-19T04:30:22.215Z">
+<meta property="og:updated_time" content="2019-07-19T04:41:52.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java线程池">
 <meta name="twitter:description" content="前言 上一篇文章：java线程  当我们需要频繁的创建多个线程时，每次都通过new一个Thread是一种不好的操作，创建一个线程是要消耗资源，频繁的创建会导致性能较差，而且我们还要管理多个线程的状态，管理不好还可能会出现死锁，浪费资源。这时就需要java提供的线程池，它能够有效的管理、调度线程，避免过多资源的消耗，通过线程池的统一调度、管理，使得多线程开发变得更简单。本文讲解一下有关线程池的知识点">
@@ -150,10 +150,8 @@
 <p>execute方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功。</p>
 <p>而submit方法用于提交需要返回值的任务。线程池会返回一个future类型的对象，通过这个future对象可以判断任务是否执行成功，并且可以通过future的get方法来获取返回值，get方法会阻塞当前线程直到任务完成，而使用get（long timeout，TimeUnit unit）方法则会阻塞当前线程timeout时间后立即返回，这时候有可能任务没有执行完，当线程池的任务还没有执行完时，会报超时异常。</p>
 <h3 id="2、关闭"><a href="#2、关闭" class="headerlink" title="2、关闭"></a>2、关闭</h3><p>当调用ThreadPoolExecutor的shutdown或shutdownNow方法后，便会进入关闭状态，这时意味线程池不再接受新的任务。这时isShutdown方法返回true。</p>
-<blockquote>
 <p>调用shutdown方法会等待线程执行完毕后再关闭线程池，但是如果调用的是shutdownNow方法，则相当于调用每个线程的interrupt方法。</p>
 <p>如果只想中断 Executor 中的一个线程，可以通过使用 submit() 方法来提交一个线程，它会返回一个 Future&lt;?&gt; 对象，通过调用该对象的 cancel(true) 方法就可以中断线程。</p>
-</blockquote>
 <h3 id="3、终止"><a href="#3、终止" class="headerlink" title="3、终止"></a>3、终止</h3><p>在关闭状态的线程池执行完所有已经提交的任务后，就变为终止状态，这时调用isTerminated方法会返回true。</p>
 <h2 id="线程池的分类"><a href="#线程池的分类" class="headerlink" title="线程池的分类"></a>线程池的分类</h2><p>通过配置ThreadPoolExecutor的构造函数的参数就可以实现不同类形的线程池，它们分别是：FixedThreadPool、CachedThreadPool、ScheduleThreadPool和SingleThreadExecutor。</p>
 <h3 id="1、FixedThreadPool"><a href="#1、FixedThreadPool" class="headerlink" title="1、FixedThreadPool"></a>1、FixedThreadPool</h3><p>顾名思义，就是一种固定线程数量的线程池。前面讲过，创建线程池是通过工厂类来Executors创建的，代码如下：</p>
