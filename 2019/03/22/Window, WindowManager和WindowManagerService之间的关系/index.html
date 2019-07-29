@@ -17,7 +17,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window1.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window2.jpg">
-<meta property="og:updated_time" content="2019-07-25T15:09:30.747Z">
+<meta property="og:updated_time" content="2019-07-26T07:19:53.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Window,WindowManager和WindowManagerService之间的关系">
 <meta name="twitter:description" content="前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS">
@@ -146,7 +146,8 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <h3 id="1、窗口管理"><a href="#1、窗口管理" class="headerlink" title="1、窗口管理"></a>1、窗口管理</h3><p>它负责窗口的启动，添加和删除，它还负责窗口的层级显示（z-orderes）和维护窗口的状态。我们继续上面的<strong>mGlobal.addView</strong>，上面讲到这个方法是向WMS发起一个显示窗口视图的请求，最终会走到mWindowSession.addToDisplay()方法，我们可以在Session中找到这个函数实现，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">addToDisplay</span><span class="params">(IWindow window, <span class="keyword">int</span> seq, WindowManager.LayoutParams attrs,</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">int</span> viewVisibility, <span class="keyword">int</span> displayId, Rect outContentInsets, Rect outStableInsets,</span></span></span><br><span class="line"><span class="function"><span class="params">           Rect outOutsets, InputChannel outInputChannel)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//返回WMS中addWindow所返回的结果</span></span><br><span class="line">       <span class="keyword">return</span> mService.addWindow(<span class="keyword">this</span>, window, seq, attrs, viewVisibility, displayId,</span><br><span class="line">               outContentInsets, outStableInsets, outOutsets, outInputChannel);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到addToDisplay方法中最终返回了WMS中addWindow所返回的结果，Window的添加请求就交给WMS去处理，addWindow的实现在WMS中，里面代码很长，这里就不再深究了（留在下一篇文章从一个例子分析），addWindow主要做的事情是先进行窗口的权限检查，因为系统窗口需要声明权限，然后根据相关的Display信息以及窗口信息对窗口进行校对，再然后获取对应的WindowToken，再根据不同的窗口类型检查窗口的有效性，如果上面一系列步骤都通过了，就会为该窗口创建一个WindowState对象，以维护窗口的状态和根据适当的时机调整窗口状态，最后就会通过WindowState的attach方法与SurfaceFlinger通信。因此SurfaceFlinger能使用这些Window信息来合成surfaces,并渲染输出到显示设备。</p>
-<h3 id="2、输入事件的中转站"><a href="#2、输入事件的中转站" class="headerlink" title="2、输入事件的中转站"></a>2、输入事件的中转站</h3><p>当我们的触摸屏幕时就会产生输入事件，在Android中负责管理事件的输入是InputManagerService，它里面有一个InputManager，在启动IMS的同时会创建InputManager，在创建InputManager同时创建InputReader和InputDispatcher，InputReader会不断的从设备节点中读取输入事件，InputReader将这些原始输入事件加工后就交给InputDispatcher，而InputDispatcher它会寻找一个最合适的窗口来处理输入事件，WMS是窗口的管理者，WMS会把所有窗口的信息更新到InputDispatcher中，这样InputDispatcher就可以将输入事件派发给合适的Window，Window就会把这个输入事件传给顶级View，然后就会涉及我们熟悉的事件分发机制。</p>
+<h3 id="2、输入事件的中转站"><a href="#2、输入事件的中转站" class="headerlink" title="2、输入事件的中转站"></a>2、输入事件的中转站</h3><p>当我们的触摸屏幕时就会产生输入事件，在Android中负责管理事件的输入是<strong>InputManagerService</strong>，在启动IMS的时候会在native层创建NativeInputManager，在NativeInputManager的构造中会创建<strong>InputManager和Eventhub（监听/dev/input/设备节点中所有事件的输入）</strong>，在InputManager构造中会依此创建<strong>InputDispatcher、InputReader、InputReaderThread、InputDispatcherThread</strong>。</p>
+<p>InputReader运行在InputReaderThread中，它会不断循环从EventHub中读取原始输入事件，InputReader将这些原始输入事件加工后就交给运行在InputDispatcherThread中的InputDispatcher，而InputDispatcher它会寻找一个最合适的窗口来处理输入事件，WMS是窗口的管理者，WMS会把所有窗口的信息更新到InputDispatcher中，这样InputDispatcher就可以将输入事件派发给合适的Window，Window就会把这个输入事件传给顶级View，然后就会涉及我们熟悉的事件分发机制。</p>
 <p>我们来再来看在ViewRootImp的setView中调用mWindowSession.addToDisplay方法时传入的参数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setView</span><span class="params">(View view, WindowManager.LayoutParams attrs, View panelParentView)</span> </span>&#123;</span><br><span class="line">  	<span class="comment">//...	</span></span><br><span class="line">   	mInputChannel = <span class="keyword">new</span> InputChannel();</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//通过session与WMS建立通信,同时通过InputChannel接收输入事件回调</span></span><br><span class="line">     res = mWindowSession.addToDisplay(mWindow, mSeq, mWindowAttributes,</span><br><span class="line">                                getHostVisibility(), mDisplay.getDisplayId(),</span><br><span class="line">                                mAttachInfo.mContentInsets, mAttachInfo.mStableInsets,</span><br><span class="line">                                mAttachInfo.mOutsets, mInputChannel);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">     <span class="keyword">if</span> (mInputChannel != <span class="keyword">null</span>) &#123;</span><br><span class="line">         <span class="comment">//...</span></span><br><span class="line">         <span class="comment">//处理输入事件回调</span></span><br><span class="line">         mInputEventReceiver = <span class="keyword">new</span> WindowInputEventReceiver(mInputChannel, Looper.myLooper());</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意这个传入的mInputChannel参数，它实现了Parcelable接口，用于接受WMS返回来的输入事件。</p>
@@ -162,7 +163,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-id="cjyicynlj002d1suqlbq6e3ok" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-id="cjyojbgga001um8uqxnuvyxoz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
@@ -221,7 +222,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 13.33px;">WMS</a> <a href="/tags/activity/" style="font-size: 16.67px;">activity</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/handler/" style="font-size: 13.33px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/recyclerView/" style="font-size: 16.67px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 10px;">view</a> <a href="/tags/window/" style="font-size: 13.33px;">window</a> <a href="/tags/windowManager/" style="font-size: 13.33px;">windowManager</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 13.33px;">WMS</a> <a href="/tags/activity/" style="font-size: 16.67px;">activity</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/handler/" style="font-size: 13.33px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/recyclerView/" style="font-size: 16.67px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/window/" style="font-size: 13.33px;">window</a> <a href="/tags/windowManager/" style="font-size: 13.33px;">windowManager</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -243,6 +244,10 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
       <ul>
         
           <li>
+            <a href="/2019/07/29/View的事件分发机制/">View的事件分发机制</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/22/View的工作原理/">View的工作原理</a>
           </li>
         
@@ -256,10 +261,6 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
         
           <li>
             <a href="/2019/07/19/java线程/">java线程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/19/java基础/">java基础</a>
           </li>
         
       </ul>

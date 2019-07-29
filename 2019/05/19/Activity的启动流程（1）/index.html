@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity3.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity1.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity2.png">
-<meta property="og:updated_time" content="2019-07-10T06:24:25.934Z">
+<meta property="og:updated_time" content="2019-07-26T06:59:42.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity的启动流程（1）">
 <meta name="twitter:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
@@ -186,24 +186,24 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <p><strong>当前的代码逻辑执行在AMS所在进程，从这里开始Activity的启动流程最终又回到了应用进程所在的ApplicationThread中。</strong></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本来一篇文章写完Activity的启动，写到这里才发现，篇幅太长，所以<strong>Activity在应用进程中的启动过程</strong>就放到下一篇文章。本文简单的介绍了<strong>应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程</strong>，现在让我们来回答一下开头给出的几个问题：</p>
 <ul>
-<li>Activity的启动流程是怎样的？</li>
+<li><strong>1、Activity的启动流程是怎样的？</strong></li>
 </ul>
 <p>从应用调用一个startActivity方法开始，应用进程开始请求AMS启动Activity，然后在AMS中Activity完成它的一系列准备，最后再回到应用进程中开始回调Activity的生命周期，本文回答了一半这个问题，即本文讲解了应用进程开始请求AMS启动Activity，然后在AMS中完成它的一系列准备的过程，这个过程用时序图表示如下：</p>
 <img src="/2019/05/19/Activity的启动流程（1）/activity3.jpg" title="activity3">
 <ul>
-<li>Activity的生命周期方法是如何被回调的？</li>
+<li><strong>2、Activity的生命周期方法是如何被回调的？</strong></li>
 </ul>
 <p>本文并没有解答这个问题，这个问题要到下一篇文章才能有答案。</p>
 <ul>
-<li>它启动过程中涉及到多少个进程？</li>
+<li><strong>3、它启动过程中涉及到多少个进程？</strong></li>
 </ul>
-<p>答案是2个，前言已经讲过本文讨论的是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity，所以本文这个过程涉及的进程可以可以用下面这个图表示：</p>
+<p>答案是2个，前言已经讲过本文讨论的是普通Activity的启动流程，<strong>即我们平时调用startActivity方法来启动一个Activity</strong>，所以本文这个过程涉及的进程可以可以用下面这个图表示：</p>
 <img src="/2019/05/19/Activity的启动流程（1）/activity1.png" title="activity1">
 <p>图中AppProcess代表应用所在进程，systemServer代表AMS所在进程，两个进程之间通过Binder进行通信，实现了XX.Stub的类就可以进行Binder通信，如本文的ApplicationThread和AMS都实现了各自的Stub类，所以应用进程startActivity时请求AMS启动Activity，AMS准备好后，再发送scheduleLaunchActivity请求告诉应用可以开始启动Activity了。</p>
-<p>那么如果是前言所讲的第一种启动Activity的过程，即即在Launch界面点击一个应用图标启动应用程序，那么会涉及多少个进程？答案是4个，如图：</p>
+<p>那么如果是前言所讲的第一种启动Activity的过程，<strong>即在Launch界面点击一个应用图标启动应用程序</strong>，那么会涉及多少个进程？答案是4个，如图：</p>
 <img src="/2019/05/19/Activity的启动流程（1）/activity2.png" title="activity2">
 <p>可以看到会涉及Launcher进程、SystemServer进程、App进程、Zygote进程。关于这些进程的简单信息可以看这篇<a href="https://blog.csdn.net/Rain_9155/article/details/88831678" target="_blank" rel="noopener">从进程的角度看Android的系统架构</a></p>
-<p>阅读源码真的是一个漫长的过程，又时候看别人写的那么简单，但是当自己去写，才发现要考虑的东西很多，所以这是一个日积月累的过程，所以阅读源码的时候，最后跟着前人的文章阅读，这样理解的更快。</p>
+<p>阅读源码真的是一个漫长的过程，又时候看别人写的那么简单，但是当自己去写，才发现要考虑的东西很多，所以这是一个日积月累的过程，所以阅读源码的时候，最好跟着前人的文章阅读，这样理解的更快。</p>
 <p>参考文章：</p>
 <p>《Android开发艺术探索》</p>
 <p><a href="http://gityuan.com/2016/03/12/start-activity/" target="_blank" rel="noopener">startActivity启动过程分析</a></p>
@@ -212,7 +212,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="cjyicynn9002z1suq3lyg50mx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="cjyojbght002tm8uqd9wc2nox" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li></ul>
@@ -271,7 +271,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 13.33px;">WMS</a> <a href="/tags/activity/" style="font-size: 16.67px;">activity</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/handler/" style="font-size: 13.33px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/recyclerView/" style="font-size: 16.67px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 10px;">view</a> <a href="/tags/window/" style="font-size: 13.33px;">window</a> <a href="/tags/windowManager/" style="font-size: 13.33px;">windowManager</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 13.33px;">WMS</a> <a href="/tags/activity/" style="font-size: 16.67px;">activity</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/handler/" style="font-size: 13.33px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/recyclerView/" style="font-size: 16.67px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/window/" style="font-size: 13.33px;">window</a> <a href="/tags/windowManager/" style="font-size: 13.33px;">windowManager</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -293,6 +293,10 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
       <ul>
         
           <li>
+            <a href="/2019/07/29/View的事件分发机制/">View的事件分发机制</a>
+          </li>
+        
+          <li>
             <a href="/2019/07/22/View的工作原理/">View的工作原理</a>
           </li>
         
@@ -306,10 +310,6 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
         
           <li>
             <a href="/2019/07/19/java线程/">java线程</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/19/java基础/">java基础</a>
           </li>
         
       </ul>
