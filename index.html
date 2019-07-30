@@ -91,7 +91,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几天写过一篇文章<a href="https://rain9155.github.io/2019/07/22/View的工作原理/" target="_blank" rel="noopener">View的工作原理</a>，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过setOnClickListener()方法来设置一个View的点击监听，那你有没有想过这个点击事件底层是怎么样传递到这个View的呢？当你自定义控件时，如果要处理滑动事件，那么到底返回true还是false？还有当你遇到了滑动嵌套的情景，你要怎么解决滑动嵌套引起的冲突？所以，本文通过 源码 + 流程图 来深入了解一个事件分发机制，当你掌握了它之后，当你遇到与滑动相关的问题时就更加的游刃有余。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几天写过一篇文章<a href="https://rain9155.github.io/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">View的工作原理</a>，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过setOnClickListener()方法来设置一个View的点击监听，那你有没有想过这个点击事件底层是怎么样传递到这个View的呢？当你自定义控件时，如果要处理滑动事件，那么到底返回true还是false？还有当你遇到了滑动嵌套的情景，你要怎么解决滑动嵌套引起的冲突？所以，本文通过 源码 + 流程图 来深入了解一个事件分发机制，当你掌握了它之后，当你遇到与滑动相关的问题时就更加的游刃有余。</p>
         
           <p class="article-more-link">
             <a href="/2019/07/29/View的事件分发机制/#more">Read More</a>
