@@ -8,7 +8,7 @@
   <title>Activity的启动流程（1） | jianyu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
-<meta name="keywords" content="activity">
+<meta name="keywords" content="源码,activity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activity的启动流程（1）">
 <meta property="og:url" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/index.html">
@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity3.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity1.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（1）/activity2.png">
-<meta property="og:updated_time" content="2019-07-26T06:59:42.031Z">
+<meta property="og:updated_time" content="2019-08-06T05:49:49.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity的启动流程（1）">
 <meta name="twitter:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
@@ -212,10 +212,10 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="cjyojbght002tm8uqd9wc2nox" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="cjyzesi69003ftguq8dyojkm3" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 
     </footer>
   </div>
@@ -251,7 +251,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/View机制/">View机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/View机制/">View机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a></li></ul>
     </div>
   </div>
 
@@ -261,7 +261,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -271,7 +271,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 13.33px;">WMS</a> <a href="/tags/activity/" style="font-size: 16.67px;">activity</a> <a href="/tags/android/" style="font-size: 13.33px;">android</a> <a href="/tags/handler/" style="font-size: 13.33px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/recyclerView/" style="font-size: 16.67px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/window/" style="font-size: 13.33px;">window</a> <a href="/tags/windowManager/" style="font-size: 13.33px;">windowManager</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 12.5px;">WMS</a> <a href="/tags/activity/" style="font-size: 15px;">activity</a> <a href="/tags/android/" style="font-size: 12.5px;">android</a> <a href="/tags/handler/" style="font-size: 12.5px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/recyclerView/" style="font-size: 15px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 12.5px;">view</a> <a href="/tags/window/" style="font-size: 12.5px;">window</a> <a href="/tags/windowManager/" style="font-size: 12.5px;">windowManager</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
