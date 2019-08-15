@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http2.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http3.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http4.png">
-<meta property="og:updated_time" content="2019-08-14T16:26:49.756Z">
+<meta property="og:updated_time" content="2019-08-14T16:49:02.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Http网络请求浅析">
 <meta name="twitter:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
@@ -158,7 +158,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="HTTP的报文格式"><a href="#HTTP的报文格式" class="headerlink" title="HTTP的报文格式"></a>HTTP的报文格式</h2><p>不同的请求方式，它们的请求格式（报文格式）可能是不一样的，但是通常来说一个HTTP的请求报文都是由请求行，请求头部，空行，请求数据4个部分组成，如图。</p>
+<h2 id="HTTP的报文格式"><a href="#HTTP的报文格式" class="headerlink" title="HTTP的报文格式"></a>HTTP的报文格式</h2><p>不同的请求方式，它们的请求格式（报文格式）可能是不一样的，但是通常来说一个HTTP的请求报文都是由请求行，请求头部，空行，请求数据4个部分组成(响应报文类似)，如图。</p>
 <img src="/2018/12/31/Http网络请求浅析/http4.png" title="http4">
 <ul>
 <li><strong>请求行</strong><br>又叫起始行，就是报文的第一行，在请求报文中说明要以什么方式做什么请求，而在响应报文中粗略的说明了简略的报文执行结果。</li>
