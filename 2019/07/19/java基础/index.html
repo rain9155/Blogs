@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java7.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error1.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error2.png">
-<meta property="og:updated_time" content="2019-07-19T05:41:56.704Z">
+<meta property="og:updated_time" content="2019-08-16T01:38:50.416Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java基础">
 <meta name="twitter:description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
@@ -202,7 +202,7 @@
 <img src="/2019/07/19/java基础/java4.png" title="java4">
 <p><strong>获取String的字串的方法：</strong></p>
 <img src="/2019/07/19/java基础/java5.png" title="java5">
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ps: </span><br><span class="line">1、在字符串的比较中`==`是用来比较地址的，String的equals方法才是用来比较两个字符串是否相等 </span><br><span class="line">2、字符串的拼接可以使用`+`,这个运算符的底层其实是调用了String的concat方法，返回一个新的字符串</span><br><span class="line"></span><br><span class="line">3、在 Java 7 之前，String Pool 被放在运行时常量池中，它属于永久代。而在 Java 7，String Pool 被移到堆中。这是因为永久代的空间有限，在大量使用字符串的场景下会导致 OutOfMemoryError 错误</span><br><span class="line"></span><br><span class="line">4、在 Java 8 中，String 内部使用 char 数组存储数据，在 Java 9 之后，String 类的实现改用 byte 数组存储字符串，这些数组在都用final修饰，所以才保证String是不可变的</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ps: </span><br><span class="line">1、在字符串的比较中`==`是用来比较地址的，String的equals方法才是用来比较两个字符串是否相等 </span><br><span class="line">2、字符串的拼接可以使用`+`,这个运算符的底层其实是调用了String的concat方法，返回一个新的字符串</span><br><span class="line">3、在 Java 7 之前，String Pool 被放在运行时常量池中，它属于永久代。而在 Java 7，String Pool 被移到堆中。这是因为永久代的空间有限，在大量使用字符串的场景下会导致 OutOfMemoryError 错误</span><br><span class="line">4、在 Java 8 中，String 内部使用 char 数组存储数据，在 Java 9 之后，String 类的实现改用 byte 数组存储字符串，这些数组在都用final修饰，所以才保证String是不可变的</span><br></pre></td></tr></table></figure>
 <h3 id="2、StringBuffer和StringBuilder"><a href="#2、StringBuffer和StringBuilder" class="headerlink" title="2、StringBuffer和StringBuilder"></a>2、StringBuffer和StringBuilder</h3><p>与String类不同的是，StringBuffer和StringBuilder的对象可以被多次修改，并且不产生新的未使用对象，而String是不可变的。StringBuilder是在JDK5中被提出来的，它和StringBuffer之间最大的不同是StringBuilder的方法都不是线程安全的，而StringBuffer的方法都是线程安全的。</p>
 <p><strong>StringBuffer的构造方法（StringBuilder类似）：</strong></p>
 <img src="/2019/07/19/java基础/java6.png" title="java6">
@@ -311,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/19/java基础/" data-id="cjyzesi3l0015tguqvoj41dk1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/19/java基础/" data-id="cjzeajc6j0010ksuq08aa9qoc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
