@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言最近在研究Android的消息机制时遇到了一个疑问:在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-06T05:51:34.614Z">
+<meta property="og:updated_time" content="2019-08-16T16:05:35.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadLocal解析">
 <meta name="twitter:description" content="前言最近在研究Android的消息机制时遇到了一个疑问:在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。">
@@ -120,7 +120,7 @@
 </ul>
 <p>是如何做到同一个对象，却维护着不同线程的数据副本呢？<br><strong>原来，这些数据本来就是存储在各自线程中了，ThreadLocal 的 get() 方法内部其实会先去获取当前的线程对象，然后直接将线程存储数据的容器(ThreadLocalMap)取出来，如果为空就会先创建并将初始值和当前 ThreadLocal 对象绑定存储进去，这样不同线程即使调用了同一 ThreadLocal 对象的get方法，取的数据也是各自线程的数据副本，这样自然就可以达到维护不同线程各自相互独立的数据副本，且以线程为作用域的效果了。</strong></p>
 <ul>
-<li>问题2:hThreadLocal是如何做到同一线程中不同 ThreadLocal 虽然共用同一个线程中的容器，但却可以相互独立运作？</li>
+<li>问题2:ThreadLocal是如何做到同一线程中不同 ThreadLocal 虽然共用同一个线程中的容器，但却可以相互独立运作？</li>
 </ul>
 <p><strong>原来，ThreadLocal 的 get() 方法内部根据线程取出map后，当map不为空时，会根据ThreadLocal实例去map中查找value，换句话说，在将数据存储到线程的容器map中是以当前 ThreadLocal 对象实例为 key 存储，这样，即使在同一线程中调用了不同的 ThreadLocal 对象的 get() 方法，所获取到的数据也是不同的，达到同一线程中不同 ThreadLocal 虽然共用一个容器，但却可以相互独立运作的效果。</strong></p>
 <h3 id="2、ThreadLocal-set-T-value"><a href="#2、ThreadLocal-set-T-value" class="headerlink" title="2、ThreadLocal#set(T value)"></a>2、ThreadLocal#set(T value)</h3><p>将value存储到当前线程的TLS区域。在上面的get方法中，ThreadLocal会根据线程取出线程的容器，然后再根据key（ThreadLocal实例）去容器中取值，如果取不到值，就会返回初始值，初始值默认是null，那是因为ThreadLocal要调用set方法后，容器中才有我们想要的值，ThreadLocal#set方法的源码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;	</span><br><span class="line"><span class="comment">//1. 取当前线程对象</span></span><br><span class="line">       Thread t = Thread.currentThread();</span><br><span class="line">       <span class="comment">//2. 取当前线程的数据存储容器</span></span><br><span class="line">       ThreadLocalMap map = getMap(t);</span><br><span class="line">       <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">       <span class="comment">//3. 如果map不为空，以当前ThreadLocal实例对象为key，存值</span></span><br><span class="line">           map.set(<span class="keyword">this</span>, value);</span><br><span class="line">       <span class="keyword">else</span></span><br><span class="line">       <span class="comment">//4. 如果map为空，新建一个当前线程的数据存储容器</span></span><br><span class="line">           createMap(t, value);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
@@ -133,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/21/ThreadLocal解析/" data-id="cjzeajc66000vksuqg1zh0m3e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/21/ThreadLocal解析/" data-id="cjztyiac50014wouqxfymzx19" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
