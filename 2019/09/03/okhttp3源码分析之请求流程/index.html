@@ -5,12 +5,12 @@
   
 
   
-  <title>okhttp源码分析之请求流程 | jianyu的博客</title>
+  <title>okhttp3源码分析之请求流程 | jianyu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言在Android开发中，当下最火的网络请求框架莫过于okhttp和retrofit，它们都是square公司的产品，两个都是非常优秀开源库，值得我们去阅读它们的源码，学习它们的设计理念，但其实retrofit底层还是用okhttp来发起网络请求的，所以深入理解了okhttp也就深入理解了retrofit，它们的源码阅读顺序应该是先看okhttp，我在retrofit上发现它最近的一次提交才把o">
 <meta name="keywords" content="源码,okhttp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="okhttp源码分析之请求流程">
+<meta property="og:title" content="okhttp3源码分析之请求流程">
 <meta property="og:url" content="http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言在Android开发中，当下最火的网络请求框架莫过于okhttp和retrofit，它们都是square公司的产品，两个都是非常优秀开源库，值得我们去阅读它们的源码，学习它们的设计理念，但其实retrofit底层还是用okhttp来发起网络请求的，所以深入理解了okhttp也就深入理解了retrofit，它们的源码阅读顺序应该是先看okhttp，我在retrofit上发现它最近的一次提交才把o">
@@ -18,9 +18,9 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/okhttp1.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/okhttp2.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/okhttp3.png">
-<meta property="og:updated_time" content="2019-09-03T14:55:19.116Z">
+<meta property="og:updated_time" content="2019-09-03T14:56:10.759Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="okhttp源码分析之请求流程">
+<meta name="twitter:title" content="okhttp3源码分析之请求流程">
 <meta name="twitter:description" content="前言在Android开发中，当下最火的网络请求框架莫过于okhttp和retrofit，它们都是square公司的产品，两个都是非常优秀开源库，值得我们去阅读它们的源码，学习它们的设计理念，但其实retrofit底层还是用okhttp来发起网络请求的，所以深入理解了okhttp也就深入理解了retrofit，它们的源码阅读顺序应该是先看okhttp，我在retrofit上发现它最近的一次提交才把o">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/okhttp1.png">
   
@@ -87,7 +87,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      okhttp源码分析之请求流程
+      okhttp3源码分析之请求流程
     </h1>
   
 
@@ -256,7 +256,7 @@
       <ul>
         
           <li>
-            <a href="/2019/09/03/okhttp3源码分析之请求流程/">okhttp源码分析之请求流程</a>
+            <a href="/2019/09/03/okhttp3源码分析之请求流程/">okhttp3源码分析之请求流程</a>
           </li>
         
           <li>
