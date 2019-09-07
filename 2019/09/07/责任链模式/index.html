@@ -7,19 +7,19 @@
   
   <title>责任链模式 | jianyu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。 定义使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到">
+  <meta name="description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="责任链模式">
 <meta property="og:url" content="http://yoursite.com/2019/09/07/责任链模式/index.html">
 <meta property="og:site_name" content="jianyu的博客">
-<meta property="og:description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。 定义使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到">
+<meta property="og:description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/09/07/责任链模式/design1.png">
-<meta property="og:updated_time" content="2019-09-07T09:00:33.671Z">
+<meta property="og:updated_time" content="2019-09-07T09:04:44.598Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="责任链模式">
-<meta name="twitter:description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。 定义使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到">
+<meta name="twitter:description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。">
 <meta name="twitter:image" content="http://yoursite.com/2019/09/07/责任链模式/design1.png">
   
     <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
@@ -94,6 +94,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。</p>
+<a id="more"></a>
 <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有对象处理它为止。</p>
 <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
 <li>1、多个对象可以处理同一请求，但具体哪个对象处理则是在运行时动态决定</li>
