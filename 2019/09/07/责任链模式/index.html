@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>责任链模式 | jianyu的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。 定义使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="责任链模式">
+<meta property="og:url" content="http://yoursite.com/2019/09/07/责任链模式/index.html">
+<meta property="og:site_name" content="jianyu的博客">
+<meta property="og:description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。 定义使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/责任链模式/design1.png">
+<meta property="og:updated_time" content="2019-09-07T09:00:33.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="责任链模式">
+<meta name="twitter:description" content="前言责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。 定义使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/07/责任链模式/design1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">jianyu的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-责任链模式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/07/责任链模式/" class="article-date">
+  <time datetime="2019-09-07T08:46:01.000Z" itemprop="datePublished">2019-09-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      责任链模式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有对象处理它为止。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>1、多个对象可以处理同一请求，但具体哪个对象处理则是在运行时动态决定</li>
+<li>2、在请求者不明确的情况下向多个对象中的一个提交一个请求</li>
+<li>3、需要动态指定一组对象的处理请求</li>
+</ul>
+<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><img src="/2019/09/07/责任链模式/design1.png" title="design">
+<p>角色介绍：</p>
+<ul>
+<li>AbstractHandler - 抽象处理者角色，声明一个请求处理的方法（handle（））、一个获得处理级别的方法（getHandlerLever（））和封装了一个对具体的处理转发逻辑实现的方法（handleRequest（)），并在其中保持对下一个处理节点的AbstractHandler对象的引用（nextHandler）</li>
+<li>ConcreteHandler1、2 - 具体处理者角色，对请求进行处理，如果不能处理就将请求转发给下一个节点上的处理对象</li>
+<li>AbstractRequest - 抽象的请求类，里面声明了一个获得请求内容的方法（getContent（））和一个获得请求处理级别的方法（getRequestLever（））</li>
+<li>ConcreteRequest - 具体的请求类</li>
+</ul>
+<h2 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h2><p>在一个公司中，员工拿到了一份合同，需要上级的签名，于是员工就把合同给组长，但是组长没有权限签名，于是组长就把合同给经理，但是经理也没有足够的权限签名，于是经理就把合同给老板，老板二话不说就把合同给签了。上面的例子就是责任链模式，员工是请求的发起者，处于链的底端，而老板是处于链条顶端的类，员工发起请求后，请求经过层层转发，直至请求被处理，员工只是和组长发生了关联，后面合同被谁处理，员工并不知道，也并不关心，他在乎的是合同签名的结果，责任链模式很好的将请求的发起者与处理者解耦，下面用代码来模拟。</p>
+<p>抽象的员工，即AbstractHandler角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> Staff nextHandler;<span class="comment">//上一级领导处理者</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理转发的逻辑</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(Contract contract)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(contract.getContractLever() &lt; getHandlerLever())&#123;</span><br><span class="line">            handle(contract);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(nextHandler != <span class="keyword">null</span>)&#123;</span><br><span class="line">                nextHandler.handleRequest(contract);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span></span>;<span class="comment">//自身能处理请求的级别</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span></span>;<span class="comment">//具体的处理过程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个抽象的处理者中，一是定义了两个接口来确定一个Staff应有的行为和属性，二是封装了一个处理请求的逻辑转发方法，确定当前Staff是否有足够的级别来处理当前合同，如果没有，就把合同转发给上一级Staff，接下来是各个实现类。</p>
+<p>组长，即ConcreteHandler角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CroupStaff</span> <span class="keyword">extends</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"组长签名了合同！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经理，即ConcreteHandler角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ManagerStaff</span> <span class="keyword">extends</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"经理签名了合同！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>老板，即ConcreteHandler角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BossStaff</span> <span class="keyword">extends</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"老板签名了合同！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 接下来看一看请求，就是合同。</p>
+<p>抽象的合同类，即AbstractRequest角色</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Contract</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getContext</span><span class="params">()</span></span>;<span class="comment">//获得合同具体内容</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getContractLever</span><span class="params">()</span></span>;<span class="comment">//获得合同处理级别</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 最后员工从组长发起请求。</p>
+<p>请求发起者，员工</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造各个节点对象</span></span><br><span class="line">        GroupStaff groupStaff = <span class="keyword">new</span> GroupStaff();</span><br><span class="line">        ManagerStaff managerStaff = <span class="keyword">new</span> ManagerStaff();</span><br><span class="line">        BossStaff bossStaff = <span class="keyword">new</span> BossStaff();</span><br><span class="line">        <span class="comment">//构成一条链</span></span><br><span class="line">        groupStaff.nextHandler = managerStaff;</span><br><span class="line">        managerStaff.nextHandler = bossStaff;</span><br><span class="line">        <span class="comment">//发起请求</span></span><br><span class="line">        Contract contract = <span class="keyword">new</span> ConcreteContract();</span><br><span class="line">        groupStaff.handleRequest(contract);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果:</span><br><span class="line">老板签名了合同！</span><br></pre></td></tr></table></figure>
+<p> 其实这里也可以直接绕过组长和经理，直接找老板签名，这也是责任链模式的灵活性，请求的发起可以从任意节点发起，同时也可以改变责任链模式内部的传递规则，如直接找老板签名。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于责任链模式中的节点，有两个行为，一是处理请求，二是将请求转发给下一个节点，不允许某个节点处理者处理了请求后又把节点转发给下一个节点。对于责任链中的请求，只有俩个结果，一个是被某个节点处理，一个是所有对象均没有处理。</p>
+<p><a href="https://github.com/rain9155/DesignPatternDemo/tree/master/src/com/example/hy/designpatternDemo/iterator" target="_blank" rel="noopener">本文相关源码位置</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/07/责任链模式/" data-id="ck09bj7hn0001nwuqwlgk0171" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/07/okhttp3源码分析之拦截器/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">okhttp3源码分析之拦截器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/View机制/">View机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/优秀开源库分析/">优秀开源库分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 12.5px;">WMS</a> <a href="/tags/activity/" style="font-size: 15px;">activity</a> <a href="/tags/android/" style="font-size: 12.5px;">android</a> <a href="/tags/handler/" style="font-size: 12.5px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/okhttp/" style="font-size: 12.5px;">okhttp</a> <a href="/tags/recyclerView/" style="font-size: 15px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 12.5px;">view</a> <a href="/tags/window/" style="font-size: 12.5px;">window</a> <a href="/tags/windowManager/" style="font-size: 12.5px;">windowManager</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 12.5px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/07/责任链模式/">责任链模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/07/okhttp3源码分析之拦截器/">okhttp3源码分析之拦截器</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/03/okhttp3源码分析之请求流程/">okhttp3源码分析之请求流程</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/View的事件分发机制/">View的事件分发机制</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/22/View的工作原理/">View的工作原理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">links</h3>
+    <div class="widget">
+      <a href="https://blog.csdn.net/guolin_blog" title="guolin_blog" target="_blank">郭霖</a>
+	  <a href="https://blog.csdn.net/lmj623565791" title="hong_yang" target="_blank">鸿洋</a>
+	  <a href="https://blog.csdn.net/harvic880925/article/list/1" title="启舰" target="_blank">启舰</a>
+	  <a href="http://gityuan.com/android/" title="gityuan" target="_blank">Gityuan</a>
+	  <a href="https://blog.csdn.net/innost?viewmode=contents" title="Innost的专栏" target="_blank">Innost的专栏</a>
+	  <a href="https://jsonchao.github.io/" title="jsonchao" target="_blank">Jsonchao</a>
+	  <a href="https://www.gcssloop.com/#blog" title="gcssloop" target="_blank">Gcssloop</a>
+	  <a href="http://liuwangshu.cn/" title="刘望舒" target="_blank">刘望舒</a>
+	  <a href="https://hencoder.com/" title="HenCoder" target="_blank">HenCoder</a>
+	  <a href="http://cyc2018.gitee.io/cs-notes/#/" title="cs-notes" target="_blank">CsNotes</a>
+	  <a href="https://snailclimb.top/JavaGuide/#/" title="cs-JavaGuide" target="_blank">JavaGuide</a>
+	  <a href="https://tamicer.github.io/" title="tamicer" target="_blank">Tamic</a>
+	  <a href="http://www.toly1994.com/" title="张风捷特烈" target="_blank">张风捷特烈</a>
+    </div>
+  </div>
+  
+    <div class="widget-wrap">
+    <h3 class="widget-title">About Me</h3>
+    <div class="widget">
+      <p><a href="https://github.com/rain9155" title="github" target="_blank">Github</a></p>
+	  <p><a href="https://blog.csdn.net/Rain_9155?t=1" title="csdn" target="_blank">CSDN</a></p>
+	  <p><a href="https://juejin.im/user/5b437173e51d45191d79c27a/activities" title="juejin" target="_blank">掘金</a></p>
+    </div>
+  </div>
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Jian Yu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

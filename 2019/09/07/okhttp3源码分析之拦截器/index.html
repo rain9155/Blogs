@@ -5,18 +5,20 @@
   
 
   
-  <title>jianyu的博客</title>
+  <title>okhttp3源码分析之拦截器 | jianyu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每天进步一点点">
-<meta property="og:type" content="website">
-<meta property="og:title" content="jianyu的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
+<meta name="keywords" content="源码,okhttp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="okhttp3源码分析之拦截器">
+<meta property="og:url" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/index.html">
 <meta property="og:site_name" content="jianyu的博客">
-<meta property="og:description" content="每天进步一点点">
+<meta property="og:description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-09-07T08:45:04.452Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jianyu的博客">
-<meta name="twitter:description" content="每天进步一点点">
+<meta name="twitter:title" content="okhttp3源码分析之拦截器">
+<meta name="twitter:description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
   
     <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
   
@@ -63,85 +65,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-责任链模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/07/责任链模式/" class="article-date">
-  <time datetime="2019-09-07T08:46:01.000Z" itemprop="datePublished">2019-09-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/07/责任链模式/">责任链模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。</p>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>使多个对象都有机会处理请求，从而避免了请求的发送者和接受者之间的耦合关系。将这些对象连成一条链，并沿着这条链传递该请求，直到有对象处理它为止。</p>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
-<li>1、多个对象可以处理同一请求，但具体哪个对象处理则是在运行时动态决定</li>
-<li>2、在请求者不明确的情况下向多个对象中的一个提交一个请求</li>
-<li>3、需要动态指定一组对象的处理请求</li>
-</ul>
-<h2 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h2><img src="/2019/09/07/责任链模式/design1.png" title="design">
-<p>角色介绍：</p>
-<ul>
-<li>AbstractHandler - 抽象处理者角色，声明一个请求处理的方法（handle（））、一个获得处理级别的方法（getHandlerLever（））和封装了一个对具体的处理转发逻辑实现的方法（handleRequest（)），并在其中保持对下一个处理节点的AbstractHandler对象的引用（nextHandler）</li>
-<li>ConcreteHandler1、2 - 具体处理者角色，对请求进行处理，如果不能处理就将请求转发给下一个节点上的处理对象</li>
-<li>AbstractRequest - 抽象的请求类，里面声明了一个获得请求内容的方法（getContent（））和一个获得请求处理级别的方法（getRequestLever（））</li>
-<li>ConcreteRequest - 具体的请求类</li>
-</ul>
-<h2 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h2><p>在一个公司中，员工拿到了一份合同，需要上级的签名，于是员工就把合同给组长，但是组长没有权限签名，于是组长就把合同给经理，但是经理也没有足够的权限签名，于是经理就把合同给老板，老板二话不说就把合同给签了。上面的例子就是责任链模式，员工是请求的发起者，处于链的底端，而老板是处于链条顶端的类，员工发起请求后，请求经过层层转发，直至请求被处理，员工只是和组长发生了关联，后面合同被谁处理，员工并不知道，也并不关心，他在乎的是合同签名的结果，责任链模式很好的将请求的发起者与处理者解耦，下面用代码来模拟。</p>
-<p>抽象的员工，即AbstractHandler角色</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> Staff nextHandler;<span class="comment">//上一级领导处理者</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理转发的逻辑</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(Contract contract)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(contract.getContractLever() &lt; getHandlerLever())&#123;</span><br><span class="line">            handle(contract);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(nextHandler != <span class="keyword">null</span>)&#123;</span><br><span class="line">                nextHandler.handleRequest(contract);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span></span>;<span class="comment">//自身能处理请求的级别</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span></span>;<span class="comment">//具体的处理过程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个抽象的处理者中，一是定义了两个接口来确定一个Staff应有的行为和属性，二是封装了一个处理请求的逻辑转发方法，确定当前Staff是否有足够的级别来处理当前合同，如果没有，就把合同转发给上一级Staff，接下来是各个实现类。</p>
-<p>组长，即ConcreteHandler角色</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CroupStaff</span> <span class="keyword">extends</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"组长签名了合同！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>经理，即ConcreteHandler角色</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ManagerStaff</span> <span class="keyword">extends</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"经理签名了合同！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>老板，即ConcreteHandler角色</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BossStaff</span> <span class="keyword">extends</span> <span class="title">Staff</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHandlerLever</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(Contract contract)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"老板签名了合同！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 接下来看一看请求，就是合同。</p>
-<p>抽象的合同类，即AbstractRequest角色</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Contract</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getContext</span><span class="params">()</span></span>;<span class="comment">//获得合同具体内容</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getContractLever</span><span class="params">()</span></span>;<span class="comment">//获得合同处理级别</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 最后员工从组长发起请求。</p>
-<p>请求发起者，员工</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造各个节点对象</span></span><br><span class="line">        GroupStaff groupStaff = <span class="keyword">new</span> GroupStaff();</span><br><span class="line">        ManagerStaff managerStaff = <span class="keyword">new</span> ManagerStaff();</span><br><span class="line">        BossStaff bossStaff = <span class="keyword">new</span> BossStaff();</span><br><span class="line">        <span class="comment">//构成一条链</span></span><br><span class="line">        groupStaff.nextHandler = managerStaff;</span><br><span class="line">        managerStaff.nextHandler = bossStaff;</span><br><span class="line">        <span class="comment">//发起请求</span></span><br><span class="line">        Contract contract = <span class="keyword">new</span> ConcreteContract();</span><br><span class="line">        groupStaff.handleRequest(contract);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果:</span><br><span class="line">老板签名了合同！</span><br></pre></td></tr></table></figure>
-<p> 其实这里也可以直接绕过组长和经理，直接找老板签名，这也是责任链模式的灵活性，请求的发起可以从任意节点发起，同时也可以改变责任链模式内部的传递规则，如直接找老板签名。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于责任链模式中的节点，有两个行为，一是处理请求，二是将请求转发给下一个节点，不允许某个节点处理者处理了请求后又把节点转发给下一个节点。对于责任链中的请求，只有俩个结果，一个是被某个节点处理，一个是所有对象均没有处理。</p>
-<p><a href="https://github.com/rain9155/DesignPatternDemo/tree/master/src/com/example/hy/designpatternDemo/iterator" target="_blank" rel="noopener">本文相关源码位置</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/责任链模式/" data-id="ck09bj7hn0001nwuqwlgk0171" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp3源码分析之拦截器" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-okhttp3源码分析之拦截器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/09/07/okhttp3源码分析之拦截器/" class="article-date">
   <time datetime="2019-09-07T07:01:40.000Z" itemprop="datePublished">2019-09-07</time>
@@ -158,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/07/okhttp3源码分析之拦截器/">okhttp3源码分析之拦截器</a>
+    <h1 class="article-title" itemprop="name">
+      okhttp3源码分析之拦截器
     </h1>
   
 
@@ -211,162 +135,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-okhttp3源码分析之请求流程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/okhttp3源码分析之请求流程/" class="article-date">
-  <time datetime="2019-09-03T14:49:13.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/优秀开源库分析/">优秀开源库分析</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2019/09/07/责任链模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          责任链模式
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/okhttp3源码分析之请求流程/">okhttp3源码分析之请求流程</a>
-    </h1>
   
+    <a href="/2019/09/03/okhttp3源码分析之请求流程/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">okhttp3源码分析之请求流程</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在Android开发中，当下最火的网络请求框架莫过于okhttp和retrofit，它们都是square公司的产品，两个都是非常优秀开源库，值得我们去阅读它们的源码，学习它们的设计理念，但其实retrofit底层还是用okhttp来发起网络请求的，所以深入理解了okhttp也就深入理解了retrofit，它们的源码阅读顺序应该是先看okhttp，我在retrofit上发现它最近的一次提交才把okhttp版本更新到3.14，okhttp目前最新的版本是4.0.x，okhttp从4.0.x开始采用kotlin编写，在这之前还是用java，而我本次分析的okhttp源码版本是基本3.14.x，看哪个版本的不重要，重要的是阅读过后的收获，我打算分2篇文章去分析okhttp，分别是：</p>
-<ul>
-<li>请求流程(同步、异步)</li>
-<li>拦截器(Interceptor)</li>
-</ul>
-<p>本文是第一篇 - okhttp的请求流程，okhttp项目地址：<a href="https://github.com/square/okhttp" target="_blank" rel="noopener">okhttp</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/03/okhttp3源码分析之请求流程/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/" data-id="ck09bj7lt003nnwuq44nmeakv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-View的事件分发机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/29/View的事件分发机制/" class="article-date">
-  <time datetime="2019-07-29T15:14:42.000Z" itemprop="datePublished">2019-07-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/View机制/">View机制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/29/View的事件分发机制/">View的事件分发机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几天写过一篇文章<a href="https://rain9155.github.io/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">View的工作原理</a>，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过setOnClickListener()方法来设置一个View的点击监听，那你有没有想过这个点击事件底层是怎么样传递到这个View的呢？当你自定义控件时，如果要处理滑动事件，那么到底返回true还是false？还有当你遇到了滑动嵌套的情景，你要怎么解决滑动嵌套引起的冲突？所以，本文通过 源码 + 流程图 来深入了解一个事件分发机制，当你掌握了它之后，当你遇到与滑动相关的问题时就更加的游刃有余。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/07/29/View的事件分发机制/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/29/View的事件分发机制/" data-id="ck09bj7ny0043nwuquf3pfojo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/">view</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-View的工作原理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/22/View的工作原理/" class="article-date">
-  <time datetime="2019-07-22T11:57:11.000Z" itemprop="datePublished">2019-07-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/View机制/">View机制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/22/View的工作原理/">View的工作原理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个很炫酷的自定义View的开源库，我们也是拿来主义，时间长了你就会发现你只是一个只会使用控件和依赖被人开源库的程序员，这并不是一个开发者，所以我们并不能只满足于使用，我们要理解它背后的工作原理和流程，这样才能自己做出一个属于自己的控件，一直都说自定View是Android进阶中的一道门槛，当其实自定义View当你理解了它的原理后，你就会发现它也不过如此。本文将从源码的角度探讨View工作的三大流程，对View做进一步的认识。俗话说的好：源码才是最好的老师。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/07/22/View的工作原理/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/22/View的工作原理/" data-id="ck09bj7mp003ynwuqnpio01ek" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/">view</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
 
 </section>
         
