@@ -5,18 +5,24 @@
   
 
   
-  <title>jianyu的博客</title>
+  <title>okhttp3源码分析之拦截器 | jianyu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每天进步一点点">
-<meta property="og:type" content="website">
-<meta property="og:title" content="jianyu的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
+<meta name="keywords" content="源码,okhttp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="okhttp3源码分析之拦截器">
+<meta property="og:url" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/index.html">
 <meta property="og:site_name" content="jianyu的博客">
-<meta property="og:description" content="每天进步一点点">
+<meta property="og:description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp3.png">
+<meta property="og:updated_time" content="2019-09-18T15:18:04.759Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jianyu的博客">
-<meta name="twitter:description" content="每天进步一点点">
+<meta name="twitter:title" content="okhttp3源码分析之拦截器">
+<meta name="twitter:description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp1.png">
   
     <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
   
@@ -63,150 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/07/工厂模式/" class="article-date">
-  <time datetime="2019-09-07T11:47:08.000Z" itemprop="datePublished">2019-09-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/07/工厂模式/">工厂模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>工厂方法模式是一种结构简单的模式，并且在我们的应用中很广泛，如Android中Activity的各个生命周期的回调，以onCreate方法为例，它就可以看做是一个工厂方法，我们在其中构造我们的View并返回给framework处理。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/07/工厂模式/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/工厂模式/" data-id="ck0pew5gn000a50uq9xcjaqwi" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Builder模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/07/Builder模式/" class="article-date">
-  <time datetime="2019-09-07T11:35:25.000Z" itemprop="datePublished">2019-09-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/07/Builder模式/">Builder模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对外部隐藏实现细节，就可以使用Builder模式将部件和组装过程分离，使得构建过程和部件可以自由扩展，两者之间的耦合度也降到最低。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/07/Builder模式/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/Builder模式/" data-id="ck0pew5ib001550uqy3v2jazb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-责任链模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/07/责任链模式/" class="article-date">
-  <time datetime="2019-09-07T08:46:01.000Z" itemprop="datePublished">2019-09-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/07/责任链模式/">责任链模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>责任链模式是一种链式结构，就是由一个个节点首尾相接串起来的结构，具有很好的灵活性，将每一个节点看作是一个对象，每一个对象拥有不同的处理逻辑，将一个请求从链式的首端发出，沿着链的路径依此传递每一个节点对象，直到有对象处理这个请求为止，我们将这样一种模式称为责任链模式。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/07/责任链模式/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/责任链模式/" data-id="ck0pew5ht000y50uqrqsx8bi0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-okhttp3源码分析之拦截器" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-okhttp3源码分析之拦截器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/09/07/okhttp3源码分析之拦截器/" class="article-date">
   <time datetime="2019-09-07T07:01:40.000Z" itemprop="datePublished">2019-09-07</time>
@@ -223,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/07/okhttp3源码分析之拦截器/">okhttp3源码分析之拦截器</a>
+    <h1 class="article-title" itemprop="name">
+      okhttp3源码分析之拦截器
     </h1>
   
 
@@ -372,68 +235,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-okhttp3源码分析之请求流程" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/okhttp3源码分析之请求流程/" class="article-date">
-  <time datetime="2019-09-03T14:49:13.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/优秀开源库分析/">优秀开源库分析</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2019/09/07/责任链模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          责任链模式
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/okhttp3源码分析之请求流程/">okhttp3源码分析之请求流程</a>
-    </h1>
   
+    <a href="/2019/09/03/okhttp3源码分析之请求流程/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">okhttp3源码分析之请求流程</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在Android开发中，当下最火的网络请求框架莫过于okhttp和retrofit，它们都是square公司的产品，两个都是非常优秀开源库，值得我们去阅读它们的源码，学习它们的设计理念，但其实retrofit底层还是用okhttp来发起网络请求的，所以深入理解了okhttp也就深入理解了retrofit，它们的源码阅读顺序应该是先看okhttp，我在retrofit上发现它最近的一次提交才把okhttp版本更新到3.14，okhttp目前最新的版本是4.0.x，okhttp从4.0.x开始采用kotlin编写，在这之前还是用java，而我本次分析的okhttp源码版本是基本3.14.x，看哪个版本的不重要，重要的是阅读过后的收获，我打算分2篇文章去分析okhttp，分别是：</p>
-<ul>
-<li>请求流程(同步、异步)</li>
-<li>拦截器(Interceptor)</li>
-</ul>
-<p>本文是第一篇 - okhttp的请求流程，okhttp项目地址：<a href="https://github.com/square/okhttp" target="_blank" rel="noopener">okhttp</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/03/okhttp3源码分析之请求流程/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/" data-id="ck0pew5ng004350uqk1jyu7f9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
 
 </section>
         
