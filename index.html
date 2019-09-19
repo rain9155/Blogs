@@ -236,6 +236,9 @@
 <li>上一篇文章：<a href="https://rain9155.github.io/2019/09/03/okhttp3源码分析之请求流程/" target="_blank" rel="noopener">okhttp3源码分析之请求流程</a></li>
 </ul>
 <p>本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制、连接机制。</p>
+<blockquote>
+<p>本文源码基于okhttp3.14.x</p>
+</blockquote>
 <p>okhttp项目地址：<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fsquare%2Fokhttp" target="_blank" rel="noopener">okhttp</a></p>
         
           <p class="article-more-link">
