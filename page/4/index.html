@@ -1,450 +1,539 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>jianyu的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每天进步一点点">
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>jianyu的博客 | 每天进步一点点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="android">
+    <meta name="description" content="记录我学习的点点滴滴">
+<meta name="keywords" content="android">
 <meta property="og:type" content="website">
 <meta property="og:title" content="jianyu的博客">
 <meta property="og:url" content="http://yoursite.com/page/4/index.html">
 <meta property="og:site_name" content="jianyu的博客">
-<meta property="og:description" content="每天进步一点点">
+<meta property="og:description" content="记录我学习的点点滴滴">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jianyu的博客">
-<meta name="twitter:description" content="每天进步一点点">
-  
-    <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:description" content="记录我学习的点点滴滴">
+    
+        <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
-</html>
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">jianyu的博客</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">rain9155</h5>
+          <a href="mailto:jianyu9155@gmail.com" title="jianyu9155@gmail.com" class="mail">jianyu9155@gmail.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-Activity的启动流程（1）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/19/Activity的启动流程（1）/" class="article-date">
-  <time datetime="2019-05-19T08:11:17.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/四大组件/">四大组件</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/19/Activity的启动流程（1）/">Activity的启动流程（1）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家有没有想过它在底层是怎么启动的呢？Activity的生命周期方法是如何被回调的？它启动过程中涉及到多少个进程？接下来我们通过撸一篇源码来了解Activity的大概启动流程，然后解答这几个问题。</p>
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
         
-          <p class="article-more-link">
-            <a href="/2019/05/19/Activity的启动流程（1）/#more">Read More</a>
-          </p>
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
         
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（1）/" data-id="ck0pew5lu003t50uq5t789cfl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Window, WindowManager和WindowManagerService之间的关系" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" class="article-date">
-  <time datetime="2019-03-22T14:36:32.000Z" itemprop="datePublished">2019-03-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Window机制/">Window机制</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS）。下面分别介绍它们，理清它们的基本脉络。<br>
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
         
-          <p class="article-more-link">
-            <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/#more">Read More</a>
-          </p>
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/rain9155" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
         
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-id="ck0pew5jn002p50uq4ytqor14" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-RecyclerView之观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/09/RecyclerView之观察者模式/" class="article-date">
-  <time datetime="2019-03-09T09:39:00.000Z" itemprop="datePublished">2019-03-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/recyclerView/">recyclerView</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/09/RecyclerView之观察者模式/">RecyclerView之观察者模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客<a href="https://blog.csdn.net/Rain_9155/article/details/83004247" target="_blank" rel="noopener">观察者模式</a>, RecyclerView在更新数据时也算是对观察者模式的一种应用。<br>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/09/RecyclerView之观察者模式/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/09/RecyclerView之观察者模式/" data-id="ck0pew5gl000650uqc8ula51t" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-RecyclerView之缓存设计" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/08/RecyclerView之缓存设计/" class="article-date">
-  <time datetime="2019-03-08T06:56:50.000Z" itemprop="datePublished">2019-03-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/recyclerView/">recyclerView</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/08/RecyclerView之缓存设计/">RecyclerView之缓存设计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li>上一篇文章<a href="https://rain9155.github.io/2019/03/01/RecyclerView之布局设计" target="_blank" rel="noopener">RecyclerView之布局设计</a></li>
-</ul>
-<p>RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存逻辑判断，RecyclerView的基本单元是ViewHolder，里面有一个itemView代表了视图上的子View，所以RecyclerView的缓存基本单元也是ViewHolder。本文将从源码的角度来讲解RecyclerView的缓存设计。<br>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/08/RecyclerView之缓存设计/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/08/RecyclerView之缓存设计/" data-id="ck0pew5jj002k50uq0t4e729t" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-RecyclerView之布局设计" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/01/RecyclerView之布局设计/" class="article-date">
-  <time datetime="2019-03-01T07:10:00.000Z" itemprop="datePublished">2019-03-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/recyclerView/">recyclerView</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/01/RecyclerView之布局设计/">RecyclerView之布局设计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式，例如ListView、GridView样式、瀑布流样式，所以加深对于RecyclerView的学习对于开发有很重要的意义。关于RecyclerView如何使用网上有很多文章，本篇文章从源码讲解RecyclerView如何通过layoutManager来进行布局。<br>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/01/RecyclerView之布局设计/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-id="ck0pew5kw003f50uqdbsvpmze" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
-  </nav>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/View机制/">View机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/优秀开源库分析/">优秀开源库分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 12.5px;">WMS</a> <a href="/tags/activity/" style="font-size: 15px;">activity</a> <a href="/tags/android/" style="font-size: 12.5px;">android</a> <a href="/tags/handler/" style="font-size: 12.5px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/okhttp/" style="font-size: 12.5px;">okhttp</a> <a href="/tags/recyclerView/" style="font-size: 15px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 12.5px;">view</a> <a href="/tags/window/" style="font-size: 12.5px;">window</a> <a href="/tags/windowManager/" style="font-size: 12.5px;">windowManager</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/09/07/工厂模式/">工厂模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/07/Builder模式/">Builder模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/07/责任链模式/">责任链模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/07/okhttp3源码分析之拦截器/">okhttp3源码分析之拦截器</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/03/okhttp3源码分析之请求流程/">okhttp3源码分析之请求流程</a>
-          </li>
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5b437173e51d45191d79c27a/posts" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Juejin
+              </a>
+            </li>
         
       </ul>
     </div>
   </div>
-
-  
-    <div class="widget-wrap">
-    <h3 class="widget-title">links</h3>
-    <div class="widget">
-      <a href="https://blog.csdn.net/guolin_blog" title="guolin_blog" target="_blank">郭霖</a>
-	  <a href="https://blog.csdn.net/lmj623565791" title="hong_yang" target="_blank">鸿洋</a>
-	  <a href="https://blog.csdn.net/harvic880925/article/list/1" title="启舰" target="_blank">启舰</a>
-	  <a href="http://gityuan.com/android/" title="gityuan" target="_blank">Gityuan</a>
-	  <a href="https://blog.csdn.net/innost?viewmode=contents" title="Innost的专栏" target="_blank">Innost的专栏</a>
-	  <a href="https://jsonchao.github.io/" title="jsonchao" target="_blank">Jsonchao</a>
-	  <a href="https://www.gcssloop.com/#blog" title="gcssloop" target="_blank">Gcssloop</a>
-	  <a href="http://liuwangshu.cn/" title="刘望舒" target="_blank">刘望舒</a>
-	  <a href="https://hencoder.com/" title="HenCoder" target="_blank">HenCoder</a>
-	  <a href="http://cyc2018.gitee.io/cs-notes/#/" title="cs-notes" target="_blank">CsNotes</a>
-	  <a href="https://snailclimb.top/JavaGuide/#/" title="cs-JavaGuide" target="_blank">JavaGuide</a>
-	  <a href="https://tamicer.github.io/" title="tamicer" target="_blank">Tamic</a>
-	  <a href="http://www.toly1994.com/" title="张风捷特烈" target="_blank">张风捷特烈</a>
-    </div>
-  </div>
-  
-    <div class="widget-wrap">
-    <h3 class="widget-title">About Me</h3>
-    <div class="widget">
-      <p><a href="https://github.com/rain9155" title="github" target="_blank">Github</a></p>
-	  <p><a href="https://blog.csdn.net/Rain_9155?t=1" title="csdn" target="_blank">CSDN</a></p>
-	  <p><a href="https://juejin.im/user/5b437173e51d45191d79c27a/activities" title="juejin" target="_blank">掘金</a></p>
-    </div>
-  </div>
-  
 </aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">jianyu的博客</div>
         
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Jian Yu<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
     </div>
-  </div>
-</footer>
+</header>
+<header class="content-header index-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">jianyu的博客</h1>
+        <h5 class="subtitle">
+            
+                每天进步一点点
+            
+        </h5>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+</header>
+
+<div class="container body-wrap">
+
+    <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-Activity的启动流程（1）"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-05-19 16:11:17" datetime="2019-05-19T08:11:17.000Z"  itemprop="datePublished">2019-05-19</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/四大组件/">四大组件</a></li></ul>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+    </div>
+
+    
 
 
-<script src="/js/script.js"></script>
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/05/19/Activity的启动流程（1）/">Activity的启动流程（1）</a>
+    </h3>
+  
 
 
 
-  </div>
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家有没有想过它在底层是怎么启动的呢？Activity的生命周期方法是如何被回调的？它启动过程中涉及到多少个进程？接下来我们通过撸一篇源码来了解Activity的大概启动流程，然后解答这几个问题。
+    
+
+        <a href="/2019/05/19/Activity的启动流程（1）/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Window, WindowManager和WindowManagerService之间的关系"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-03-22 22:36:32" datetime="2019-03-22T14:36:32.000Z"  itemprop="datePublished">2019-03-22</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Window机制/">Window机制</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/">Window,WindowManager和WindowManagerService之间的关系</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS）。下面分别介绍它们，理清它们的基本脉络。
+    
+
+        <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-RecyclerView之观察者模式"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-03-09 17:39:00" datetime="2019-03-09T09:39:00.000Z"  itemprop="datePublished">2019-03-09</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/recyclerView/">recyclerView</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/03/09/RecyclerView之观察者模式/">RecyclerView之观察者模式</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客观察者模式, RecyclerView在更新数据时也算是对观察者模式的一种应用。
+    
+
+        <a href="/2019/03/09/RecyclerView之观察者模式/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-RecyclerView之缓存设计"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-03-08 14:56:50" datetime="2019-03-08T06:56:50.000Z"  itemprop="datePublished">2019-03-08</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/recyclerView/">recyclerView</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/03/08/RecyclerView之缓存设计/">RecyclerView之缓存设计</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言
+上一篇文章RecyclerView之布局设计
+
+RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存逻辑判断，RecyclerView的基本单元是ViewHolder，里面有一个itemView代表了视图上的子View，所以RecyclerView的缓存基本单元也是ViewHolder。本文将从源码的角度来讲解RecyclerView的缓存设计。
+    
+
+        <a href="/2019/03/08/RecyclerView之缓存设计/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-RecyclerView之布局设计"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-03-01 15:10:00" datetime="2019-03-01T07:10:00.000Z"  itemprop="datePublished">2019-03-01</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/recyclerView/">recyclerView</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/03/01/RecyclerView之布局设计/">RecyclerView之布局设计</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式，例如ListView、GridView样式、瀑布流样式，所以加深对于RecyclerView的学习对于开发有很重要的意义。关于RecyclerView如何使用网上有很多文章，本篇文章从源码讲解RecyclerView如何通过layoutManager来进行布局。
+    
+
+        <a href="/2019/03/01/RecyclerView之布局设计/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+    </ul>
+
+    
+<nav id="page-nav">
+    <div class="inner">
+    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
+    </div>
+</nav>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>rain9155 &copy; 2018 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/page/4/&title=jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/page/4/&title=jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/page/4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=jianyu的博客&url=http://yoursite.com/page/4/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/page/4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByUlEQVR42u3aMW7DMBAEQP//0wqQ1oi8ezQZJxhWLixppOJw3OPjEa/rez3K9XzV9bQeOxYuLu4y97pdz/9pr/rpBdq74eLinufel6H7WyelKqe/sOHi4n4YNylz941L/jK4uLh/i5tQcHFx/wc338bcNyuz9mjLXg0XF3eB20afO35vzHdxcXFL7jVaSVMyK1gvnouLi3uEuyMMzRugfGBTpDW4uLjL3HtWG1gkr7p0OAMXF/cId33ImsciKyNbXFzc89z2MW242Q5XitgUFxd3GzcvH/u2SfXkBxcXdxs3L1XtN5g1LlGVxcXFPcLNL8uJ7fYp+g8uLu5BbhthrDQrKwNXXFzcM9zZwazZiGUWwtZQXFzcZW4+TJ2FnrMha31uFBcX963cvHi1dbG9No9icXFxd3PzbclsoJIPWaNAFhcX9wh3FoYmtbAdotTtFy4u7jbuLLJsh6z5QPdFEcTFxT3CXQlM203ObASLi4v7W9xZ8WrL0+wwR5HO4uLibuC2RWp9+JpvnH4cteLi4n4Yd/3cx/AT4OLifhg3H6++rWyttDi4uLjL3Hzz07Y4BSXZGuHi4h7hrkxo22KXhyNvy3dxcXE77heKYmzDsTnfcQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '去哪里了?';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎光临!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>

@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
+    
 
-  
-  <title>Activity的启动流程（2） | jianyu的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言 上一篇文章Activity的启动流程（1）  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中Appl">
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Activity的启动流程（2） | jianyu的博客 | 每天进步一点点</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="源码,activity">
+    <meta name="description" content="前言 上一篇文章Activity的启动流程（1）  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中Appl">
 <meta name="keywords" content="源码,activity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activity的启动流程（2）">
@@ -21,79 +35,163 @@
 <meta name="twitter:title" content="Activity的启动流程（2）">
 <meta name="twitter:description" content="前言 上一篇文章Activity的启动流程（1）  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中Appl">
 <meta name="twitter:image" content="http://yoursite.com/2019/05/19/Activity的启动流程（2）/activity1.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="jianyu的博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+        <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
-</html>
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">jianyu的博客</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">rain9155</h5>
+          <a href="mailto:jianyu9155@gmail.com" title="jianyu9155@gmail.com" class="mail">jianyu9155@gmail.com</a>
+        </hgroup>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Activity的启动流程（2）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/19/Activity的启动流程（2）/" class="article-date">
-  <time datetime="2019-05-19T08:12:34.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/四大组件/">四大组件</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
         
-  
-    <h1 class="article-title" itemprop="name">
-      Activity的启动流程（2）
-    </h1>
-  
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/rain9155" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://juejin.im/user/5b437173e51d45191d79c27a/posts" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                Juejin
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
 
-      </header>
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Activity的启动流程（2）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Activity的启动流程（2）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-19T08:12:34.000Z" itemprop="datePublished" class="page-time">
+  2019-05-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/四大组件/">四大组件</a></li></ul>
+
+            
+        </h5>
+    </div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ApplicationThread-scheduleLaunchActivity"><span class="post-toc-number">2.</span> <span class="post-toc-text">ApplicationThread::scheduleLaunchActivity()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、ApplicationThread-sendMessage"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1、ApplicationThread::sendMessage()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、H-handleMessage（）"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">2、H::handleMessage（）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ActivityThread-handleLaunchActivity（）"><span class="post-toc-number">3.</span> <span class="post-toc-text">ActivityThread::handleLaunchActivity（）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、ActivityThread-performLaunchActivity"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1、ActivityThread::performLaunchActivity()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1、Instrumentation-callActivityOnCreate"><span class="post-toc-number">3.1.1.</span> <span class="post-toc-text">1.1、Instrumentation::callActivityOnCreate()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-1-1、Activity-performCreate"><span class="post-toc-number">3.1.1.1.</span> <span class="post-toc-text">1.1.1、Activity::performCreate()</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2、Activity-performStart"><span class="post-toc-number">3.1.2.</span> <span class="post-toc-text">1.2、Activity::performStart()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-2-1、Instrumentation-callActivityOnStart"><span class="post-toc-number">3.1.2.1.</span> <span class="post-toc-text">1.2.1、Instrumentation::callActivityOnStart()</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、ActivityThread-handleResumeActivity"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">2、ActivityThread::handleResumeActivity()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1-ActivityThread-performResumeActivity"><span class="post-toc-number">3.2.1.</span> <span class="post-toc-text">2.1 ActivityThread::performResumeActivity()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-1-1-Activity-performResume"><span class="post-toc-number">3.2.1.1.</span> <span class="post-toc-text">2.1.1 Activity::performResume()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#2-1-2、Instrumentation-callActivityOnResume"><span class="post-toc-number">3.2.1.1.1.</span> <span class="post-toc-text">2.1.2、Instrumentation::callActivityOnResume()</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Activity的启动流程（2）"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Activity的启动流程（2）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-19 16:12:34" datetime="2019-05-19T08:12:34.000Z"  itemprop="datePublished">2019-05-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/四大组件/">四大组件</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
 <li>上一篇文章<a href="https://rain9155.github.io/2019/05/19/Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%EF%BC%881%EF%BC%89/" target="_blank" rel="noopener">Activity的启动流程（1）</a></li>
 </ul>
 <p>上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，<strong>Activity的生命周期方法是如何被回调的？</strong>，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中ApplicationThread启动Activity的过程。</p>
@@ -203,175 +301,301 @@ frameworks/base/core/java/android/app/Instrumentation.java
 <p><a href="http://liuwangshu.cn/framework/component/7-activity-start-2.html" target="_blank" rel="noopener">Android8.0 根Activity启动过程（后篇）</a></p>
 <p>《Android源码分析与实战》</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/Activity的启动流程（2）/" data-id="ck0pew5kt003e50uqqgwkcuqo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+        </div>
 
-    </footer>
-  </div>
-  
+        <blockquote class="post-copyright">
     
-<nav id="article-nav">
-  
-    <a href="/2019/07/10/Activity应用窗口的添加过程/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+    <div class="content">
         
-          Activity应用窗口的添加过程
+<span class="post-time">
+    Last updated: <time datetime="2019-08-06T05:49:59.502Z" itemprop="dateUpdated">2019-08-06 13:49:59</time>
+</span><br>
+
+
         
-      </div>
+        谢谢大家的阅读！
+        
+    </div>
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/avatar.jpg" alt="rain9155">
+            rain9155
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/&title=《Activity的启动流程（2）》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/&title=《Activity的启动流程（2）》 — jianyu的博客&source=前言
+上一篇文章Activity的启动流程（1）
+
+上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后A..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/19/Activity的启动流程（2）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Activity的启动流程（2）》 — jianyu的博客&url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
     </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
   
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/10/Activity应用窗口的添加过程/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Activity应用窗口的添加过程</h4>
+      </a>
+    </div>
   
-    <a href="/2019/05/19/Activity的启动流程（1）/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Activity的启动流程（1）</div>
-    </a>
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/19/Activity的启动流程（1）/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Activity的启动流程（1）</h4>
+      </a>
+    </div>
   
 </nav>
 
-  
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </article>
 
-</section>
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/View机制/">View机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Window机制/">Window机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/recyclerView/">recyclerView</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/优秀开源库分析/">优秀开源库分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/四大组件/">四大组件</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息机制/">消息机制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/计算机网络/">计算机网络</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActivityManager/">ActivityManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PackageManager/">PackageManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WMS/">WMS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activity/">activity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/handler/">handler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/svg/">svg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/window/">window</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windowManager/">windowManager</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程/">线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线程池/">线程池</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-    </div>
-  </div>
 
+</div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/ActivityManager/" style="font-size: 10px;">ActivityManager</a> <a href="/tags/PackageManager/" style="font-size: 10px;">PackageManager</a> <a href="/tags/ThreadLocal/" style="font-size: 10px;">ThreadLocal</a> <a href="/tags/WMS/" style="font-size: 12.5px;">WMS</a> <a href="/tags/activity/" style="font-size: 15px;">activity</a> <a href="/tags/android/" style="font-size: 12.5px;">android</a> <a href="/tags/handler/" style="font-size: 12.5px;">handler</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/java/" style="font-size: 17.5px;">java</a> <a href="/tags/okhttp/" style="font-size: 12.5px;">okhttp</a> <a href="/tags/recyclerView/" style="font-size: 15px;">recyclerView</a> <a href="/tags/svg/" style="font-size: 10px;">svg</a> <a href="/tags/view/" style="font-size: 12.5px;">view</a> <a href="/tags/window/" style="font-size: 12.5px;">window</a> <a href="/tags/windowManager/" style="font-size: 12.5px;">windowManager</a> <a href="/tags/源码/" style="font-size: 20px;">源码</a> <a href="/tags/线程/" style="font-size: 10px;">线程</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/设计模式/" style="font-size: 17.5px;">设计模式</a>
-    </div>
-  </div>
+        <footer class="footer">
+    <div class="top">
+        
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/09/07/工厂模式/">工厂模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/07/Builder模式/">Builder模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/07/责任链模式/">责任链模式</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/07/okhttp3源码分析之拦截器/">okhttp3源码分析之拦截器</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/03/okhttp3源码分析之请求流程/">okhttp3源码分析之请求流程</a>
-          </li>
-        
-      </ul>
+    <div class="bottom">
+        <p><span>rain9155 &copy; 2018 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
     </div>
-  </div>
-
-  
-    <div class="widget-wrap">
-    <h3 class="widget-title">links</h3>
-    <div class="widget">
-      <a href="https://blog.csdn.net/guolin_blog" title="guolin_blog" target="_blank">郭霖</a>
-	  <a href="https://blog.csdn.net/lmj623565791" title="hong_yang" target="_blank">鸿洋</a>
-	  <a href="https://blog.csdn.net/harvic880925/article/list/1" title="启舰" target="_blank">启舰</a>
-	  <a href="http://gityuan.com/android/" title="gityuan" target="_blank">Gityuan</a>
-	  <a href="https://blog.csdn.net/innost?viewmode=contents" title="Innost的专栏" target="_blank">Innost的专栏</a>
-	  <a href="https://jsonchao.github.io/" title="jsonchao" target="_blank">Jsonchao</a>
-	  <a href="https://www.gcssloop.com/#blog" title="gcssloop" target="_blank">Gcssloop</a>
-	  <a href="http://liuwangshu.cn/" title="刘望舒" target="_blank">刘望舒</a>
-	  <a href="https://hencoder.com/" title="HenCoder" target="_blank">HenCoder</a>
-	  <a href="http://cyc2018.gitee.io/cs-notes/#/" title="cs-notes" target="_blank">CsNotes</a>
-	  <a href="https://snailclimb.top/JavaGuide/#/" title="cs-JavaGuide" target="_blank">JavaGuide</a>
-	  <a href="https://tamicer.github.io/" title="tamicer" target="_blank">Tamic</a>
-	  <a href="http://www.toly1994.com/" title="张风捷特烈" target="_blank">张风捷特烈</a>
-    </div>
-  </div>
-  
-    <div class="widget-wrap">
-    <h3 class="widget-title">About Me</h3>
-    <div class="widget">
-      <p><a href="https://github.com/rain9155" title="github" target="_blank">Github</a></p>
-	  <p><a href="https://blog.csdn.net/Rain_9155?t=1" title="csdn" target="_blank">CSDN</a></p>
-	  <p><a href="https://juejin.im/user/5b437173e51d45191d79c27a/activities" title="juejin" target="_blank">掘金</a></p>
-    </div>
-  </div>
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Jian Yu<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
 
 
-  </div>
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/&title=《Activity的启动流程（2）》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/&title=《Activity的启动流程（2）》 — jianyu的博客&source=前言
+上一篇文章Activity的启动流程（1）
+
+上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后A..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/19/Activity的启动流程（2）/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Activity的启动流程（2）》 — jianyu的博客&url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/19/Activity的启动流程（2）/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3awY6DMAxFUf7/p5ltpULmPidUwrmsKprSHBaWHfs48HV+XJ93vj/z9eRXiy8ZMmS8lnEOr/Gau2+/nz9emf7vBVWGDBkbMO4iGNkKAdTCN9mbDBkyZJDELl05TgFlyJAh44mASxJBvlEZMmTImCliyeEaKjjBudmDtbgMGTJeyKg9+jefH+lvyJAh41WMM7zidA1sK20GXOxKhgwZrRk8wNWajvOBm+9HhgwZXRlkE3zr6ZraeFn8jmXIkNGCgaLysGasFcPkmaiFIEOGjG0YtdI0/suJ4jY+C5QhQ0YjRjq2VWtbzo9u3K6XIUNGa8Z4Q2mgrA1G8JK42MiUIUPGyxlpqJ1vAMRdC3BfhgwZezJmYCQGko0G62XIkLEBIx1uIIVlbSVvZ96WrzJkyGjHSJO8tc1IPlKGCmkZMmS0ZsxsLm2FFpO/FCNDhox2jFr448GRMNLIKUOGjN0Y5NA/PT6rNTv5eNk/pawMGTLaMWbGuWpH/7VCNzhukyFDRlNGmiZORXc8hBE8QYYMGRswCCBN9WqBmA+QxfmmDBkyWjCeOGhLG5wxQIYMGa0ZawMlP4arvazbFy1DhozWDH490QAgIxTFmREZMmS0Y6w9sk9HJWoB9+DvTIYMGY0Y4/s8ReOYR2pxGTJkyAipq558zPhkyJCxJYMfq/EnpO2Ei9/KkCFjAwYfuagljqSgrbVCZciQsQMjzbvSbfGjND58tiB9lCFDxjsYf40b+gjDmvxZAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '去哪里了?';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '欢迎光临!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
 </body>
 </html>
