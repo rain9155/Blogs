@@ -20,16 +20,16 @@
     <meta name="theme-color" content="#009688">
     
     
-    <meta name="keywords" content="源码,ThreadLocal">
+    <meta name="keywords" content="ThreadLocal,源码">
     <meta name="description" content="前言最近在研究Android的消息机制时遇到了一个疑问:在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。">
-<meta name="keywords" content="源码,ThreadLocal">
+<meta name="keywords" content="ThreadLocal,源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThreadLocal解析">
 <meta property="og:url" content="http://yoursite.com/2019/02/21/ThreadLocal解析/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言最近在研究Android的消息机制时遇到了一个疑问:在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-16T16:05:35.181Z">
+<meta property="og:updated_time" content="2019-10-08T09:26:24.413Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadLocal解析">
 <meta name="twitter:description" content="前言最近在研究Android的消息机制时遇到了一个疑问:在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。">
@@ -150,7 +150,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/android/">android</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
 
             
         </h5>
@@ -181,7 +181,7 @@
             <time class="post-time" title="2019-02-21 13:55:50" datetime="2019-02-21T05:55:50.000Z"  itemprop="datePublished">2019-02-21</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/android/">android</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
 
 
 
@@ -192,7 +192,7 @@
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在研究<a href="https://rain9155.github.io/2019/02/21/Android消息机制java层" target="_blank" rel="noopener">Android的消息机制</a>时遇到了一个疑问:<strong>在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？</strong>，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。<br><a id="more"></a></p>
 <pre><code>本文的源码是基于Android8.0
 </code></pre><h2 id="ThreadLocal概述"><a href="#ThreadLocal概述" class="headerlink" title="ThreadLocal概述"></a>ThreadLocal概述</h2><p>ThreadLocal，线程本地存储区（Thread Local Storage，简称为TLS），通过它可以在指定的线程中存储数据，数据存储之后，只能在指定的线程中可以获取到存储的数据，对于其他线程来说则无法获取到数据。来看一个简单的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Integer&gt; mThreadLocal = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Integer&gt; mThreadLocal2 = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//主线程</span></span><br><span class="line">        mThreadLocal.set(<span class="number">0</span>);</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">" - "</span> + mThreadLocal.get());</span><br><span class="line"></span><br><span class="line">        mThreadLocal2.set(<span class="number">1</span>);</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">" - "</span> + mThreadLocal2.get());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//子线程1</span></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            mThreadLocal.set(<span class="number">2</span>);</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" - "</span> + mThreadLocal.get());</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//子线程2</span></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; System.out.println(Thread.currentThread().getName() + <span class="string">" - "</span> + mThreadLocal.get())).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 输出结果：*/</span></span><br><span class="line">main - <span class="number">0</span></span><br><span class="line">main - <span class="number">1</span></span><br><span class="line">Thread-<span class="number">0</span> - <span class="number">2</span></span><br><span class="line">Thread-<span class="number">1</span> - <span class="keyword">null</span></span><br></pre></td></tr></table></figure></p>
-<p>上面代码中，有三个线程。<strong>对于同一个mThreadLoca，不同线程</strong>，在主线程设置mThreadLocal的值为0，在子线程1设置mThreadLocal的值2，在子线程2没有设置mThreadLocal的值，从输出结果可以看出虽然在不同线程访问的是同一个ThreadLocal对象，但通过ThreadLocal获取的值却不一样。<strong>对于不同的mThreadLocal和mThreadLocal2，同一线程</strong>，在主线程分别设置mThreadLocal的值为0，mThreadLocal2的值为1，从输出结果可以看出在同一线程中，通过不同的ThreadLocal存值，则通过相应的ThreadLocal取出的值也不一样。</p>
+<p>上面代码中，有三个线程。<strong>对于同一个mThreadLocal，不同线程</strong>，在主线程设置mThreadLocal的值为0，在子线程1设置mThreadLocal的值2，在子线程2没有设置mThreadLocal的值，从输出结果可以看出虽然在不同线程访问的是同一个ThreadLocal对象，但通过ThreadLocal获取的值却不一样。<strong>对于不同的mThreadLocal和mThreadLocal2，同一线程</strong>，在主线程分别设置mThreadLocal的值为0，mThreadLocal2的值为1，从输出结果可以看出在同一线程中，通过不同的ThreadLocal存值，则通过相应的ThreadLocal取出的值也不一样。</p>
 <p>这里可以提出关于ThreadLocal的俩个问题：<br>1、ThreadLocal 是如何做到同一个对象，却维护着不同线程的数据副本呢？<br>2、ThreadLocal是如何做到同一线程中不同 ThreadLocal 虽然共用同一个线程中的容器，但却可以相互独立运作？</p>
 <h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>掌握了ThreadLocal的get和set方法的原理，也就掌握了ThreadLocal的工作原理。</p>
 <h3 id="1、ThreadLocal-get"><a href="#1、ThreadLocal-get" class="headerlink" title="1、ThreadLocal#get()"></a>1、ThreadLocal#get()</h3><p>获取当前线程TLS区域的数据，该方法的源码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//1、获取当前线程</span></span><br><span class="line">      Thread t = Thread.currentThread();</span><br><span class="line">      <span class="comment">//2、 以当前线程为参数，获取一个 ThreadLocalMap 对象</span></span><br><span class="line">      ThreadLocalMap map = getMap(t)；</span><br><span class="line">      <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="comment">//3、map不为空，则以当前 ThreadLocal 对象实例作为key值，去map中取值，有找到直接返回</span></span><br><span class="line">          ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">          <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">              <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">              T result = (T)e.value;</span><br><span class="line">              <span class="keyword">return</span> result;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//4. map 为空或者在map中取不到值，那么走这里，返回默认初始值</span></span><br><span class="line">      <span class="keyword">return</span> setInitialValue();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
@@ -235,7 +235,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-08-16T16:05:35.181Z" itemprop="dateUpdated">2019-08-17 00:05:35</time>
+    Last updated: <time datetime="2019-10-08T09:26:24.413Z" itemprop="dateUpdated">2019-10-08 17:26:24</time>
 </span><br>
 
 
