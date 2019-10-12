@@ -33,7 +33,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http2.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http3.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http4.png">
-<meta property="og:updated_time" content="2019-08-31T12:53:41.821Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http5.png">
+<meta property="og:updated_time" content="2019-10-12T11:23:04.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Http网络请求浅析">
 <meta name="twitter:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
@@ -172,7 +173,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP协议版本"><span class="post-toc-text">HTTP协议版本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、长连接和多路复用的区别"><span class="post-toc-text">1、长连接和多路复用的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、HTTPS是什么"><span class="post-toc-text">2、HTTPS是什么</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP工作过程"><span class="post-toc-text">HTTP工作过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的请求方式"><span class="post-toc-text">HTTP的请求方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的报文格式"><span class="post-toc-text">HTTP的报文格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、请求报文"><span class="post-toc-text">1、请求报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1、GET、DELETE的请求报文"><span class="post-toc-text">1.1、GET、DELETE的请求报文</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2、PULL、POST的请求报文"><span class="post-toc-text">1.2、PULL、POST的请求报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、响应报文"><span class="post-toc-text">2、响应报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、常见的状态码"><span class="post-toc-text">2.1、常见的状态码</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、常见的头部"><span class="post-toc-text">3、常见的头部</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-1、Connection-：Keep-Alive工作原理-长连接"><span class="post-toc-text">3.1、Connection ：Keep-Alive工作原理 (长连接)</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP协议版本"><span class="post-toc-text">HTTP协议版本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、长连接和多路复用的区别"><span class="post-toc-text">1、长连接和多路复用的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、HTTPS是什么"><span class="post-toc-text">2、HTTPS是什么</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP工作过程"><span class="post-toc-text">HTTP工作过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的请求方式"><span class="post-toc-text">HTTP的请求方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的报文格式"><span class="post-toc-text">HTTP的报文格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、请求报文"><span class="post-toc-text">1、请求报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1、GET、DELETE的请求报文"><span class="post-toc-text">1.1、GET、DELETE的请求报文</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2、PULL、POST的请求报文"><span class="post-toc-text">1.2、PULL、POST的请求报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、响应报文"><span class="post-toc-text">2、响应报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、常见的状态码"><span class="post-toc-text">2.1、常见的状态码</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的首部字段"><span class="post-toc-text">常见的首部字段</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、Connection-：Keep-Alive工作原理-长连接"><span class="post-toc-text">1、Connection ：Keep-Alive工作原理 (长连接)</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
         </nav>
     </aside>
 
@@ -256,26 +257,46 @@
 </tr>
 </tbody>
 </table>
-<h2 id="HTTP的报文格式"><a href="#HTTP的报文格式" class="headerlink" title="HTTP的报文格式"></a>HTTP的报文格式</h2><p>不同的请求方式，它们的请求格式（报文格式）可能是不一样的，但是通常来说一个HTTP的请求报文都是由请求行，请求头部，空行，请求数据4个部分组成(响应报文类似)，如图。</p>
-<img src="/2018/12/31/Http网络请求浅析/http4.png" title="http4">
+<h2 id="HTTP的报文格式"><a href="#HTTP的报文格式" class="headerlink" title="HTTP的报文格式"></a>HTTP的报文格式</h2><p>用于HTTP协议交换的信息称为HTTP报文，客户端发出的HTTP报文叫做请求报文，服务端返回的HTTP报文交过响应报文，它们都是由多行数据构成的字符串文本，用CR + LF作为换行符，即回车符 + 换行符作为换行符，HTTP报文大体分为报文首部和报文主体两块，由第一个出现的空行(CR + LF)划分，如下：</p>
+<img src="/2018/12/31/Http网络请求浅析/http4.png" title="http">
+<h3 id="1、请求报文"><a href="#1、请求报文" class="headerlink" title="1、请求报文"></a>1、请求报文</h3><p>一个HTTP的请求报文通常由请求行，请求头部，空行(CR + LF)，请求数据4个部分组成，如图：</p>
+<img src="/2018/12/31/Http网络请求浅析/http5.png" title="http">
 <ul>
-<li><strong>请求行</strong><br>又叫起始行，就是报文的第一行，在请求报文中说明要以什么方式做什么请求，而在响应报文中粗略的说明了简略的报文执行结果。</li>
-<li><strong>请求首部</strong><br>又叫首部字段，起始行后由零个或多个首部字段，每个字段包含一个key和value，用冒号分割（如Connection：keep-Alive）。首部以一个空行结束。</li>
-<li><strong>请求数据</strong><br>又叫主体，其中可以包含任意类型的数据（如图片，视频等），而首部和起始行只能是文本形式。在请求主体中包括了要发送给Web服务器的数据，在响应主体中装载了要返回给客户端的数据。<h3 id="1、请求报文"><a href="#1、请求报文" class="headerlink" title="1、请求报文"></a>1、请求报文</h3>下面以GET、DELETE、PULL、POST举例。</li>
+<li><p><strong>请求行</strong></p>
+<p>又叫起始行，就是报文的第一行，在请求报文中说明要以什么方式做什么请求。</p>
+</li>
+<li><p><strong>请求头部</strong><br>又叫首部字段，起始行后由零个或多个首部字段，每个字段包含一个key和value，用冒号分割（如Connection：keep-Alive），首部以一个CR + LF结束，如果再细分，首部字段又可以分为请求首部字段、通用首部字段和实体首部字段。</p>
+</li>
+<li><p><strong>请求数据</strong><br>又叫主体，其中可以包含任意类型的数据（如图片，视频等），而首部和起始行只能是文本形式，在请求主体中包括了要发送给Web服务器的数据。</p>
+</li>
 </ul>
-<h4 id="1-1、GET、DELETE的请求报文"><a href="#1-1、GET、DELETE的请求报文" class="headerlink" title="1.1、GET、DELETE的请求报文"></a>1.1、GET、DELETE的请求报文</h4><p>对于GET和DELETE来说，它们的所有参数都是拼接在URL最后，第一个参数前通过”?”连接，然后请求参数按照”key=value”格式进行追加，每个请求参数之间通过”&amp;”连接，如<a href="http://www.myhost.com/text/?id=1&amp;name=rain，如果是GET请求表示获取http://www.myhost.com/text/" target="_blank" rel="noopener">http://www.myhost.com/text/?id=1&amp;name=rain，如果是GET请求表示获取http://www.myhost.com/text/</a> 下用户id为1，名为rain的文本，如果是DELETE请求表示删除该文本。<br><code>注意：GET和DELETE的URL最长度为1024字节（1KB）</code></p>
+<p>不同的请求方式，它们的请求报文格式可能有点差别的，有些请求方式它的请求数据为空，有些则不为空，但是请求行和请求头部是必须存在的，下面以GET、DELETE、PULL、POST举例：</p>
+<h4 id="1-1、GET、DELETE的请求报文"><a href="#1-1、GET、DELETE的请求报文" class="headerlink" title="1.1、GET、DELETE的请求报文"></a>1.1、GET、DELETE的请求报文</h4><p>对于GET和DELETE来说，它们的所有参数都是拼接在URL最后，第一个参数前通过”?”连接，然后请求参数按照”key=value”格式进行追加，每个请求参数之间通过”&amp;”连接，如 <strong><a href="http://www.myhost.com/text/?id=1&amp;name=rain" target="_blank" rel="noopener">http://www.myhost.com/text/?id=1&amp;name=rain</a></strong>，如果是GET请求表示获取 <strong><a href="http://www.myhost.com/text/" target="_blank" rel="noopener">http://www.myhost.com/text/</a></strong> 下用户id为1，名为rain的文本，如果是DELETE请求表示删除该文本。</p>
+<p><code>注意：GET和DELETE的URL最长度为1024字节（1KB）</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /?id=1&amp;name=rain HTTP/1.1</span><br><span class="line">Host: www.myhost.com</span><br><span class="line">Cache-Control: no-cache</span><br></pre></td></tr></table></figure>
-<p>从上面的HTTP请求格式知，第一行为请求行，表明请求方式为GET，子路径为 /?id=1&amp;name=rain，HTTP版本为1.1。后两行为请求头部，Host为主机地址，Cache-Control为no-cache。因为GET,DELETE的请求参数都在URL中，所以请求数据为空。</p>
-<h4 id="1-2、PULL、POST的请求报文"><a href="#1-2、PULL、POST的请求报文" class="headerlink" title="1.2、PULL、POST的请求报文"></a>1.2、PULL、POST的请求报文</h4><p>而对于PULL和POST来说，它们的报文格式一般是表单格式，也就是说请求参数存储在请求数据（主体）位置上：</p>
+<p>从上面的HTTP请求格式知，第一行为请求行，表明请求方式为GET，子路径为 /?id=1&amp;name=rain，HTTP版本为1.1。后两行为请求首部，Host为主机地址，Cache-Control为no-cache。因为GET,DELETE的请求参数都在URL中，所以请求数据为空。</p>
+<h4 id="1-2、PULL、POST的请求报文"><a href="#1-2、PULL、POST的请求报文" class="headerlink" title="1.2、PULL、POST的请求报文"></a>1.2、PULL、POST的请求报文</h4><p>而对于PULL和POST来说，它们的报文格式一般是表单格式，也就是说请求参数存储在请求数据位置上：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">POST /local/ HTTP/1.1</span><br><span class="line">Host: www.myhost.com</span><br><span class="line">Accept-Encoding：gzip</span><br><span class="line">Content-Length: 222222</span><br><span class="line">Content-Type:multipart/from-data；boundary=dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Connection：Keep-Alive</span><br><span class="line"></span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Content-Disposition：from-data；name=“username”</span><br><span class="line">Content-Type：text/plain：charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: 8bit</span><br><span class="line"></span><br><span class="line">rain</span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Content-Diaposition:from-data:name=&quot;image&quot;</span><br><span class="line">filename=&quot;/storage/emulated/0/image/1234.png&quot;</span><br><span class="line">Content-Type:application/octet-stream</span><br><span class="line">Content-Transfer-Encoding:binary</span><br><span class="line"></span><br><span class="line">图片二进制数据，在此省略...</span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde--</span><br></pre></td></tr></table></figure>
-<p>上述的请求含义是向<a href="http://www.myhost.com/local/这个地址发送一个POST请求，请求的数据格式为multipart/from-data，报文的boundary值为dRGP2cPPTxE6WRTssnh4jC7HJLcSde，报文有两个请求参数：一个是名为username的文本，值为rain；一个是名为image的二进制参数，值为图片的二进制数据。" target="_blank" rel="noopener">http://www.myhost.com/local/这个地址发送一个POST请求，请求的数据格式为multipart/from-data，报文的boundary值为dRGP2cPPTxE6WRTssnh4jC7HJLcSde，报文有两个请求参数：一个是名为username的文本，值为rain；一个是名为image的二进制参数，值为图片的二进制数据。</a><br>请求参数是以两个横杠（–）加上boundary开始的，然后是请求参数的一些首部属性，如参数名，格式等，然后加上一个空行，最后才是参数的值，如上述的username=name。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde		//两横杠加boundary</span><br><span class="line">Content-Disposition：from-data；name=“username”//以下三个参数时首部属性</span><br><span class="line">Content-Type：text/plain：charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: 8bit</span><br><span class="line">						//不可省略的空行</span><br><span class="line">rain						//参数值</span><br></pre></td></tr></table></figure>
+<p>上述的请求含义是向 <strong><a href="http://www.myhost.com/local/" target="_blank" rel="noopener">http://www.myhost.com/local/</a></strong> 这个地址发送一个POST请求，请求的数据格式为multipart/from-data，报文的boundary值为dRGP2cPPTxE6WRTssnh4jC7HJLcSde，报文有两个请求参数：一个是名为username的文本，值为rain；一个是名为image的二进制参数，值为图片的二进制数据。</p>
+<p>请求参数是以两个横杠（–）加上boundary开始的，然后是请求参数的一些首部属性，如参数名，格式等，然后加上一个空行，最后才是参数的值，如上述的username=name，其表示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde		//两横杠加boundary</span><br><span class="line">Content-Disposition：from-data；name=“username”//以下三个参数是首部属性</span><br><span class="line">Content-Type：text/plain：charset=UTF-8</span><br><span class="line">Content-Transfer-Encoding: 8bit</span><br><span class="line">						//不可省略的空行</span><br><span class="line">rain						//参数值</span><br></pre></td></tr></table></figure>
 <p>POST和PULL都要遵守这种格式，每个参数以两横杠加boundary分隔，参数首部与值之间有一个空行。</p>
-<blockquote>
-<p>这里要注意，请求数据的最后是以两个横杆+boundary+两个横杠结束作为整个报文的结束符。如这里的- -dRGP2cPPTxE6WRTssnh4jC7HJLcSde- -</p>
-</blockquote>
-<h3 id="2、响应报文"><a href="#2、响应报文" class="headerlink" title="2、响应报文"></a>2、响应报文</h3><p>由状态行、消息报头、响应正文组成，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;状态行&gt;</span><br><span class="line">&lt;响应报文首部&gt;</span><br><span class="line">&lt;空行&gt;</span><br><span class="line">&lt;响应报文内容&gt;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到与请求报文的格式类似，不同的就是第一行用状态信息代替了请求信息，格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP-Version Status-Code Reason-Phrase CRLF</span><br></pre></td></tr></table></figure></p>
+<p>请求数据的最后是以两个横杆+boundary+两个横杠结束作为整个报文的结束符，如上面报文的图片二进制数据最后的- -dRGP2cPPTxE6WRTssnh4jC7HJLcSde- -，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Content-Diaposition:from-data:name=&quot;image&quot;</span><br><span class="line">filename=&quot;/storage/emulated/0/image/1234.png&quot;</span><br><span class="line">Content-Type:application/octet-stream</span><br><span class="line">Content-Transfer-Encoding:binary</span><br><span class="line"></span><br><span class="line">图片二进制数据，在此省略...</span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde--	//整个报文的结束符</span><br></pre></td></tr></table></figure>
+<h3 id="2、响应报文"><a href="#2、响应报文" class="headerlink" title="2、响应报文"></a>2、响应报文</h3><p>一个HTTP的响应报文通常由状态行、响应头部、空行(CR + LF)、响应主体组成，如下：</p>
+
+<ul>
+<li><p><strong>状态行</strong></p>
+<p>在响应报文中粗略的说明了报文的执行结果。</p>
+</li>
+<li><p><strong>响应头部</strong></p>
+<p>又叫首部字段，起始行后由零个或多个首部字段，每个字段包含一个key和value，首部以一个CR + LF结束，如果再细分，首部字段又可以分为响应首部字段、通用首部字段和实体首部字段。</p>
+</li>
+<li><p><strong>响应主体</strong></p>
+<p>在响应主体中装载了服务端要返回给客户端的数据。</p>
+</li>
+</ul>
+<p>可以看到响应报文与请求报文的格式类似，最大的不同的就是第一行用状态信息代替了请求信息，格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP-Version Status-Code Reason-Phrase CRLF</span><br></pre></td></tr></table></figure></p>
 <p>其中HTTP-Version代表HTTP协议版本，Status-Code代表响应状态码，Reason-Phrase代表状态码的文本描述，其中状态码的5种取值范围如下：</p>
 <table>
 <thead>
@@ -318,7 +339,8 @@
 <li>500 Internal Server Error：服务器发生不可预估的错误</li>
 <li>503 Server Unavailable：服务器当前不能处理客户端请求，一段时间后可能恢复正常</li>
 </ul>
-<h3 id="3、常见的头部"><a href="#3、常见的头部" class="headerlink" title="3、常见的头部"></a>3、常见的头部</h3><ul>
+<h2 id="常见的首部字段"><a href="#常见的首部字段" class="headerlink" title="常见的首部字段"></a>常见的首部字段</h2><p>这里列举了一些在请求报文和响应报文中常见的首部：</p>
+<ul>
 <li>Content-Type：请求数据的格式</li>
 <li>Content-Length：消息长度</li>
 <li>Host：请求的主机名</li>
@@ -328,7 +350,7 @@
 <li>Connection：允许客户端和服务端指定与请求/响应连接相关的选项，如设置为Connection：Keep-Alive，表示保持连接</li>
 <li>Transfer-Encoding：告知接收端为了保证报文的可靠传输性，对报文采用了什么的编码方式</li>
 </ul>
-<h4 id="3-1、Connection-：Keep-Alive工作原理-长连接"><a href="#3-1、Connection-：Keep-Alive工作原理-长连接" class="headerlink" title="3.1、Connection ：Keep-Alive工作原理 (长连接)"></a>3.1、Connection ：Keep-Alive工作原理 (长连接)</h4><p>从HTTP/1.1起，默认都开启了Keep-Alive保持连接特性，简单地说，当一个网页打开完成后，客户端和服务端之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务端上的网页，会继续使用这一条已经建立的TCP连接，Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同服务器软件中设置这个时间。</p>
+<h3 id="1、Connection-：Keep-Alive工作原理-长连接"><a href="#1、Connection-：Keep-Alive工作原理-长连接" class="headerlink" title="1、Connection ：Keep-Alive工作原理 (长连接)"></a>1、Connection ：Keep-Alive工作原理 (长连接)</h3><p>从HTTP/1.1起，默认都开启了Keep-Alive保持连接特性，简单地说，当一个网页打开完成后，客户端和服务端之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务端上的网页，会继续使用这一条已经建立的TCP连接，Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同服务器软件中设置这个时间。</p>
 <p>那么，长连接是如何工作的呢？长短连接是运输层（TCP）的概念，HTTP是应用层协议，它只能说告诉运输层我打算一段时间内复用TCP通道，而没有自己去建立、释放TCP通道的能力。那么HTTP是如何告诉运输层复用TCP通道的呢？分为以下几个步骤：</p>
 <ul>
 <li>客户端第一次发送请求报文时，顺带发送一个Connection: keep-alive的Header，表示需要保持连接，同时客户端可以顺带发送Keep-Alive: timeout=5,max=100这个Header给服务端</li>
@@ -350,7 +372,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-08-31T12:53:41.821Z" itemprop="dateUpdated">2019-08-31 20:53:41</time>
+    Last updated: <time datetime="2019-10-12T11:23:04.015Z" itemprop="dateUpdated">2019-10-12 19:23:04</time>
 </span><br>
 
 
