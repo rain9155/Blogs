@@ -34,7 +34,8 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http3.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http4.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http5.png">
-<meta property="og:updated_time" content="2019-10-12T11:23:04.015Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http6.png">
+<meta property="og:updated_time" content="2019-10-12T11:35:11.888Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Http网络请求浅析">
 <meta name="twitter:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
@@ -132,7 +133,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -284,7 +285,7 @@
 <p>请求数据的最后是以两个横杆+boundary+两个横杠结束作为整个报文的结束符，如上面报文的图片二进制数据最后的- -dRGP2cPPTxE6WRTssnh4jC7HJLcSde- -，如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde</span><br><span class="line">Content-Diaposition:from-data:name=&quot;image&quot;</span><br><span class="line">filename=&quot;/storage/emulated/0/image/1234.png&quot;</span><br><span class="line">Content-Type:application/octet-stream</span><br><span class="line">Content-Transfer-Encoding:binary</span><br><span class="line"></span><br><span class="line">图片二进制数据，在此省略...</span><br><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde--	//整个报文的结束符</span><br></pre></td></tr></table></figure>
 <h3 id="2、响应报文"><a href="#2、响应报文" class="headerlink" title="2、响应报文"></a>2、响应报文</h3><p>一个HTTP的响应报文通常由状态行、响应头部、空行(CR + LF)、响应主体组成，如下：</p>
-
+<img src="/2018/12/31/Http网络请求浅析/http6.png" title="http">
 <ul>
 <li><p><strong>状态行</strong></p>
 <p>在响应报文中粗略的说明了报文的执行结果。</p>
@@ -372,7 +373,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-12T11:23:04.015Z" itemprop="dateUpdated">2019-10-12 19:23:04</time>
+    最終更新：<time datetime="2019-10-12T11:35:11.888Z" itemprop="dateUpdated">2019-10-12 19:35:11</time>
 </span><br>
 
 
@@ -529,7 +530,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
