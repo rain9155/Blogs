@@ -125,7 +125,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -157,6 +157,58 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-使用AIDL来进行进程间通信"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-10-21 21:04:01" datetime="2019-10-21T13:04:01.000Z"  itemprop="datePublished">2019-10-21</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/android/">android</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/10/21/使用AIDL来进行进程间通信/">使用AIDL来进行进程间通信</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言AIDL它是Android众多进程间通信方式中的一种，底层是Binder机制的实现，所以想要读懂AIDL自动生成的代码中各个类的作用，就必须对Binder有一定的了解，其实不止AIDL，Android进程间通信的大多数方式的底层都是Binder机制，本文主要介绍AIDL的使用，所以不会介绍Binder机制的原理，关于Binder机制的原理，我推荐下面的一篇文章，零基础也能看懂：
+写给 Android 应用工程师的 Binder 原理剖析
+看完上面的文章你也就能对Binder原理的实现有大概的了解，对于我们Android应用开发也就足够了，如果你还不满足，想从底层和源码了解Binder机制，你可以阅读下面的两个链接：
+Android Bander设计与实现
+Binder系列—开篇
+上面两个系列就是从设计和源码的角度去解读Binder，有点深入。好了，对Binder有一个大体上的认识后，接下来我们就要通过AIDL的使用来完成Android进程间通信的实践。
+    
+
+        <a href="/2019/10/21/使用AIDL来进行进程间通信/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AIDL/">AIDL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPC/">IPC</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-策略模式"
@@ -191,7 +243,7 @@
     
 
         <a href="/2019/10/19/策略模式/" class="post-more waves-effect waves-button">
-            続きを読む…
+            Continue reading...
         </a>
     </div>
     
@@ -240,7 +292,7 @@
     
 
         <a href="/2019/10/15/代理模式/" class="post-more waves-effect waves-button">
-            続きを読む…
+            Continue reading...
         </a>
     </div>
     
@@ -290,7 +342,7 @@
     
 
         <a href="/2019/10/08/从进程的角度看Android的系统架构/" class="post-more waves-effect waves-button">
-            続きを読む…
+            Continue reading...
         </a>
     </div>
     
@@ -337,54 +389,7 @@
     
 
         <a href="/2019/09/07/工厂模式/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Builder模式"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-09-07 19:35:25" datetime="2019-09-07T11:35:25.000Z"  itemprop="datePublished">2019-09-07</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/09/07/Builder模式/">Builder模式</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对外部隐藏实现细节，就可以使用Builder模式将部件和组装过程分离，使得构建过程和部件可以自由扩展，两者之间的耦合度也降到最低。
-    
-
-        <a href="/2019/09/07/Builder模式/" class="post-more waves-effect waves-button">
-            続きを読む…
+            Continue reading...
         </a>
     </div>
     
@@ -418,7 +423,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
