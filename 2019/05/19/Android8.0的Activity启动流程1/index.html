@@ -25,18 +25,18 @@
 <meta name="keywords" content="源码,activity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android8.0的Activity启动流程(1)">
-<meta property="og:url" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/activity3.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/activity1.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/activity2.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity2.png">
 <meta property="og:updated_time" content="2019-10-26T05:58:10.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android8.0的Activity启动流程(1)">
 <meta name="twitter:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/activity3.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity3.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -190,7 +190,7 @@
     </aside>
 
 
-<article id="post-Android8.0的Activity启动流程(1)"
+<article id="post-Android8.0的Activity启动流程1"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
@@ -301,7 +301,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <li><strong>1、Activity的启动流程是怎样的？</strong></li>
 </ul>
 <p>从应用调用一个startActivity方法开始，应用进程开始请求AMS启动Activity，然后在AMS中Activity完成它的一系列准备，最后再回到应用进程中开始回调Activity的生命周期，本文回答了一半这个问题，即本文讲解了应用进程开始请求AMS启动Activity，然后在AMS中完成它的一系列准备的过程，这个过程用时序图表示如下：</p>
-<img src="/2019/05/19/Android8.0的Activity启动流程(1)/activity3.jpg" title="activity3">
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity3.jpg" title="activity3">
 <ul>
 <li><strong>2、Activity的生命周期方法是如何被回调的？</strong></li>
 </ul>
@@ -310,10 +310,10 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <li><strong>3、它启动过程中涉及到多少个进程？</strong></li>
 </ul>
 <p>答案是2个，前言已经讲过本文讨论的是普通Activity的启动流程，<strong>即我们平时调用startActivity方法来启动一个Activity</strong>，所以本文这个过程涉及的进程可以可以用下面这个图表示：</p>
-<img src="/2019/05/19/Android8.0的Activity启动流程(1)/activity1.png" title="activity1">
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity1.png" title="activity1">
 <p>图中AppProcess代表应用所在进程，systemServer代表AMS所在进程，两个进程之间通过Binder进行通信，实现了XX.Stub的类就可以进行Binder通信，如本文的ApplicationThread和AMS都实现了各自的Stub类，所以应用进程startActivity时请求AMS启动Activity，AMS准备好后，再发送scheduleLaunchActivity请求告诉应用可以开始启动Activity了。</p>
 <p>那么如果是前言所讲的第一种启动Activity的过程，<strong>即在Launch界面点击一个应用图标启动应用程序</strong>，那么会涉及多少个进程？答案是4个，如图：</p>
-<img src="/2019/05/19/Android8.0的Activity启动流程(1)/activity2.png" title="activity2">
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity2.png" title="activity2">
 <p>可以看到会涉及Launcher进程、SystemServer进程、App进程、Zygote进程。关于这些进程的简单信息可以看这篇<a href="https://rain9155.github.io/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" target="_blank" rel="noopener">从进程的角度看Android的系统架构</a></p>
 <p>阅读源码真的是一个漫长的过程，又时候看别人写的那么简单，但是当自己去写，才发现要考虑的东西很多，所以这是一个日积月累的过程，所以阅读源码的时候，最好跟着前人的文章阅读，这样理解的更快。</p>
 <p>参考文章：</p>
@@ -328,7 +328,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-26T05:58:10.302Z" itemprop="dateUpdated">2019-10-26 13:58:10</time>
+    最終更新：<time datetime="2019-10-26T05:58:10.302Z" itemprop="dateUpdated">2019-10-26 13:58:10</time>
 </span><br>
 
 
@@ -364,7 +364,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -374,22 +374,22 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&source=前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&source=前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android8.0的Activity启动流程(1)》 — jianyu的博客&url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android8.0的Activity启动流程(1)》 — jianyu的博客&url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -492,7 +492,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
@@ -514,7 +514,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -524,22 +524,22 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&source=前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/&title=《Android8.0的Activity启动流程(1)》 — jianyu的博客&source=前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android8.0的Activity启动流程(1)》 — jianyu的博客&url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android8.0的Activity启动流程(1)》 — jianyu的博客&url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -550,7 +550,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpUlEQVR42u3aQU4DMQwFUO5/adgiQcO3HbcVel1VZSbNC9LYtf3xEb8+f7weXZPcm6/2/a+PrrzwwsPDwxtv/dHS5w393ESy5iPM+XsLh4WHh4e3xks2en5wJ/eeGeeQkAQJPDw8vHfmndl5kEjCDB4eHt5/4vVCxaR4gYeHh/c+vF7hIC9b5HdNyhx4eHh4z+HlXaT3eb/S38PDw8Mbd9XzdHb+mE4S7vJu8fDw8BZ480LDpKFVLYU094mHh4d3lVctGSStqTM+DwDVo/nlPR4eHt4aL09w80ZUtbQxLwc3O3t4eHh4g9bX5Gf/vK2VNNuqrTg8PDy8DV6eHPea99Vt9Yod5TYYHh4e3iXexnBVNXFPjrsZGPDw8PAu8aqt/cmjv3d9bzU8PDy8bV6+XL7F0ZjUpUIwHh4e3gbv7rjAPL3uBYA/jgYPDw9vgTdJo3uNrmqpopeg4+Hh4e3xqjf0hgaSkJN/nh8rHh4e3gZvsukkzc1HBPKoVShG4OHh4V3l3SrI9ppYeXrdo+Lh4eFt8Hol3TxUVEPI3fYbHh4e3gbvVpPp7kFMhgkKcQ8PDw9vwMsfzQmylxznK+Ph4eG9lpeXCXrtsfMneWOsOpKFh4eHt827u608NZ+PBeT/GDw8PLy7vOqIQH4ESaE2T+Kb5RI8PDy8p/CqzbDeMEG1qJEPNODh4eE9hzf54knBYjTpMK8Q4+Hh4bVg+StvkuX3TnJgPDw8vOfzes/YXomhWlyYXF/G4+Hh4RV51fZ8r3xQ6MUdVy433vDw8PDWeL3SQxIkkihUaGjdqrXg4eHhvZSXp7mTMYXqnvHw8PDeh5cXHfKSbrXxVkjN8fDw8NZ41fGpvHiRh4HyQz9J3/Hw8PAWeNVf9Le2mB9Kj42Hh4e3wPsC/UG7YDgfu4sAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3aQXLjMAwEQP//09nrXizPAGTiQ+vkshWRrVSRqAFfr/j6+e969+vzX+XXuxHfjXLgwsPDw1tMPRns+Z53n2fT3cwHDw8P7zbvebnPl/6cOsPkc8bDw8P7Ht6HhXhR2c5eHx4eHt7382bhxdkXgYeHh/cNvPZxs4GTWOGZfTFrwcPDw5tUsK/80X/7+Up/Dw8PD29dvM4i2iSuTUrhZCv6MFs8PDy8C7wbLfw2mMijkHaeeHh4eL/DS9r2m+1h02wbFt94eHh4R3mbw6ObRleyteTff8in8fDw8C7z8pZS2/RqqfnGEMUQeHh4eId47SGAfLC8UG5HrJtheHh4eBd4mzK3bZIlU3xe6OuNAQ8PD+8CL59u3pSaHTt4Js1eIh4eHt5ZXrKw7pth9TGpQxUyHh4e3g3erA3WvprZ0YF8A/gwZzw8PLyjvFmpuoke9uC8QMfDw8O7wTsFOBte5HtaVI7j4eHhXeMl4Wm+QLdtqrasr8MIPDw8vAu8ffGabx6nwtwoaMbDw8O7wGuPEWymm3+zabbV2TMeHh5ezEsCglmR3R47qP8PSUyMh4eHd4E3u3UWN+RlcfsrHh4e3u/z8kg0Z7SHqGaF+7GsBQ8PD6/k5QtuHl4k0cP+WMCBOBgPDw9vxMsX+iQ4aIPafePtw8vCw8PDu8abNebz6Dbfi/JyudgY8PDw8C7z2lB10+Y/Fiu8mzkeHh7eUd5PebXbQ95Cy19WwcbDw8O7wGsX3H07Kg8XNvfXeDw8PLyS1066jRLyV9M+LWqt4eHh4V3jzeLUPFptM5JjRTMeHh7e1/Da5+TRRh5YDFNqPDw8vD/itY38pBTel+lX9j08PDy8MqJ9DmTb9lgdJYw2Hjw8PLzbvFk4u5lK2x6bjYWHh4d3gfcPBXEDJ9T+YQ8AAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
