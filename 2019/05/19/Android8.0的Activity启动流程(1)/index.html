@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/activity3.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/activity1.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(1)/activity2.png">
-<meta property="og:updated_time" content="2019-10-26T05:31:54.890Z">
+<meta property="og:updated_time" content="2019-10-26T05:58:10.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android8.0的Activity启动流程(1)">
 <meta name="twitter:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -314,7 +314,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <p>图中AppProcess代表应用所在进程，systemServer代表AMS所在进程，两个进程之间通过Binder进行通信，实现了XX.Stub的类就可以进行Binder通信，如本文的ApplicationThread和AMS都实现了各自的Stub类，所以应用进程startActivity时请求AMS启动Activity，AMS准备好后，再发送scheduleLaunchActivity请求告诉应用可以开始启动Activity了。</p>
 <p>那么如果是前言所讲的第一种启动Activity的过程，<strong>即在Launch界面点击一个应用图标启动应用程序</strong>，那么会涉及多少个进程？答案是4个，如图：</p>
 <img src="/2019/05/19/Android8.0的Activity启动流程(1)/activity2.png" title="activity2">
-<p>可以看到会涉及Launcher进程、SystemServer进程、App进程、Zygote进程。关于这些进程的简单信息可以看这篇<a href="https://blog.csdn.net/Rain_9155/article/details/88831678" target="_blank" rel="noopener">从进程的角度看Android的系统架构</a></p>
+<p>可以看到会涉及Launcher进程、SystemServer进程、App进程、Zygote进程。关于这些进程的简单信息可以看这篇<a href="https://rain9155.github.io/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" target="_blank" rel="noopener">从进程的角度看Android的系统架构</a></p>
 <p>阅读源码真的是一个漫长的过程，又时候看别人写的那么简单，但是当自己去写，才发现要考虑的东西很多，所以这是一个日积月累的过程，所以阅读源码的时候，最好跟着前人的文章阅读，这样理解的更快。</p>
 <p>参考文章：</p>
 <p>《Android开发艺术探索》</p>
@@ -328,7 +328,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-26T05:31:54.890Z" itemprop="dateUpdated">2019-10-26 13:31:54</time>
+    Last updated: <time datetime="2019-10-26T05:58:10.302Z" itemprop="dateUpdated">2019-10-26 13:58:10</time>
 </span><br>
 
 
@@ -492,7 +492,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">

@@ -21,19 +21,19 @@
     
     
     <meta name="keywords" content="源码,activity">
-    <meta name="description" content="前言 上一篇文章Activity的启动流程（1）  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中Appl">
+    <meta name="description" content="前言 上一篇文章Android8.0的Activity启动流程(1)/&amp;gt;)  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍">
 <meta name="keywords" content="源码,activity">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android8.0的Activity启动流程(2)">
 <meta property="og:url" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(2)/index.html">
 <meta property="og:site_name" content="jianyu的博客">
-<meta property="og:description" content="前言 上一篇文章Activity的启动流程（1）  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中Appl">
+<meta property="og:description" content="前言 上一篇文章Android8.0的Activity启动流程(1)/&amp;gt;)  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(2)/activity1.jpg">
-<meta property="og:updated_time" content="2019-10-26T05:35:09.946Z">
+<meta property="og:updated_time" content="2019-10-26T06:06:43.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android8.0的Activity启动流程(2)">
-<meta name="twitter:description" content="前言 上一篇文章Activity的启动流程（1）  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中Appl">
+<meta name="twitter:description" content="前言 上一篇文章Android8.0的Activity启动流程(1)/&amp;gt;)  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍">
 <meta name="twitter:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(2)/activity1.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
@@ -142,7 +142,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -206,7 +206,7 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
-<li>上一篇文章<a href="https://rain9155.github.io/2019/05/19/Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%EF%BC%881%EF%BC%89/" target="_blank" rel="noopener">Activity的启动流程（1）</a></li>
+<li>上一篇文章<a href="https://rain9155.github.io/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B(1" target="_blank" rel="noopener">Android8.0的Activity启动流程(1)</a>/&gt;)</li>
 </ul>
 <p>上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，<strong>Activity的生命周期方法是如何被回调的？</strong>，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中ApplicationThread启动Activity的过程。</p>
 <a id="more"></a>
@@ -299,7 +299,7 @@ frameworks/base/core/java/android/app/Instrumentation.java
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到目前为止我们已经回调了Activity的三个生命周期方法：onCreate -&gt; onStart -&gt; onResume，onRestart也介绍了一下，可以说开头那个问题已经解解决了一半，我先来看一下本文的时序图：</p>
 <img src="/2019/05/19/Android8.0的Activity启动流程(2)/activity1.jpg" title="activity1">
 <p>所以现在我们知道了在应用进程中ApplicationThread启动Activity的过程。</p>
-<p>那么还有三个方法：onPause -&gt; onStop -&gt; onDestory 什么时候被回调呢？大家都知道Activity有7个生命周期方法，除去onRestart，其他3个都是一 一对应的，结合前面那篇文章<a href="https://rain9155.github.io/2019/05/19/Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%EF%BC%881%EF%BC%89/" target="_blank" rel="noopener">Activity的启动流程（1）</a>我们知道：</p>
+<p>那么还有三个方法：onPause -&gt; onStop -&gt; onDestory 什么时候被回调呢？大家都知道Activity有7个生命周期方法，除去onRestart，其他3个都是一 一对应的，结合前面那篇文章<a href="[https://rain9155.github.io/2019/05/19/Android8.0的Activity启动流程(1">Android8.0的Activity启动流程(1)</a>/](<a href="https://rain9155.github.io/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B(1)/)我们知道：" target="_blank" rel="noopener">https://rain9155.github.io/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B(1)/)我们知道：</a></p>
 <ul>
 <li><p>1、在AMS中含有ApplicatiThread的本地代理，所以AMS所在进程可以通过这个代理与ActivityThread的主线程通信，也就能调用ApplicatiThread的一些方法。</p>
 </li>
@@ -322,7 +322,7 @@ frameworks/base/core/java/android/app/Instrumentation.java
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-26T05:35:09.946Z" itemprop="dateUpdated">2019-10-26 13:35:09</time>
+    Last updated: <time datetime="2019-10-26T06:06:43.984Z" itemprop="dateUpdated">2019-10-26 14:06:43</time>
 </span><br>
 
 
@@ -369,9 +369,9 @@ frameworks/base/core/java/android/app/Instrumentation.java
       </li>
       <li>
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(2)/&title=《Android8.0的Activity启动流程(2)》 — jianyu的博客&source=前言
-上一篇文章Activity的启动流程（1）
+上一篇文章Android8.0的Activity启动流程(1)/&gt;)
 
-上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后A..." data-title=" QQ">
+上一篇文章讲了应用进程请求AMS启动Activity过程和Activi..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -489,7 +489,7 @@ frameworks/base/core/java/android/app/Instrumentation.java
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -522,9 +522,9 @@ frameworks/base/core/java/android/app/Instrumentation.java
       </li>
       <li>
         <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/05/19/Android8.0的Activity启动流程(2)/&title=《Android8.0的Activity启动流程(2)》 — jianyu的博客&source=前言
-上一篇文章Activity的启动流程（1）
+上一篇文章Android8.0的Activity启动流程(1)/&gt;)
 
-上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后A..." data-title=" QQ">
+上一篇文章讲了应用进程请求AMS启动Activity过程和Activi..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
