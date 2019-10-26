@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler1.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler2.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler3.png">
-<meta property="og:updated_time" content="2019-10-26T06:01:06.666Z">
+<meta property="og:updated_time" content="2019-10-26T06:40:43.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android消息机制(java层)">
 <meta name="twitter:description" content="前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中有大量的交互都是通过消息机制，比如Android的四大组件的启动过程的交互就离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统。">
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -240,7 +240,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
 <p>next函数看起来有点多代码，但这里只分析核心部分，其实MessageQueue是消息机制的Java层和C++层的连接纽带，大部分核心方法都交给native层来处理，这里的mPtr是指向native层的NativeMessageQueue对象，在MessageQueue构造中被赋值, 如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MessageQueue(<span class="keyword">boolean</span> quitAllowed) &#123;</span><br><span class="line">   mQuitAllowed = quitAllowed;</span><br><span class="line">   <span class="comment">//通过native方法初始化消息队列，其中mPtr是供native代码使用</span></span><br><span class="line">   mPtr = nativeInit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>next方法也是一个死循环，最主要的方法是nativePollOnce(),它是一个阻塞操作，其中nextPollTimeoutMillis代表下一个消息到来前，还需要等待的时长，当nextPollTimeoutMillis = -1时，表示消息队列中无消息，会一直等待下去，则next方法将会一直阻塞在这里，当有新消息到来时，next方法会返回这条消息并将其从单链表中删除。可以发现虽然MessageQueue叫消息队列，但它却不是用队列实现的，而是用链表实现的。</p>
 <pre><code>MessageQueue是消息机制的核心类，它里面有大量的native方法，Android有俩套消息机制（java层和native层，实现不一样），但本文只讲解java层的消息机制，不会涉及到native层。
-</code></pre><p>关于native层的查看<a href="https://rain9155.github.io/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6(native%E5%B1%82" target="_blank" rel="noopener">Android消息机制（native层）</a>/)。</p>
+</code></pre><p>关于native层的查看<a href="https://rain9155.github.io/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6native%E5%B1%82/" target="_blank" rel="noopener">Android消息机制（native层）</a>。</p>
 <h3 id="3、消息的分发"><a href="#3、消息的分发" class="headerlink" title="3、消息的分发"></a>3、消息的分发</h3><p>如果loop方法中next()返回了null，那么就会执行到这一句” msg.target.dispatchMessage(msg)<br>“,Looper会把这条消息交给Message的target（Handler对象）来处理, 实际上是转了一圈，Handler把消息发送给消息队列，Looper又把这个消息给Handler处理。<strong>注意：在本文的情景下，loop方法这个时候是执行在主线程的，因为Looper是在主线程中创建的，所以到了这里，消息的处理就切换到主线程了，这就是Handler线程切换的原理，Handler发送的消息的线程不处理消息，只有在Looper.loop()中将消息取出来后再进行处理，所以在Handler机制中，无论发送消息的Handler对象处于什么线程，最终处理都是运行在Looper.loop()所在线程。</strong><br>下面来看消息分发逻辑，dispatchMessage()源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dispatchMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//1、检查msg的callback是否为空</span></span><br><span class="line">       <span class="keyword">if</span> (msg.callback != <span class="keyword">null</span>) &#123;</span><br><span class="line">           handleCallback(msg);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="comment">//2、Handler的mCallback是否为空</span></span><br><span class="line">           <span class="keyword">if</span> (mCallback != <span class="keyword">null</span>) &#123;</span><br><span class="line">               <span class="keyword">if</span> (mCallback.handleMessage(msg)) &#123;</span><br><span class="line">                   <span class="keyword">return</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//3、我们平常处理消息的方法，该方法默认为空，Handler子类通过覆写该方法来完成具体的逻辑。</span></span><br><span class="line">           handleMessage(msg);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 <p>里面代码量很少，首先第一步，检查msg.callback是否为空，不为空则执行” handleCallback(msg)”, 源码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">handleCallback</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">       message.callback.run();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
@@ -270,7 +270,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-26T06:01:06.666Z" itemprop="dateUpdated">2019-10-26 14:01:06</time>
+    最終更新：<time datetime="2019-10-26T06:40:43.719Z" itemprop="dateUpdated">2019-10-26 14:40:43</time>
 </span><br>
 
 
@@ -434,7 +434,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
