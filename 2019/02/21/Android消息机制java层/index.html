@@ -25,18 +25,18 @@
 <meta name="keywords" content="源码,handler,native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android消息机制(java层)">
-<meta property="og:url" content="http://yoursite.com/2019/02/21/Android消息机制(java层)/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/21/Android消息机制java层/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中有大量的交互都是通过消息机制，比如Android的四大组件的启动过程的交互就离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制(java层)/handler1.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制(java层)/handler2.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制(java层)/handler3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler3.png">
 <meta property="og:updated_time" content="2019-10-26T06:01:06.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android消息机制(java层)">
 <meta name="twitter:description" content="前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中有大量的交互都是通过消息机制，比如Android的四大组件的启动过程的交互就离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统。">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/21/Android消息机制(java层)/handler1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -190,7 +190,7 @@
     </aside>
 
 
-<article id="post-Android消息机制(java层)"
+<article id="post-Android消息机制java层"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
@@ -214,8 +214,8 @@ frameworks/base/core/java/android/os/MessageQueue.java
 frameworks/base/core/java/android/os/Handler.java
 frameworks/base/core/java/android/os/Looper.java
 frameworks/base/core/java/android/os/Message.java
-</code></pre><h2 id="消息机制概述"><a href="#消息机制概述" class="headerlink" title="消息机制概述"></a>消息机制概述</h2><p>Android应用的每个事件都会转化为一个系统消息即Message，消息中包含了事件的相关信息和消息的处理人即Handler，消息要通过Handler发送，最终被投递到一个消息队列中即MessageQueue，它维护了一个待处理的消息列表，然后通过Looper开启了一个消息循环不断地从这个队列中取出消息，当从消息队列取出一个消息后，Looper根据消息的处理人（target）将此消息分发给相应的Handle处理。它们的工作原理就像工厂的生产线，Looper是发动机，MessageQueue是传送带，Handler是工人，Message则是待处理的产品。整个过程如下图所示。<br><img src="/2019/02/21/Android消息机制(java层)/handler1.png"></p>
-<h2 id="消息机制架构图"><a href="#消息机制架构图" class="headerlink" title="消息机制架构图"></a>消息机制架构图</h2><img src="/2019/02/21/Android消息机制(java层)/handler2.png">
+</code></pre><h2 id="消息机制概述"><a href="#消息机制概述" class="headerlink" title="消息机制概述"></a>消息机制概述</h2><p>Android应用的每个事件都会转化为一个系统消息即Message，消息中包含了事件的相关信息和消息的处理人即Handler，消息要通过Handler发送，最终被投递到一个消息队列中即MessageQueue，它维护了一个待处理的消息列表，然后通过Looper开启了一个消息循环不断地从这个队列中取出消息，当从消息队列取出一个消息后，Looper根据消息的处理人（target）将此消息分发给相应的Handle处理。它们的工作原理就像工厂的生产线，Looper是发动机，MessageQueue是传送带，Handler是工人，Message则是待处理的产品。整个过程如下图所示。<br><img src="/2019/02/21/Android消息机制java层/handler1.png"></p>
+<h2 id="消息机制架构图"><a href="#消息机制架构图" class="headerlink" title="消息机制架构图"></a>消息机制架构图</h2><img src="/2019/02/21/Android消息机制java层/handler2.png">
 <ul>
 <li>Looper  — 是每个线程的MessageQueue管家，里面有一个MessageQueue消息队列，负责把消息从MessageQueue中取出并把消息传递到Handler中去，每个线程只有一个Looper。</li>
 <li>MessageQueue  —  消息队列，有一组待处理的Message，主要用于存放所有通过Handler发送的消息，每个线程只有一个MessageQueue。</li>
@@ -249,7 +249,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
 <p>如果msg.callback为空，就到第二步，检查mCallback是否为空，mCallback是一个Callback接口，定义如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Callback</span> </span>&#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span></span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <p>当我们这样来创建Handler: Handler handler = new Handler(callback)时, mCallback就不为空，它的意义是当我们不想派生Handler的子类重写handleMessage()来处理消息时，就可以通过Callback来实现。</p>
 <p>如果mCallback为空，就到第三步，调用Handler的handleMessage方法来处理消息。</p>
-<h3 id="4、消息的发送"><a href="#4、消息的发送" class="headerlink" title="4、消息的发送"></a>4、消息的发送</h3><p>前面讲到消息的接收处理最终是在Handler中进行，而消息的发送也是通过Handler进行，消息的发送可以通过handler的一系列post方法和一系列的send方法，一系列post方法最终通过一系列send方法来实现，如图：<br><img src="/2019/02/21/Android消息机制(java层)/handler3.png"><br>从上图，可以发现所有的发消息方式，最终都是调用MessageQueue.enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis)，该方法源码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">enqueueMessage</span><span class="params">(MessageQueue queue, Message msg, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</span><br><span class="line">       msg.target = <span class="keyword">this</span>;</span><br><span class="line">       <span class="keyword">if</span> (mAsynchronous) &#123;</span><br><span class="line">           msg.setAsynchronous(<span class="keyword">true</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> queue.enqueueMessage(msg, uptimeMillis);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、消息的发送"><a href="#4、消息的发送" class="headerlink" title="4、消息的发送"></a>4、消息的发送</h3><p>前面讲到消息的接收处理最终是在Handler中进行，而消息的发送也是通过Handler进行，消息的发送可以通过handler的一系列post方法和一系列的send方法，一系列post方法最终通过一系列send方法来实现，如图：<br><img src="/2019/02/21/Android消息机制java层/handler3.png"><br>从上图，可以发现所有的发消息方式，最终都是调用MessageQueue.enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis)，该方法源码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">enqueueMessage</span><span class="params">(MessageQueue queue, Message msg, <span class="keyword">long</span> uptimeMillis)</span> </span>&#123;</span><br><span class="line">       msg.target = <span class="keyword">this</span>;</span><br><span class="line">       <span class="keyword">if</span> (mAsynchronous) &#123;</span><br><span class="line">           msg.setAsynchronous(<span class="keyword">true</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> queue.enqueueMessage(msg, uptimeMillis);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <p>在该方法中，首先把Message的target字段设置为当前发送消息的Handler,然后设置Message是否是异步消息，最后把所有逻辑交给MessageQueue的enqueueMessage(Message msg, long when)方法，该方法的相应源码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">enqueueMessage</span><span class="params">(Message msg, <span class="keyword">long</span> when)</span> </span>&#123;</span><br><span class="line">	  <span class="comment">//...</span></span><br><span class="line">   <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">     	  <span class="comment">//正在退出时，回收msg，加入到消息池</span></span><br><span class="line">           <span class="keyword">if</span> (mQuitting) &#123;</span><br><span class="line">               <span class="comment">//...</span></span><br><span class="line">               msg.recycle();</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line">            msg.markInUse();</span><br><span class="line">           msg.when = when;</span><br><span class="line">           <span class="comment">//1、取队头消息</span></span><br><span class="line">           Message p = mMessages;</span><br><span class="line">           <span class="comment">//2、如果p为null，则代表MessageQueue没有消息</span></span><br><span class="line">           <span class="comment">//如果when == 0 或 when &lt; p.when, 则代表msg的触发时间是队列中最早的</span></span><br><span class="line">           <span class="comment">//满足上述条件就把msg插入到队列头部</span></span><br><span class="line">           <span class="keyword">if</span> (p == <span class="keyword">null</span> || when == <span class="number">0</span> || when &lt; p.when) &#123;</span><br><span class="line">               msg.next = p;</span><br><span class="line">               mMessages = msg;</span><br><span class="line">               <span class="comment">//...</span></span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">//3、如果p != null且msg并不是最早触发的</span></span><br><span class="line">               <span class="comment">//...              </span></span><br><span class="line">               Message prev;</span><br><span class="line">               <span class="comment">//下面是一个链表的插入操作,将消息按时间顺序插入到MessageQueue </span></span><br><span class="line">               <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">                   prev = p;</span><br><span class="line">                   p = p.next；</span><br><span class="line">                   <span class="keyword">if</span> (p == <span class="keyword">null</span> || when &lt; p.when) &#123;</span><br><span class="line">                       <span class="keyword">break</span>;</span><br><span class="line">                   &#125;  </span><br><span class="line">                   <span class="comment">//...</span></span><br><span class="line">               &#125;</span><br><span class="line">               msg.next = p;</span><br><span class="line">               prev.next = msg;</span><br><span class="line">           &#125;   </span><br><span class="line">           <span class="comment">//消息没有退出，此时mPtr != 0，native层处理逻辑</span></span><br><span class="line">           <span class="keyword">if</span> (needWake) &#123;</span><br><span class="line">               nativeWake(mPtr);</span><br><span class="line">           &#125;     </span><br><span class="line">       &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这个方法主要操作就是一个链表的插入操作，MessageQueue是按照Message触发时间的先后顺序排列的，队头的消息是将要最早触发的消息。当有消息需要加入消息队列时，如果消息队列为空或这个消息是最早触发的，就会直接插入队头，否则会从队列头开始遍历，直到找到消息应该插入的合适位置，以保证所有消息的时间顺序。</p>
 <h3 id="5、消息的复用"><a href="#5、消息的复用" class="headerlink" title="5、消息的复用"></a>5、消息的复用</h3><p>前面多次提到了Message，当我们通过Handler的obtainMessage()或Message的obtain()获取一个Message对象时，系统并不是每次都new一个出来，而是先从消息池中（sPool）尝试获取一个Message。Handler的obtainMessage()最终是调用了Message的obtain()。Message#obtain()的源码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Message <span class="title">obtain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (sPoolSync) &#123;</span><br><span class="line">	    <span class="comment">//从sPool头部取出一个Message对象返回，并把消息从链表断开（即把sPool指向下一个Message）</span></span><br><span class="line">            <span class="keyword">if</span> (sPool != <span class="keyword">null</span>) &#123;</span><br><span class="line">                Message m = sPool;</span><br><span class="line">                sPool = m.next;</span><br><span class="line">                m.next = <span class="keyword">null</span>;</span><br><span class="line">                m.flags = <span class="number">0</span>;<span class="comment">//清除in-use flag</span></span><br><span class="line">                sPoolSize--;<span class="comment">//消息池的大小进行减1操作</span></span><br><span class="line">                <span class="keyword">return</span> m;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//消息池中没有Message，直接new一个返回</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Message();</span><br></pre></td></tr></table></figure></p>
@@ -270,7 +270,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-26T06:01:06.666Z" itemprop="dateUpdated">2019-10-26 14:01:06</time>
+    Last updated: <time datetime="2019-10-26T06:01:06.666Z" itemprop="dateUpdated">2019-10-26 14:01:06</time>
 </span><br>
 
 
@@ -306,7 +306,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android消息机制(java层)/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -316,22 +316,22 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android消息机制(java层)/&title=《Android消息机制(java层)》 — jianyu的博客&source=前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&source=前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android消息机制(java层)/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android消息机制(java层)/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android消息机制java层/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android消息机制(java层)/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -354,7 +354,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/02/21/Android消息机制(native层)/" id="post-prev" class="post-nav-link">
+      <a href="/2019/02/21/Android消息机制native层/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">Android消息机制(native层)</h4>
       </a>
@@ -434,7 +434,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -456,7 +456,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android消息机制(java层)/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -466,22 +466,22 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android消息机制(java层)/&title=《Android消息机制(java层)》 — jianyu的博客&source=前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&source=前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android消息机制(java层)/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android消息机制(java层)/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android消息机制java层/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android消息机制(java层)/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -492,7 +492,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNUlEQVR42u3a22rDMBAFwPz/T6fQt5LGPWflFCyPnoLxRaPAot3V4xGP5/dor7+O/KnHJwYGBsZlGc/D8frh19/vrhzfmSxZMjcMDIz7MPLXtR9IMLPQjIGBgZG87vg9eSBuv4uBgYHRBsr8/uPwjYGBgXHMSJLYFpy8rQ3TJ+TiGBgYF2S0jYH//P3B/gYGBsZFGM9y5CWzPMVtC3m/PIWBgbE1Iyl4zVoFK2lw/s6i2oeBgXFxxucamW0Smwfx4j/BwMDYglEU30te3sicpdMYGBh3YMyOWeRTaQv6w2MfGBgYWzNWAm476WRD2QZ6DAyMOzDq4vthejnbIOZltbf3YGBgbM1IJpfEtFnwbTeLxUYTAwNjI0beVsxbnnnbYHYU45flxsDAuDGjOOKwUJhrAy4GBgbGbHJ5gG6bl8UxCwwMjBswziqH5YG72PwdfxEDA2NrRr4JmwXT9koLq/eSGBgYF2R8oum40vhs/4G3SSwGBsZGjLz12B7IOLfBWZf/MDAwNmKstxjbD7eB+IS1x8DA2IIxC7t50b+dXF7m+7HDxcDA2JSRH6Ro09E8xLeHOf5IXDEwMLZjrKSp+ZYx30oOC3AYGBhbM9rw2h4Xy3PMfCGSxcXAwNiPMesnzEpysyrZabVDDAyMizPastf6orSx/4+FwMDAwIgbAO0xi7NaqhgYGBjr5bCVgBs9i4GBcQPGbDO3jmmT2GEjEwMD4+KMNoFst3frbYPZwQ4MDIwtGF/t0zf19KhFXQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3aQXLDIAwF0Nz/0u5Mt2nIFyKZGh6rTEIxzwtVEjwe8bh+x/Pn8fznMV7heebigYGBcVvGNRzJ1p9nzq2Tr/bHOhgYGAcw8uXywNqZk+8NAwMD49Wc5Jsk7Rt/g4GBgdEPuPn86q8YGBgYc0VsJxEcz/xqLY6BgXFDRudg4NOfv3S+gYGB8Y8ZV3GMw2UespMWW2FXGBgYWzOqjbNOOjhXKhcOQTEwMDZlJGVhp8jMQ+r4WW9eNAYGxjGMtYF47spFtZzGwMA4gdG/8lV9ZH4IWr1+gYGBsTejnwLm7bbqzELAxcDA2JqRPKyaIOYvZS65fFnKYmBgbMrIC9r+RbG8zVcN0xgYGLsy5q5EdMB5cVt4NRgYGAcwqm2vtYG1GnAxMDDOZJSzyDiw5oVx62gBAwPjAMbniti5y2HlhBIDA+MAxtpydG6Fubbdgk4hBgbGTRjVAjLZdN4+m9z6q/8bGBgY2zHybc0tkV+emEs6kzIYAwPj7oykQVbta3VC5/gYoPy+MTAwNmJ0isk8pOabK5fNGBgYWzM+d6xYva7RL5IxMDB2ZVzFkTfIks/LGnAYGBhbM/KRp33JsWX1Gln1yhoGBsZ+jGojvlrufil9xMDAOICxqu019yIWFM8YGBgYQapXbZYlRw6FQ1YMDAyMqbbXqoAb/S0GBsYBjLxZn5+OVsvavG335iQWAwNjO0a1gOwUvZ1iuJ+eYmBg3JDxA4gfYL7gH1xtAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
