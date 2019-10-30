@@ -29,14 +29,16 @@
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity3.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity1.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity2.png">
-<meta property="og:updated_time" content="2019-10-26T05:58:10.302Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity3.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity4.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity5.png">
+<meta property="og:updated_time" content="2019-10-30T12:10:20.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android8.0的Activity启动流程(1)">
 <meta name="twitter:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity3.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -233,6 +235,8 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <p>上面出现的IActivityManager.java类的意义类似于前面提到的ApplicationThread.java。要想进行进程间通信，AMS只需要继承IActivityManager.Stub类并实现相应的方法就可以，这样AMS就能对外提供远程服务，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ActivityManagerService.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityManagerService</span> <span class="keyword">extends</span> <span class="title">IActivityManager</span>.<span class="title">Stub</span></span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>所以继续回到Instrumentation的execStartActivity方法中，ActivityManager.getService()返回的是AMS的本地代理，注意AMS是在系统进程SystemServer中，所以注释1这里通过<strong>Binder的IPC</strong>，调用的其实是AMS的startActivity方法。</p>
+<p>整个过程的时序图如下：</p>
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity1.png" title="activity">
 <p><strong>在这里开始，Activity的启动过程从应用进程转移到AMS中去</strong>。</p>
 <h2 id="AMS-startActivity"><a href="#AMS-startActivity" class="headerlink" title="AMS::startActivity()"></a>AMS::startActivity()</h2><p>AMS的startActivity方法如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AMS.java</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">startActivity</span><span class="params">(IApplicationThread caller, String callingPackage, Intent intent, String resolvedType, IBinder resultTo, String resultWho, <span class="keyword">int</span> requestCode, <span class="keyword">int</span> startFlags, ProfilerInfo profilerInfo, Bundle bOptions)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> startActivityAsUser(caller, callingPackage, intent, resolvedType, resultTo,</span><br><span class="line">             resultWho, requestCode, startFlags, profilerInfo, bOptions,</span><br><span class="line">             UserHandle.getCallingUserId());</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
@@ -295,13 +299,15 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <p>下面来看ActivityStackSupervisor的realStartActivityLocked方法。</p>
 <h4 id="3-3、ActivityStackSupervisor-realStartActivityLocked"><a href="#3-3、ActivityStackSupervisor-realStartActivityLocked" class="headerlink" title="3.3、ActivityStackSupervisor::realStartActivityLocked()"></a>3.3、ActivityStackSupervisor::realStartActivityLocked()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">realStartActivityLocked</span><span class="params">(ActivityRecord r, ProcessRecord app, <span class="keyword">boolean</span> andResume, <span class="keyword">boolean</span> checkConfig)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="comment">//1、把应用所在进程信息赋值给要启动的Activity的ActivityRecord</span></span><br><span class="line">    r.app = app;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">//2、关注这里，app是ProcessRecord类型，app.thread是IApplicationThread类型</span></span><br><span class="line">        <span class="comment">//app.thread是应用进程的ApplicationThread在AMS的本地代理，前面已经讲过</span></span><br><span class="line">        <span class="comment">//所以这里实际调用的是ApplicationThread的scheduleLaunchActivity方法</span></span><br><span class="line">        app.thread.scheduleLaunchActivity(<span class="keyword">new</span> Intent(r.intent), r.appToken,</span><br><span class="line">                   System.identityHashCode(r), r.info,</span><br><span class="line">                   mergedConfiguration.getGlobalConfiguration(),</span><br><span class="line">                   mergedConfiguration.getOverrideConfiguration(), r.compat,</span><br><span class="line">                   r.launchedFromPackage, task.voiceInteractor, app.repProcState, r.icicle,</span><br><span class="line">                   r.persistentState, results, newIntents, !andResume,</span><br><span class="line">                   mService.isNextTransitionForward(), profilerInfo);</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;<span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>正如这方法名所示，realStartActivity，兜兜转转，这里就是真正启动Activity的地方，注释1处app指的是传入的要启动的Activity的所在的应用程序进程，是从前面传过来的，这里把它赋值给了要启动的Activity的ActivityRecord的app字段去，这样就可以说要启动的Activity属于应用进程，我们再来看注释2这里，app.thread就是我们上面一直强调的ApplicationThread，所以这里通过<strong>Binder的IPC</strong>其实调用的是ApplicationThread中的scheduleLaunchActivity方法。</p>
+<p>整个过程的时序图如下：</p>
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity2.png" title="activity">
 <p><strong>当前的代码逻辑执行在AMS所在进程，从这里开始Activity的启动流程最终又回到了应用进程所在的ApplicationThread中。</strong></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本来一篇文章写完Activity的启动，写到这里才发现，篇幅太长，所以<strong>Activity在应用进程中的启动过程</strong>就放到下一篇文章。本文简单的介绍了<strong>应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程</strong>，现在让我们来回答一下开头给出的几个问题：</p>
 <ul>
 <li><strong>1、Activity的启动流程是怎样的？</strong></li>
 </ul>
 <p>从应用调用一个startActivity方法开始，应用进程开始请求AMS启动Activity，然后在AMS中Activity完成它的一系列准备，最后再回到应用进程中开始回调Activity的生命周期，本文回答了一半这个问题，即本文讲解了应用进程开始请求AMS启动Activity，然后在AMS中完成它的一系列准备的过程，这个过程用时序图表示如下：</p>
-<img src="/2019/05/19/Android8.0的Activity启动流程1/activity3.jpg" title="activity3">
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity3.png" title="activity">
 <ul>
 <li><strong>2、Activity的生命周期方法是如何被回调的？</strong></li>
 </ul>
@@ -310,10 +316,10 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <li><strong>3、它启动过程中涉及到多少个进程？</strong></li>
 </ul>
 <p>答案是2个，前言已经讲过本文讨论的是普通Activity的启动流程，<strong>即我们平时调用startActivity方法来启动一个Activity</strong>，所以本文这个过程涉及的进程可以可以用下面这个图表示：</p>
-<img src="/2019/05/19/Android8.0的Activity启动流程1/activity1.png" title="activity1">
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity4.png" title="activity">
 <p>图中AppProcess代表应用所在进程，systemServer代表AMS所在进程，两个进程之间通过Binder进行通信，实现了XX.Stub的类就可以进行Binder通信，如本文的ApplicationThread和AMS都实现了各自的Stub类，所以应用进程startActivity时请求AMS启动Activity，AMS准备好后，再发送scheduleLaunchActivity请求告诉应用可以开始启动Activity了。</p>
 <p>那么如果是前言所讲的第一种启动Activity的过程，<strong>即在Launch界面点击一个应用图标启动应用程序</strong>，那么会涉及多少个进程？答案是4个，如图：</p>
-<img src="/2019/05/19/Android8.0的Activity启动流程1/activity2.png" title="activity2">
+<img src="/2019/05/19/Android8.0的Activity启动流程1/activity5.png" title="activity5">
 <p>可以看到会涉及Launcher进程、SystemServer进程、App进程、Zygote进程。关于这些进程的简单信息可以看这篇<a href="https://rain9155.github.io/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" target="_blank" rel="noopener">从进程的角度看Android的系统架构</a></p>
 <p>阅读源码真的是一个漫长的过程，又时候看别人写的那么简单，但是当自己去写，才发现要考虑的东西很多，所以这是一个日积月累的过程，所以阅读源码的时候，最好跟着前人的文章阅读，这样理解的更快。</p>
 <p>参考文章：</p>
@@ -328,7 +334,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-26T05:58:10.302Z" itemprop="dateUpdated">2019-10-26 13:58:10</time>
+    Last updated: <time datetime="2019-10-30T12:10:20.049Z" itemprop="dateUpdated">2019-10-30 20:10:20</time>
 </span><br>
 
 
