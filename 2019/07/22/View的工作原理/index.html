@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view5.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view6.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view7.png">
-<meta property="og:updated_time" content="2019-08-06T05:52:06.121Z">
+<meta property="og:updated_time" content="2019-10-30T12:23:13.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View的工作原理">
 <meta name="twitter:description" content="前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个很炫酷的自定义View的开源库，我们也是拿来主义，时间长了你就会发现你只是一个只会使用控件和依赖被人开源库的程序员，这并不是一个开发者，所以我们并不能只满足于使用，我们要理解它背后的工作原理和流程，这样才能自己做出一个属于自己的控件，一直都说自定">
@@ -340,7 +340,7 @@ frameworks/base/core/java/android/FrameLayout.java
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们一直讲View的工作原理，但有没有发现ViewRootImpl也出现的很频繁，它虽然不是一个View，但它是连接View和Window之间的纽带，View三大工作流程的起点就是ViewRootImpl的performTraversals()方法，performTraversals()中依此调用了<strong>performMeasure() -&gt; performLayout() -&gt; performDraw()</strong>，分别对应顶级View的<strong>measure、layout和draw流程</strong>，然后顶级View的<strong>measure流程</strong>和<strong>layout流程</strong>又会分别调用我们熟悉的<strong>onMeasure()、onLayout()方法</strong> ，<strong>draw流程</strong>有点特别，它是通过<strong>dispatchDraw()方法</strong>来进行draw流程的传递, 而onDraw()方法只是单纯的绘制自身内容，在onMeasure()方法中会对所有child进行measure过程，同理onLayout()方法中会对所有child进行layout过程，dispatchDraw()方法中会对所有child进行draw过程，如此递归直到完成整颗View Hierarchy的遍历。</p>
 <p>该过程如图:</p>
 <img src="/2019/07/22/View的工作原理/view7.png" title="view7">
-<p>有的人说分析源码的阅读，只是追踪方法的调用链，这种过程毫无意义，但是我想说的是，要想更加深入的了解Android的机制，只有源码才能给你答案，在这个阅读过程要加入自己的思考，把它的知识点用自己的语言整理，然后有所收获，我觉得这就是它的意义所在。</p>
+<p>在阅读Android源码时，如果你只是在追踪方法的调用链，这种过程是毫无意义的，但是如果你在这个阅读过程加入了自己的思考，把它的知识点用自己的语言整理，这样才会有所收获。以上就是我对View的工作原理的理解，希望大家有所收获。</p>
 <p>参考资料：</p>
 <p>《Android开发艺术探索》</p>
 
@@ -351,7 +351,7 @@ frameworks/base/core/java/android/FrameLayout.java
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-08-06T05:52:06.121Z" itemprop="dateUpdated">2019-08-06 13:52:06</time>
+    Last updated: <time datetime="2019-10-30T12:23:13.716Z" itemprop="dateUpdated">2019-10-30 20:23:13</time>
 </span><br>
 
 
