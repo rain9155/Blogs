@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit1.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit2.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit3.png">
-<meta property="og:updated_time" content="2019-11-03T11:54:27.922Z">
+<meta property="og:updated_time" content="2019-11-03T11:59:58.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过源码全面解剖Retrofit2的整体流程">
 <meta name="twitter:description" content="前言上两篇文章：  okhttp3源码分析之请求流程 okhttp3源码分析之拦截器  Retrofit与Okhttp是Android开发中最最热门的网络请求库，它们都来自square公司，Okhttp在前面的两篇文章中已经通过源码从请求流程和拦截器两个角度分析过，本文的主角是Retrofit，经过这几天的研究，我发现Retrofit只是一个对Okhttp网络请求框架的巧妙包装，它通过注解去定义一">
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -277,7 +277,7 @@
 <p>Converter除了默认的返回原始数据，它还支持哪些数据转化呢？这个在retrofit-converters模块中可以找到答案，如下：</p>
 <img src="/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit2.png" title="Retrofit">
 <p>可以看到Retrofit还支持json、xml、protobuf等多种数据类型的转化，这些子模块都各自实现了retrofit模块暴露出来的Converter接口和Converter接口中的Factory接口，在Converter的adapt方法中实现不同数据类型的转化逻辑，我们可以通过addConverterFactory(Factory)来支持不同数据类型转化的Converter工厂。</p>
-<h3 id="4、面向接口设计"><a href="#4、面向接口设计" class="headerlink" title="4、面向接口设计"></a>4、面向接口设计</h3><p>在retrofit模块中提供了Call、Callback、CallAdapter、Converter接口供外部模块使用，CallAdapter和Converter接口中还有相应的Factory接口，各模块之前通过接口依赖主模块Retrofit，将网络请求、网络请求适配、请求处理与返回解析完全解耦，当需要修改Retrofit中的默认实现时，只需要add一个外部模块提供的工厂，具体创建什么样的实例由工厂方法来负责，这样就能以最小的代价（不需要改动代码）换成其他模块上的实现，Retrofit本身并不参与这个过程，它只是负责提供一些主要的参数供它们进行决策，以及进行参数的处理，模块之间依赖于接口，而不依赖于具体的实现，这是一种很好的编程思路，面向接口编程。</p>
+<h3 id="4、面向接口设计"><a href="#4、面向接口设计" class="headerlink" title="4、面向接口设计"></a>4、面向接口设计</h3><p>在retrofit模块中提供了<strong>Call、Callback、CallAdapter、Converter接口</strong>供外部模块使用，CallAdapter和Converter接口中还有相应的Factory接口，各模块之前通过接口依赖主模块Retrofit，将网络请求、网络请求适配、请求处理与返回解析完全解耦，当需要修改Retrofit中的默认实现时，只需要add一个外部模块提供的工厂，具体创建什么样的实例由工厂方法来负责，这样就能以最小的代价（不需要改动代码）换成其他模块上的实现，Retrofit本身并不参与这个过程，它只是负责提供一些主要的参数供它们进行决策，以及进行参数的处理，模块之间依赖于接口，而不依赖于具体的实现，这是一种很好的编程思路，面向接口编程。</p>
 <blockquote>
 <p>面向接口编程：也被熟知为基于接口的设计，是一种基于组件级别的，面向对象语言的模块化编程设计实现，面向接口编程是面向对象编程的一种模块化实现形式，理论上说具有对象概念的程序设计都可以称之为面向对象编程，而面向接口编程则是从组件的级别来设计代码，将抽象与实现分离。</p>
 </blockquote>
@@ -404,7 +404,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-11-03T11:54:27.922Z" itemprop="dateUpdated">2019-11-03 19:54:27</time>
+    Last updated: <time datetime="2019-11-03T11:59:58.801Z" itemprop="dateUpdated">2019-11-03 19:59:58</time>
 </span><br>
 
 
@@ -490,7 +490,14 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/11/05/java集合/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">java学习总结之集合框架</h4>
+      </a>
+    </div>
   
 
   
@@ -532,7 +539,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <h3 class="reward-title">
         <i class="icon icon-quote-left"></i>
-        谢谢!
+        谢谢打赏!
         <i class="icon icon-quote-right"></i>
     </h3>
     <div class="reward-content">
@@ -566,7 +573,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
