@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/11/05/java集合/java5.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/05/java集合/java6.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/05/java集合/java7.png">
-<meta property="og:updated_time" content="2019-11-21T12:13:07.464Z">
+<meta property="og:updated_time" content="2019-11-21T12:19:09.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习总结之集合框架">
 <meta name="twitter:description" content="前言在JDK1.2之前，java是没有完整的集合框架的，只有一些简单的可以扩展的容器类，如Vector、Stack、Hashtable等，这些容器类它们解决了数组不能动态扩容和使用复杂的问题，到了JDK1.2之后，为了管理这些容器类，就出现了集合框架这个概念，集合框架是为了表示和操作集合而规定的一种统一的标准的体系结构，它包含三大内容：对外的接口、接口的实现和对集合运算的算法（对某一种数据结构的算">
@@ -148,7 +148,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -212,7 +212,9 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在JDK1.2之前，java是没有完整的集合框架的，只有一些简单的可以扩展的<strong>容器类</strong>，如Vector、Stack、Hashtable等，这些容器类它们解决了数组不能动态扩容和使用复杂的问题，到了JDK1.2之后，为了管理这些容器类，就出现了集合框架这个概念，集合框架是为了表示和操作集合而规定的一种统一的标准的体系结构，它包含三大内容：对外的接口、接口的实现和对集合运算的算法（对某一种数据结构的算法），所以有了集合框架后，容器类一般改为叫<strong>集合类</strong>，常用的集合类有：Set、List、Map、Queue，下面会首先简单介绍集合框架的整体架构，然后分别介绍Set、List、Map、Queue的各自特点。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本文源码都是基于java7</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>本文源码都是基于java7</p>
+</blockquote>
 <h2 id="一、Collection框架"><a href="#一、Collection框架" class="headerlink" title="一、Collection框架"></a>一、Collection框架</h2><p>图片来源<a href="https://blog.csdn.net/s20082043/article/details/39077095" target="_blank" rel="noopener">Java集合类的类图</a></p>
 <img src="/2019/11/05/java集合/java1.png" title="java">
 <p>从这个类图中，可以看到各个集合类之间的继承关系，其中<strong>Map没有继承Collection接口</strong>，所以它独立出来，但是它也是集合框架的一部分，而且这里还有一个点没有画出来的是，Collection接口是<strong>继承自Iterable</strong>的，Iterable中有一个 iterator方法，它返回一个Iterator，可以用于遍历集合的元素，而Map是<strong>没有继承自Iterable</strong>的，但是它的各自实现类内部也实现了各自的Iterator，例如KeyIterator，ValueIterator和EntryIterator，通过特定方法返回，集合框架中的所有接口和类都在<strong>java.util包</strong>中，并且集合框架中所有的<strong>具体类</strong>都实现了Cloneable和Serialization接口，即它们的实例都是可以复制和可序列化的，有以下四种主要类型的集合：</p>
@@ -398,7 +400,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-11-21T12:13:07.464Z" itemprop="dateUpdated">2019-11-21 20:13:07</time>
+    最終更新：<time datetime="2019-11-21T12:19:09.657Z" itemprop="dateUpdated">2019-11-21 20:19:09</time>
 </span><br>
 
 
@@ -555,7 +557,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
