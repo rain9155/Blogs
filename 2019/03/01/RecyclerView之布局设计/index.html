@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/rv1.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/rv2.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/rv3.png">
-<meta property="og:updated_time" content="2019-10-08T09:28:23.057Z">
+<meta property="og:updated_time" content="2019-11-30T11:48:19.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RecyclerView之布局设计">
 <meta name="twitter:description" content="前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式，例如ListView、GridView样式、瀑布流样式，所以加深对于RecyclerView的学习对于开发有很重要的意义。关于RecyclerView如何使用网上有很多文章，本篇文章从源码讲解RecyclerView如何通过layoutMana">
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -241,7 +241,9 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 <p>可以看到，只是调用了itemView的layout函数将itemView布局到具体的位置。</p>
 <p>我们再回到onlayoutChildern方法，按照上面图一，我们已经填充了下面，但是上面是不用填充的，因为没有可用空间，所以注释2.2基本下是不会走的了。而fill towaards Start步骤和fill towards End差不多。那么为什么RecyclerView进行两次填充呢？因为RecyclerView理想的锚点如下图：<br><img src="/2019/03/01/RecyclerView之布局设计/rv2.png" title="图二"></p>
 <p>上面是RecyclerView的方向为VERTICAL的情况，当为HORIZONTAL方向的时候填充算法是不变的。但我们一般是图一的情况，从上往下填充。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一图胜千言，下图是LayoutManager循环布局所有的itemView。<br><img src="/2019/03/01/RecyclerView之布局设计/rv3.png" title="图三"><br>可以看到RecyclerView将布局的职责分离到LayoutManager中，使得RecyclerView更加灵活，我们也可以自定义自己的LayoutManger，实现自己想要的布局。可以看到RecyclerView具有很强大的扩展性，所以深入学习这个控件是很有必要的。能看到这里的都是有毅力的人，本文只是RecyclerView学习的第一篇，以后会继续分析RecyclerView的缓存设计。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一图胜千言，下图是LayoutManager循环布局所有的itemView。</p>
+<img src="/2019/03/01/RecyclerView之布局设计/rv3.png" title="图三">
+<p>可以看到RecyclerView将布局的职责分离到LayoutManager中，使得RecyclerView更加灵活，我们也可以自定义自己的LayoutManger，实现自己想要的布局。可以看到RecyclerView具有很强大的扩展性，所以深入学习这个控件是很有必要的。能看到这里的都是有毅力的人，本文只是RecyclerView学习的第一篇，以后会继续分析RecyclerView的缓存设计。</p>
 <p>参考资料：</p>
 <p>《Android源码设计与分析》</p>
 <p><a href="https://blog.csdn.net/feather_wch/article/details/81613313#观察者模式" target="_blank" rel="noopener">RecyclerView和ListView原理</a></p>
@@ -254,7 +256,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-08T09:28:23.057Z" itemprop="dateUpdated">2019-10-08 17:28:23</time>
+    Last updated: <time datetime="2019-11-30T11:48:19.916Z" itemprop="dateUpdated">2019-11-30 19:48:19</time>
 </span><br>
 
 
@@ -418,7 +420,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">

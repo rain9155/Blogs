@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler1.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler2.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler3.png">
-<meta property="og:updated_time" content="2019-10-26T07:03:26.795Z">
+<meta property="og:updated_time" content="2019-11-30T11:47:43.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android消息机制(java层)">
 <meta name="twitter:description" content="前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中有大量的交互都是通过消息机制，比如Android的四大组件的启动过程的交互就离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统。">
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -214,7 +214,8 @@ frameworks/base/core/java/android/os/MessageQueue.java
 frameworks/base/core/java/android/os/Handler.java
 frameworks/base/core/java/android/os/Looper.java
 frameworks/base/core/java/android/os/Message.java
-</code></pre><h2 id="消息机制概述"><a href="#消息机制概述" class="headerlink" title="消息机制概述"></a>消息机制概述</h2><p>Android应用的每个事件都会转化为一个系统消息即Message，消息中包含了事件的相关信息和消息的处理人即Handler，消息要通过Handler发送，最终被投递到一个消息队列中即MessageQueue，它维护了一个待处理的消息列表，然后通过Looper开启了一个消息循环不断地从这个队列中取出消息，当从消息队列取出一个消息后，Looper根据消息的处理人（target）将此消息分发给相应的Handle处理。它们的工作原理就像工厂的生产线，Looper是发动机，MessageQueue是传送带，Handler是工人，Message则是待处理的产品。整个过程如下图所示。<br><img src="/2019/02/21/Android消息机制java层/handler1.png"></p>
+</code></pre><h2 id="消息机制概述"><a href="#消息机制概述" class="headerlink" title="消息机制概述"></a>消息机制概述</h2><p>Android应用的每个事件都会转化为一个系统消息即Message，消息中包含了事件的相关信息和消息的处理人即Handler，消息要通过Handler发送，最终被投递到一个消息队列中即MessageQueue，它维护了一个待处理的消息列表，然后通过Looper开启了一个消息循环不断地从这个队列中取出消息，当从消息队列取出一个消息后，Looper根据消息的处理人（target）将此消息分发给相应的Handle处理。它们的工作原理就像工厂的生产线，Looper是发动机，MessageQueue是传送带，Handler是工人，Message则是待处理的产品。整个过程如下图所示。</p>
+<img src="/2019/02/21/Android消息机制java层/handler1.png">
 <h2 id="消息机制架构图"><a href="#消息机制架构图" class="headerlink" title="消息机制架构图"></a>消息机制架构图</h2><img src="/2019/02/21/Android消息机制java层/handler2.png">
 <ul>
 <li>Looper  — 是每个线程的MessageQueue管家，里面有一个MessageQueue消息队列，负责把消息从MessageQueue中取出并把消息传递到Handler中去，每个线程只有一个Looper。</li>
@@ -270,7 +271,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-26T07:03:26.795Z" itemprop="dateUpdated">2019-10-26 15:03:26</time>
+    Last updated: <time datetime="2019-11-30T11:47:43.446Z" itemprop="dateUpdated">2019-11-30 19:47:43</time>
 </span><br>
 
 
@@ -434,7 +435,7 @@ ThreadLocal.get()：获取当前线程TLS区域的数据
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
