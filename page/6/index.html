@@ -288,7 +288,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/02/21/ThreadLocal解析/">ThreadLocal解析</a>
+      <a class="post-title-link" href="/2019/02/21/ThreadLocal解析/">ThreadLocal原理解析</a>
     </h3>
   
 
@@ -298,7 +298,9 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言最近在研究Android的消息机制时遇到了一个疑问:在不同线程中调用 Looper.myLooper() 为什么可以返回各自线程的 Looper 对象呢？明明我们没有传入任何线程信息，内部是如何找到当前线程对应的 Looper 对象呢？，查看源码得知是ThreadLocal的作用，通过它可以在线程的内部存储数据，本着好奇的心态，就通过源码深入的了解一下ThreadLocal的工作原理。
+        概述ThreadLocal，线程本地存储区（Thread Local Storage，简称为TLS），通过它可以在指定的线程中存储数据，数据存储之后，只能在指定的线程中可以获取到存储的数据，对于其他线程来说则无法获取到数据。
+使用ThreadLocal 提供了 get()，set(T value)，remove() 3个对外方法，来看一个简单的例子：
+12345678910111213141...
     
 
         <a href="/2019/02/21/ThreadLocal解析/" class="post-more waves-effect waves-button">
