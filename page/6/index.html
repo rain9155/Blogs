@@ -350,7 +350,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
         前言
 上一篇文章：Android消息机制java层
 
-在上一篇文章中讲到MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，MessageQueue中有多个native方法，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制。
+MessageQueue中有多个native方法，MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制，了解了native层的消息机制，你就能明...
     
 
         <a href="/2019/02/21/Android消息机制native层/" class="post-more waves-effect waves-button">
@@ -397,7 +397,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成。Android中有大量的交互都是通过消息机制，比如Android的四大组件的启动过程的交互就离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统。
+        前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成，Android中大量的交互都是通过消息机制，比如四大组件启动过程与服务的交互、View的绘制、更新等都离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统，在Android中消息机制的运作分为java层和native层，它们之间的...
     
 
         <a href="/2019/02/21/Android消息机制java层/" class="post-more waves-effect waves-button">
