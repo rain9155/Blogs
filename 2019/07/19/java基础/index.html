@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java7.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error1.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error2.png">
-<meta property="og:updated_time" content="2019-11-28T14:27:18.273Z">
+<meta property="og:updated_time" content="2020-01-12T09:25:22.526Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习总结之基础">
 <meta name="twitter:description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
@@ -367,9 +367,12 @@
 <p>它涉及到以下两种操作：</p>
 <h3 id="1、装箱-boxing"><a href="#1、装箱-boxing" class="headerlink" title="1、装箱(boxing)"></a>1、装箱(boxing)</h3><p>以double装箱为例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> num = <span class="number">3.14</span>；</span><br><span class="line">Double dnum1 = <span class="keyword">new</span> Double(num);<span class="comment">//1</span></span><br><span class="line">Double dnum2 = Double.valueOf(num);<span class="comment">//2</span></span><br><span class="line">Double dnum3 = num;<span class="comment">//3</span></span><br></pre></td></tr></table></figure></p>
 <p>注释1、2都是手动装箱，注释3是自动装箱。</p>
-<h3 id="2、拆箱-unboxing"><a href="#2、拆箱-unboxing" class="headerlink" title="2、拆箱(unboxing)"></a>2、拆箱(unboxing)</h3><p>同样上述double拆箱为例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = dnum1;<span class="comment">//1</span></span><br><span class="line">num = dnum2.doubleValue;<span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="2、拆箱-unboxing"><a href="#2、拆箱-unboxing" class="headerlink" title="2、拆箱(unboxing)"></a>2、拆箱(unboxing)</h3><p>同样上述double拆箱为例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num = dnum1;<span class="comment">//1</span></span><br><span class="line">num = dnum2.doubleValue();<span class="comment">//2</span></span><br></pre></td></tr></table></figure></p>
 <p>注释1是自动拆箱，注释2是手动拆箱。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ps:</span><br><span class="line">1、包装类没有无参构造，所有包装类的实例都是不可变的，一旦创建对象后，它们的内部值就不能再改变。</span><br><span class="line">2、每个基本类型包装类都有常量MAX_VALUE和MIN_VALUE。</span><br><span class="line">3、每个包装类都会有一个默认大小的缓存池，例如Integer，缓存池默认大小是-128-127</span><br><span class="line">3、编译器会在自动装箱过程中会调用 valueOf() 方法，因此多个值相同，且值在缓存池范围内的包装类实例使用自动装箱来创建，那么就会引用相同的对象。</span><br></pre></td></tr></table></figure>
+<p>除了Double和Float，每个包装类都会有一个默认大小的缓存池，例如Integer，缓存池默认大小是-128-127，缓存池中都是缓存了一些经常使用的值，而对于Double和Float，都是浮点型，它们没有经常使用的值，编译器会在自动装箱过程中会调用 valueOf() 方法，因此多个值相同，且值在缓存池范围内的包装类实例使用自动装箱来创建，那么就会引用相同的对象。</p>
+<blockquote>
+<p>ps:<br>1、包装类没有无参构造，所有包装类的实例都是不可变的，一旦创建对象后，它们的内部值就不能再改变。<br>2、每个基本类型包装类都有常量MAX_VALUE和MIN_VALUE。</p>
+</blockquote>
 <h2 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h2><h3 id="1、final"><a href="#1、final" class="headerlink" title="1、final"></a>1、final</h3><p>防止扩展和重写。</p>
 <ul>
 <li>修饰成员变量：常量（可以是编译时常量，也可以是在运行时被初始化后不能被改变的常量），不可更改（对于基本数据类型，final使数值不能改变，对于引用类型，final使引用不能改变，即不能引用其他对象，但引用本身可以更改）</li>
@@ -431,6 +434,7 @@
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文简单整理了一下java语言的基本知识点。</p>
 <p>参考资料：</p>
 <p><a href="https://blog.csdn.net/justloveyou_/article/details/52464440" target="_blank" rel="noopener">java 中的 ==, equals 与 hashCode 的区别与联系</a></p>
+<p><a href="https://www.jianshu.com/p/0ce2279c5691" target="_blank" rel="noopener">Java 自动装箱与拆箱的实现原理</a></p>
 
         </div>
 
@@ -439,7 +443,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-11-28T14:27:18.273Z" itemprop="dateUpdated">2019-11-28 22:27:18</time>
+    最終更新：<time datetime="2020-01-12T09:25:22.526Z" itemprop="dateUpdated">2020-01-12 17:25:22</time>
 </span><br>
 
 
