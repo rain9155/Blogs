@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http4.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http5.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http3.png">
-<meta property="og:updated_time" content="2020-01-12T06:28:16.270Z">
+<meta property="og:updated_time" content="2020-01-12T09:45:07.866Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解HTTP协议">
 <meta name="twitter:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
@@ -187,7 +187,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP协议版本演变"><span class="post-toc-text">HTTP协议版本演变</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP工作过程"><span class="post-toc-text">HTTP工作过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的请求方法"><span class="post-toc-text">HTTP的请求方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的报文格式"><span class="post-toc-text">HTTP的报文格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、请求报文"><span class="post-toc-text">1、请求报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1、GET的请求报文"><span class="post-toc-text">1.1、GET的请求报文</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2、POST的请求报文"><span class="post-toc-text">1.2、POST的请求报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、响应报文"><span class="post-toc-text">2、响应报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的状态码"><span class="post-toc-text">常见的状态码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、2XX成功"><span class="post-toc-text">1、2XX成功</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、3XX重定向"><span class="post-toc-text">2、3XX重定向</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、4XX客户端错误"><span class="post-toc-text">3、4XX客户端错误</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、5XX服务端错误"><span class="post-toc-text">4、5XX服务端错误</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的首部字段"><span class="post-toc-text">常见的首部字段</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、通用首部字段"><span class="post-toc-text">1、通用首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、请求首部字段"><span class="post-toc-text">2、请求首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、响应首部字段"><span class="post-toc-text">3、响应首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、实体首部字段"><span class="post-toc-text">4、实体首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、具体应用"><span class="post-toc-text">5、具体应用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-1、-长连接-Keep-Alive-原理"><span class="post-toc-text">5.1、 长连接(Keep-Alive)原理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-2、内容协商过程"><span class="post-toc-text">5.2、内容协商过程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-3、缓存使用"><span class="post-toc-text">5.3、缓存使用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTPS是什么"><span class="post-toc-text">HTTPS是什么</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、HTTP的问题"><span class="post-toc-text">1、HTTP的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、HTTPS的解决办法"><span class="post-toc-text">2、HTTPS的解决办法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、采用混合加密机制进行加密"><span class="post-toc-text">2.1、采用混合加密机制进行加密</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、采用数字签名进行进行完整性保护"><span class="post-toc-text">2.2、采用数字签名进行进行完整性保护</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-3、采用数字证书进行身份认证"><span class="post-toc-text">2.3、采用数字证书进行身份认证</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、HTTPS的通信过程"><span class="post-toc-text">3、HTTPS的通信过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP协议版本演变"><span class="post-toc-text">HTTP协议版本演变</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP工作过程"><span class="post-toc-text">HTTP工作过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的请求方法"><span class="post-toc-text">HTTP的请求方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的报文格式"><span class="post-toc-text">HTTP的报文格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、请求报文"><span class="post-toc-text">1、请求报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1、GET的请求报文"><span class="post-toc-text">1.1、GET的请求报文</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2、POST的请求报文"><span class="post-toc-text">1.2、POST的请求报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、响应报文"><span class="post-toc-text">2、响应报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的状态码"><span class="post-toc-text">常见的状态码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、2XX成功"><span class="post-toc-text">1、2XX成功</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、3XX重定向"><span class="post-toc-text">2、3XX重定向</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、4XX客户端错误"><span class="post-toc-text">3、4XX客户端错误</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、5XX服务端错误"><span class="post-toc-text">4、5XX服务端错误</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的首部字段"><span class="post-toc-text">常见的首部字段</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、通用首部字段"><span class="post-toc-text">1、通用首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、实体首部字段"><span class="post-toc-text">2、实体首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、请求首部字段"><span class="post-toc-text">3、请求首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、响应首部字段"><span class="post-toc-text">4、响应首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、具体应用"><span class="post-toc-text">5、具体应用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-1、-长连接-Keep-Alive-原理"><span class="post-toc-text">5.1、 长连接(Keep-Alive)原理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-2、内容协商过程"><span class="post-toc-text">5.2、内容协商过程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-3、缓存使用"><span class="post-toc-text">5.3、缓存使用</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTPS是什么"><span class="post-toc-text">HTTPS是什么</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、HTTP的问题"><span class="post-toc-text">1、HTTP的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、HTTPS的解决办法"><span class="post-toc-text">2、HTTPS的解决办法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、采用混合加密机制进行加密"><span class="post-toc-text">2.1、采用混合加密机制进行加密</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、采用数字签名进行进行完整性保护"><span class="post-toc-text">2.2、采用数字签名进行进行完整性保护</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-3、采用数字证书进行身份认证"><span class="post-toc-text">2.3、采用数字证书进行身份认证</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、HTTPS的通信过程"><span class="post-toc-text">3、HTTPS的通信过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
         </nav>
     </aside>
 
@@ -323,7 +323,7 @@
 <p>上述的请求报文的含义是向  <strong><a href="http://www.myhost.com/local/" target="_blank" rel="noopener">http://www.myhost.com/local/</a></strong>  这个地址发送一个POST请求，接受的内容编码方式为<strong>gzip</strong>，请求的数据长度为<strong>222222</strong>字节，请求的数据格式为 <strong>multipart/from-data（表单）</strong>，报文的<strong>boundary</strong>值为<strong>dRGP2cPPTxE6WRTssnh4jC7HJLcSde</strong>，<strong>Keep-Alive</strong>为开启长连接，空行之后，接下来就是请求报文的主体，主体有<strong>两个</strong>请求参数：</p>
 <p>一个是<strong>名为username</strong>，<strong>值为rain</strong>的文本；</p>
 <p>一个是<strong>名为image</strong>，<strong>值为二进制数据</strong>的图片.</p>
-<p>请求参数是以<strong>两横杠+boundary</strong>开始的，然后是请求参数的一些首部(又称实体首部字段)，如参数名，格式等，然后加上一个空行，最后才是参数的值，如上述的<strong>username=name</strong>，其表示如下：</p>
+<p>请求参数是以<strong>两横杠+boundary</strong>开始的，然后是请求参数的一些首部，又称实体首部字段，如参数名，格式等，然后加上一个空行，最后才是参数的值，如上述的<strong>username=name</strong>，其表示如下：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--dRGP2cPPTxE6WRTssnh4jC7HJLcSde		       //两横杠加boundary作为参数的开始</span><br><span class="line">Content-Disposition：from-data；name=“username” //name = username</span><br><span class="line">Content-Type：text/plain：charset=UTF-8</span><br><span class="line"><span class="attribute">Content-Transfer-Encoding</span>: 8bit</span><br><span class="line">						                    </span><br><span class="line">rain						                 //value = rain</span><br></pre></td></tr></table></figure>
 <p>当报文主体中包含多个参数时，都要遵守这种格式：<strong>每个参数以两横杠+boundary分隔，参数首部字段与值之间有一个空行</strong>。</p>
 <p>请求主体的最后是以<strong>两横杆+boundary+两横杠</strong>作为整个报文的<strong>结束符</strong>，如上面报文的最后一个参数 (图片二进制数据) 最后的<strong>- -dRGP2cPPTxE6WRTssnh4jC7HJLcSde- -</strong>，如下：</p>
@@ -404,12 +404,7 @@
 <blockquote>
 <p>更多状态码信息请访问<a href="https://www.runoob.com/http/http-status-codes.html" target="_blank" rel="noopener">HTTP状态码</a></p>
 </blockquote>
-<h2 id="常见的首部字段"><a href="#常见的首部字段" class="headerlink" title="常见的首部字段"></a>常见的首部字段</h2><p>这里列举了一些在请求报文和响应报文中常见的首部：</p>
-<ul>
-<li>Content-Type：请求主体的格式</li>
-<li>Content-Length：</li>
-</ul>
-<p>下面列举了HTTP/1.1中的47种常见首部字段，分为通用首部字段、请求首部字段、响应首部字段、实体首部字段：</p>
+<h2 id="常见的首部字段"><a href="#常见的首部字段" class="headerlink" title="常见的首部字段"></a>常见的首部字段</h2><p>下面列举了HTTP/1.1中的47种常见首部字段，分为通用首部字段、请求首部字段、响应首部字段、实体首部字段：</p>
 <h3 id="1、通用首部字段"><a href="#1、通用首部字段" class="headerlink" title="1、通用首部字段"></a>1、通用首部字段</h3><p>表示请求报文和响应报文双方都会使用的首部。</p>
 <table>
 <thead>
@@ -457,7 +452,58 @@
 </tr>
 </tbody>
 </table>
-<h3 id="2、请求首部字段"><a href="#2、请求首部字段" class="headerlink" title="2、请求首部字段"></a>2、请求首部字段</h3><p>表示从客户端向服务端发送请求报文时使用的首部，主要作用是补充请求的附加内容、客户端信息、响应内容相关优先级、编码等信息。</p>
+<h3 id="2、实体首部字段"><a href="#2、实体首部字段" class="headerlink" title="2、实体首部字段"></a>2、实体首部字段</h3><p>表示请求报文和响应报文的主体的实体部分使用的首部，主要作用是补充资源内容的更新时间与实体相关的信息，可以看到大多都是以Content开头的。</p>
+<table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Allow</td>
+<td>资源可支持的 HTTP 方法</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>实体主体适用的编码方式</td>
+</tr>
+<tr>
+<td>Content-Language</td>
+<td>实体主体的自然语言</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>实体主体的大小</td>
+</tr>
+<tr>
+<td>Content-Location</td>
+<td>替代对应资源的 URI</td>
+</tr>
+<tr>
+<td>Content-MD5</td>
+<td>实体主体的报文摘要</td>
+</tr>
+<tr>
+<td>Content-Range</td>
+<td>实体主体的位置范围</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>实体主体的媒体类型</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>实体主体过期的日期时间</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>资源的最后修改日期时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3、请求首部字段"><a href="#3、请求首部字段" class="headerlink" title="3、请求首部字段"></a>3、请求首部字段</h3><p>表示从客户端向服务端发送请求报文时使用的首部，主要作用是补充请求的附加内容、客户端信息、响应内容相关优先级、编码等信息。</p>
 <table>
 <thead>
 <tr>
@@ -544,7 +590,55 @@
 </tr>
 </tbody>
 </table>
-<h3 id="3、响应首部字段"><a href="#3、响应首部字段" class="headerlink" title="3、响应首部字段"></a>3、响应首部字段</h3><h3 id="4、实体首部字段"><a href="#4、实体首部字段" class="headerlink" title="4、实体首部字段"></a>4、实体首部字段</h3><h3 id="5、具体应用"><a href="#5、具体应用" class="headerlink" title="5、具体应用"></a>5、具体应用</h3><h4 id="5-1、-长连接-Keep-Alive-原理"><a href="#5-1、-长连接-Keep-Alive-原理" class="headerlink" title="5.1、 长连接(Keep-Alive)原理"></a>5.1、 长连接(Keep-Alive)原理</h4><p>从HTTP/1.1起，默认都开启了Keep-Alive保持连接特性，通过在首部指定<strong>Connection：Keep-Alive</strong>，简单地说，当一个网页打开完成后，客户端和服务端之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务端上的网页，会继续使用这一条已经建立的TCP连接，Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同服务端软件中设置这个时间。</p>
+<h3 id="4、响应首部字段"><a href="#4、响应首部字段" class="headerlink" title="4、响应首部字段"></a>4、响应首部字段</h3><p>表示服务端向客户端返回响应报文时使用的首部，主要作用是补充响应的附加内容、要求客户端附加额外的内容等信息</p>
+<table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accept-Ranges</td>
+<td>是否接受字节范围请求</td>
+</tr>
+<tr>
+<td>Age</td>
+<td>推算资源创建经过时间</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>资源的匹配信息</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>令客户端重定向至指定 URI</td>
+</tr>
+<tr>
+<td>Proxy-Authenticate</td>
+<td>代理服务器对客户端的认证信息</td>
+</tr>
+<tr>
+<td>Retry-After</td>
+<td>对再次发起请求的时机要求</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>HTTP 服务器的安装信息</td>
+</tr>
+<tr>
+<td>Vary</td>
+<td>代理服务器缓存的管理信息</td>
+</tr>
+<tr>
+<td>WWW-Authenticate</td>
+<td>服务器对客户端的认证信息</td>
+</tr>
+</tbody>
+</table>
+<p>下面列举几个对HTTP首部的常见使用。</p>
+<h3 id="5、具体应用"><a href="#5、具体应用" class="headerlink" title="5、具体应用"></a>5、具体应用</h3><h4 id="5-1、-长连接-Keep-Alive-原理"><a href="#5-1、-长连接-Keep-Alive-原理" class="headerlink" title="5.1、 长连接(Keep-Alive)原理"></a>5.1、 长连接(Keep-Alive)原理</h4><p>从HTTP/1.1起，默认都开启了Keep-Alive保持连接特性，通过在首部指定<strong>Connection：Keep-Alive</strong>，简单地说，当一个网页打开完成后，客户端和服务端之间用于传输HTTP数据的TCP连接不会关闭，如果客户端再次访问这个服务端上的网页，会继续使用这一条已经建立的TCP连接，Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同服务端软件中设置这个时间。</p>
 <p>那么，长连接是如何工作的呢？长短连接是运输层（TCP）的概念，HTTP是应用层协议，它只能说告诉运输层我打算一段时间内复用TCP通道，而没有自己去建立、释放TCP通道的能力，那么HTTP是如何告诉运输层复用TCP通道的呢？分为以下几个步骤：</p>
 <ul>
 <li>1、客户端第一次发送请求报文时，顺带发送一个<strong>Connection: keep-alive</strong>的Header，表示需要保持连接，同时客户端可以顺带发送<strong>Keep-Alive: timeout=5,max=100</strong>这个Header给服务端；</li>
@@ -665,7 +759,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-01-12T06:28:16.270Z" itemprop="dateUpdated">2020-01-12 14:28:16</time>
+    最終更新：<time datetime="2020-01-12T09:45:07.866Z" itemprop="dateUpdated">2020-01-12 17:45:07</time>
 </span><br>
 
 

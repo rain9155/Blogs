@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/association.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/directedassociation.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java面向对象/dependency.png">
-<meta property="og:updated_time" content="2019-11-05T10:41:51.319Z">
+<meta property="og:updated_time" content="2020-01-13T12:03:42.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习总结之面向对象">
 <meta name="twitter:description" content="前言 上一篇文章java基础本篇文章继续Java知识点的归纳，梳理一下关于面向对象的知识点，涉及到封装、继承、多态，还有接口，类之间的关系。">
@@ -247,8 +247,9 @@
 </tbody>
 </table>
 <p>在很多情况下，接口优先于抽象类。因为接口没有抽象类严格的类层次结构要求，可以灵活地为一个类添加行为。并且从 Java 8 开始，接口也可以有默认的方法实现，使得修改接口的成本也变的很低，而且接口可以实现多继承。</p>
-<h2 id="面向对象三大特性"><a href="#面向对象三大特性" class="headerlink" title="面向对象三大特性"></a>面向对象三大特性</h2><h3 id="1、封装"><a href="#1、封装" class="headerlink" title="1、封装"></a>1、封装</h3><p>尽可能地隐藏对象内部的实现细节，只保留一些对外接口使之与外部发生联系。用户无需知道对象内部的细节，但可以通过对象对外提供的接口来访问该对象。</p>
-<h3 id="2、继承"><a href="#2、继承" class="headerlink" title="2、继承"></a>2、继承</h3><p>继承是一种“is a”关系，父类和子类之间必须存在“is a”关系，父类的私有属性在子类中不能直接访问，例如Cat 和 Animal 就是一种 “is a” 关系，因此 Cat 可以继承自 Animal，从而获得 Animal 非 private 的属性和方法。</p>
+<h2 id="面向对象三大特性"><a href="#面向对象三大特性" class="headerlink" title="面向对象三大特性"></a>面向对象三大特性</h2><p>面向对象是一种程序设计方法，它的基本思想是封装、继承、多态，根据现实世界中各种事物的本质特点，把它们抽象成类，作为系统的基本构成单元，然后这些类可以生成系统中的多个对象，而这些对象则是映射成客观世界的各种事物的实例。</p>
+<h3 id="1、封装"><a href="#1、封装" class="headerlink" title="1、封装"></a>1、封装</h3><p>封装就是尽可能地隐藏对象内部的实现细节，只保留一些对外接口使之与外部发生联系。用户无需知道对象内部的细节，但可以通过对象对外提供的接口来访问该对象。</p>
+<h3 id="2、继承"><a href="#2、继承" class="headerlink" title="2、继承"></a>2、继承</h3><p>继承是面向对象实现复用的手段，继承是一种“is a”关系，父类和子类之间必须存在“is a”关系，通过继承，子类可以获得父类的所有非 private 属性和方法，父类的私有属性在子类中不能直接访问，例如Cat 和 Animal 就是一种 “is a” 关系，因此 Cat 可以继承自 Animal，从而获得 Animal 非 private 的属性和方法。</p>
 <h4 id="2-1、父类构造和子类构造"><a href="#2-1、父类构造和子类构造" class="headerlink" title="2.1、父类构造和子类构造"></a>2.1、父类构造和子类构造</h4><ul>
 <li>构造方法不可继承，使用super关键字调用父类构造</li>
 <li>默认会先调用父类构造，再调用子类构造</li>
@@ -308,8 +309,10 @@
 <li>子类重写方法时子类抛出的异常类型是父类抛出异常的子类。</li>
 <li>@Overiide称为重写标注，用来保证重写的方法和原方法的签名和返回值一致</li>
 </ul>
-<p>ps:方法重载：方法重载是指在于同一个类中，一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。应该注意的是，返回值不同，其它都相同不算是重载。</p>
-<h3 id="3、多态"><a href="#3、多态" class="headerlink" title="3、多态"></a>3、多态</h3><p>同一个实体，具有多种形式，多态分为以下两种：</p>
+<blockquote>
+<p>方法重载：方法重载是指在于同一个类中，一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。应该注意的是，返回值不同，其它都相同不算是重载。</p>
+</blockquote>
+<h3 id="3、多态"><a href="#3、多态" class="headerlink" title="3、多态"></a>3、多态</h3><p>多态是指子类对象可以直接赋值给父类变量，但是运行时依然表现出子类的行为特征，这表示同一个类型的对象在运行时可以具有多种形态，多态分为以下两种：</p>
 <ul>
 <li>编译时多态：主要指方法的重载</li>
 <li>运行时多态：指程序中定义的对象引用所指向的具体类型在运行期间才确定（运行时多态有三个条件：继承，方法重写，向上转型）</li>
@@ -345,7 +348,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-11-05T10:41:51.319Z" itemprop="dateUpdated">2019-11-05 18:41:51</time>
+    最終更新：<time datetime="2020-01-13T12:03:42.024Z" itemprop="dateUpdated">2020-01-13 20:03:42</time>
 </span><br>
 
 
