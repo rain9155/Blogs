@@ -14,17 +14,17 @@
     
     
     
-    <title>图解HTTP协议 | jianyu的博客 | 每天进步一点点</title>
+    <title>这是一份关于HTTP协议的学习总结 | jianyu的博客 | 每天进步一点点</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#009688">
     
     
-    <meta name="keywords" content="http">
+    <meta name="keywords" content="http,https">
     <meta name="description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
-<meta name="keywords" content="http">
+<meta name="keywords" content="http,https">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图解HTTP协议">
+<meta property="og:title" content="这是一份关于HTTP协议的学习总结">
 <meta property="og:url" content="http://yoursite.com/2018/12/31/Http网络请求浅析/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
@@ -45,9 +45,9 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http16.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http17.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http18.png">
-<meta property="og:updated_time" content="2020-01-16T13:50:35.044Z">
+<meta property="og:updated_time" content="2020-01-16T14:52:37.690Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="图解HTTP协议">
+<meta name="twitter:title" content="这是一份关于HTTP协议的学习总结">
 <meta name="twitter:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http1.png">
     
@@ -151,7 +151,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">图解HTTP协议</div>
+        <div class="flex-col header-title ellipsis">这是一份关于HTTP协议的学习总结</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -173,7 +173,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">图解HTTP协议</h1>
+        <h1 class="title">这是一份关于HTTP协议的学习总结</h1>
         <h5 class="subtitle">
             
                 <time datetime="2018-12-31T07:33:15.000Z" itemprop="datePublished" class="page-time">
@@ -198,7 +198,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP协议版本演变"><span class="post-toc-text">HTTP协议版本演变</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP工作过程"><span class="post-toc-text">HTTP工作过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的请求方法"><span class="post-toc-text">HTTP的请求方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTP的报文格式"><span class="post-toc-text">HTTP的报文格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、请求报文"><span class="post-toc-text">1、请求报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1、GET的请求报文"><span class="post-toc-text">1.1、GET的请求报文</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2、POST的请求报文"><span class="post-toc-text">1.2、POST的请求报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、响应报文"><span class="post-toc-text">2、响应报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的状态码"><span class="post-toc-text">常见的状态码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、2XX成功"><span class="post-toc-text">1、2XX成功</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、3XX重定向"><span class="post-toc-text">2、3XX重定向</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、4XX客户端错误"><span class="post-toc-text">3、4XX客户端错误</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、5XX服务端错误"><span class="post-toc-text">4、5XX服务端错误</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见的首部字段"><span class="post-toc-text">常见的首部字段</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、通用首部字段"><span class="post-toc-text">1、通用首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、实体首部字段"><span class="post-toc-text">2、实体首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、请求首部字段"><span class="post-toc-text">3、请求首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、响应首部字段"><span class="post-toc-text">4、响应首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、具体应用"><span class="post-toc-text">5、具体应用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-1、-长连接原理"><span class="post-toc-text">5.1、 长连接原理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-2、内容协商"><span class="post-toc-text">5.2、内容协商</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-3、Cookie机制"><span class="post-toc-text">5.3、Cookie机制</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTTPS是什么"><span class="post-toc-text">HTTPS是什么</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、HTTP的问题"><span class="post-toc-text">1、HTTP的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、HTTPS的解决办法"><span class="post-toc-text">2、HTTPS的解决办法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、采用混合加密机制进行加密"><span class="post-toc-text">2.1、采用混合加密机制进行加密</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、采用数字签名进行进行完整性保护"><span class="post-toc-text">2.2、采用数字签名进行进行完整性保护</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-3、采用数字证书进行身份认证"><span class="post-toc-text">2.3、采用数字证书进行身份认证</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、HTTPS的通信过程"><span class="post-toc-text">3、HTTPS的通信过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、HTTP协议版本演变"><span class="post-toc-text">一、HTTP协议版本演变</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、HTTP工作过程"><span class="post-toc-text">二、HTTP工作过程</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、HTTP的请求方法"><span class="post-toc-text">三、HTTP的请求方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、HTTP的报文格式"><span class="post-toc-text">四、HTTP的报文格式</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、请求报文"><span class="post-toc-text">1、请求报文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-1、GET的请求报文"><span class="post-toc-text">1.1、GET的请求报文</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2、POST的请求报文"><span class="post-toc-text">1.2、POST的请求报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、响应报文"><span class="post-toc-text">2、响应报文</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、常见的状态码"><span class="post-toc-text">五、常见的状态码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、2XX成功"><span class="post-toc-text">1、2XX成功</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、3XX重定向"><span class="post-toc-text">2、3XX重定向</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、4XX客户端错误"><span class="post-toc-text">3、4XX客户端错误</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、5XX服务端错误"><span class="post-toc-text">4、5XX服务端错误</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六、常见的首部字段"><span class="post-toc-text">六、常见的首部字段</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、通用首部字段"><span class="post-toc-text">1、通用首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、实体首部字段"><span class="post-toc-text">2、实体首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、请求首部字段"><span class="post-toc-text">3、请求首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、响应首部字段"><span class="post-toc-text">4、响应首部字段</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、具体应用"><span class="post-toc-text">5、具体应用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-1、-长连接原理"><span class="post-toc-text">5.1、 长连接原理</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-2、内容协商"><span class="post-toc-text">5.2、内容协商</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-3、Cookie机制"><span class="post-toc-text">5.3、Cookie机制</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#七、HTTPS是什么"><span class="post-toc-text">七、HTTPS是什么</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、HTTP的问题"><span class="post-toc-text">1、HTTP的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、HTTPS的解决办法"><span class="post-toc-text">2、HTTPS的解决办法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、采用混合加密机制进行加密"><span class="post-toc-text">2.1、采用混合加密机制进行加密</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、采用数字签名进行进行完整性保护"><span class="post-toc-text">2.2、采用数字签名进行进行完整性保护</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-3、采用数字证书进行身份认证"><span class="post-toc-text">2.3、采用数字证书进行身份认证</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、HTTPS的通信过程"><span class="post-toc-text">3、HTTPS的通信过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
         </nav>
     </aside>
 
@@ -207,7 +207,7 @@
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">图解HTTP协议</h1>
+        <h1 class="post-card-title">这是一份关于HTTP协议的学习总结</h1>
         <div class="post-meta">
             <time class="post-time" title="2018-12-31 15:33:15" datetime="2018-12-31T07:33:15.000Z"  itemprop="datePublished">2018-12-31</time>
 
@@ -222,7 +222,7 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。</p>
 <a id="more"></a>
-<h2 id="HTTP协议版本演变"><a href="#HTTP协议版本演变" class="headerlink" title="HTTP协议版本演变"></a>HTTP协议版本演变</h2><img src="/2018/12/31/Http网络请求浅析/http1.png" title="http">
+<h2 id="一、HTTP协议版本演变"><a href="#一、HTTP协议版本演变" class="headerlink" title="一、HTTP协议版本演变"></a>一、HTTP协议版本演变</h2><img src="/2018/12/31/Http网络请求浅析/http1.png" title="http">
 <p>我们先来简单了解一下 HTTP 协议的历史演变：</p>
 <ul>
 <li><strong>HTTP/1.0</strong>：1996年，HTTP/1.0 版本发布，可以传输文字，图像、视频、二进制文件，它的特点是每次请求都需要建立一个单独的TCP连接，发送数据完毕，连接就关闭，如果还要请求其他资源，就必须再新建一个连接，上一次请求和下一次请求完全分离，这种非持续连接过程又叫做<strong>短连接</strong>。它的特点也是它的缺点，客户端和服务端每次请求都要建立TCP连接，而建立TCP连接和关闭TCP连接都是相对比较费时的过程，严重影响客户端和服务端的性能。</li>
@@ -248,7 +248,7 @@
 <blockquote>
 <p>HTTP1.1的长连接在浏览器中是<strong>默认开启</strong>的，通过指定首部<strong>Connection：Keep-Alive</strong>，后面会讲到长连接的工作原理。</p>
 </blockquote>
-<h2 id="HTTP工作过程"><a href="#HTTP工作过程" class="headerlink" title="HTTP工作过程"></a>HTTP工作过程</h2><img src="/2018/12/31/Http网络请求浅析/http4.png" title="http1">
+<h2 id="二、HTTP工作过程"><a href="#二、HTTP工作过程" class="headerlink" title="二、HTTP工作过程"></a>二、HTTP工作过程</h2><img src="/2018/12/31/Http网络请求浅析/http4.png" title="http1">
 <p>HTTP是基于TCP的应用层协议，从更高层次封装了TCP的使用细节，使得网络操作更为简单，一个HTTP请求就是一个典型的C/S模式，HTTP协议首先要和服务端建立TCP连接，当建立TCP连接的三报文握手的前两次报文握手完成后，在第三次握手，客户端就把HTTP请求报文作为第三个握手报文的数据发送给服务端，服务端收到请求报文后，就把所请求的文档作为响应报文返回给客户端，如下：</p>
 <img src="/2018/12/31/Http网络请求浅析/http5.png" title="http3">
 <p>HTTP的工作特点可以总结为以下3点：</p>
@@ -257,7 +257,7 @@
 <li>2、<strong>无状态的</strong>：服务端不会记得每个客户访问的状态，同一个客户访问两次服务端上的页面时，服务端响应与第一次访问相同，所以出现了<strong>Cookie/Session机制</strong>维护连接的状态；</li>
 <li>3、<strong>面向事务的</strong>：即对一系列信息的交换，要么所有信息交换都完成，要么一次交换都不进行。</li>
 </ul>
-<h2 id="HTTP的请求方法"><a href="#HTTP的请求方法" class="headerlink" title="HTTP的请求方法"></a>HTTP的请求方法</h2><img src="/2018/12/31/Http网络请求浅析/http6.png" title="http1">
+<h2 id="三、HTTP的请求方法"><a href="#三、HTTP的请求方法" class="headerlink" title="三、HTTP的请求方法"></a>三、HTTP的请求方法</h2><img src="/2018/12/31/Http网络请求浅析/http6.png" title="http1">
 <p>HTTP协议提供了几种请求方式，大家熟知的请求方式有8种GET、POST、DELETE、PUT、HEAD、TRACE、OPTIONS、CONNECT，其中最常用的是PUT（增）、DELETE(删)、POST（改）、GET（查）。下面以一张表来看看它们各自的作用。</p>
 <table>
 <thead>
@@ -308,7 +308,7 @@
 <blockquote>
 <p>代理服务器：代理服务器是一种具有转发功能的服务器，它扮演了服务器和客户端之间的中间人角色，它可以接收客户端发来的请求并转发给服务端，也可以接收服务端返回的响应并转发给客户端，在这个过程中它不会改变任何URL，报文每经过一个代理服务器，都需要在首部via字段的末尾插入一个可以代表代理服务器的独特的字符串,  代理服务器主要作用有：缓存代理(减少网络带宽)、访问控制(提高安全性)等。</p>
 </blockquote>
-<h2 id="HTTP的报文格式"><a href="#HTTP的报文格式" class="headerlink" title="HTTP的报文格式"></a>HTTP的报文格式</h2><img src="/2018/12/31/Http网络请求浅析/http7.png" title="http1">
+<h2 id="四、HTTP的报文格式"><a href="#四、HTTP的报文格式" class="headerlink" title="四、HTTP的报文格式"></a>四、HTTP的报文格式</h2><img src="/2018/12/31/Http网络请求浅析/http7.png" title="http1">
 <p>用于HTTP协议交换的信息称为HTTP报文，客户端发出的HTTP报文叫做请求报文，服务端返回的HTTP报文叫做响应报文，它们都是由多行数据构成的字符串文本，用<strong>CR + LF (回车符 + 换行符) 作为换行符</strong>，HTTP报文大体分为<strong>报文首部</strong>和<strong>报文主体</strong>两块，由第一个出现的空行(CR + LF)划分，其中报文主体不是必须的，如下：</p>
 <img src="/2018/12/31/Http网络请求浅析/http8.png" title="http">
 <p>其中报文首部又可以分为：开始行、首部行；开始行根据报文的不同又分为：请求行、状态行；首部行根据报文的不同与首部字段的作用又可以分为：请求首部字段、响应首部字段、通用首部字段、实体首部字段。</p>
@@ -390,7 +390,7 @@
 </table>
 <p>例如这是一个GET请求的返回的响应报文格式：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HTTP1.1 200 OK</span><br><span class="line">Data:Sat, 30, Dec 2006 23:23:00 GMT</span><br><span class="line">Content-Type:text/html；charset=UTF-8</span><br><span class="line"><span class="attribute">Content-Length:852</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang="zh-CN"&gt;</span><br><span class="line">	//...省略文档内容</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
 <p>上面HTTP响应报文表示，HTTP协议版本为<strong>1.1</strong>，响应状态码为<strong>200</strong>，表示请求成功，返回数据的类型为<strong>text/html（html）</strong>,  编码为<strong>UTF-8</strong>，返回数据的内容长度为<strong>852</strong>字节，空行之后，接下来就是返回的数据，是一个html文档。</p>
-<h2 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h2><img src="/2018/12/31/Http网络请求浅析/http11.png" title="http">
+<h2 id="五、常见的状态码"><a href="#五、常见的状态码" class="headerlink" title="五、常见的状态码"></a>五、常见的状态码</h2><img src="/2018/12/31/Http网络请求浅析/http11.png" title="http">
 <p>状态码的职责是当客户端向服务端发送请求时，描述服务端返回的请求结果，借助状态码，我们就可以得知服务端是正常处理了请求，还是出现了错误，下面是开发中经常遇见的状态码：</p>
 <h3 id="1、2XX成功"><a href="#1、2XX成功" class="headerlink" title="1、2XX成功"></a>1、2XX成功</h3><p>2XX的响应结果表示请求被正常处理了.</p>
 <ul>
@@ -420,7 +420,7 @@
 <blockquote>
 <p>更多状态码信息请访问<a href="https://www.runoob.com/http/http-status-codes.html" target="_blank" rel="noopener">HTTP状态码</a></p>
 </blockquote>
-<h2 id="常见的首部字段"><a href="#常见的首部字段" class="headerlink" title="常见的首部字段"></a>常见的首部字段</h2><img src="/2018/12/31/Http网络请求浅析/http12.png" title="http">
+<h2 id="六、常见的首部字段"><a href="#六、常见的首部字段" class="headerlink" title="六、常见的首部字段"></a>六、常见的首部字段</h2><img src="/2018/12/31/Http网络请求浅析/http12.png" title="http">
 <p>下面列举了HTTP/1.1中的47种常见首部字段，分为通用首部字段、请求首部字段、响应首部字段、实体首部字段：</p>
 <h3 id="1、通用首部字段"><a href="#1、通用首部字段" class="headerlink" title="1、通用首部字段"></a>1、通用首部字段</h3><p>表示请求报文和响应报文双方都会使用的首部。</p>
 <table>
@@ -697,7 +697,7 @@
 <ul>
 <li>1、当用户登陆网站时，填入账号、密码等信息，然后提交表单，这些信息会被放入HTTP的请求报文，然后发送给服务端；</li>
 <li>2、服务端收到请求后，验证该用户名和密码，如果正确，则为该用户创建一个<strong>Session</strong>对象，Session对象中保存了用户的状态信息，并生成Session对象的唯一ID，称为<strong>Session ID</strong>，然后把Session对象存储到内存或数据库中，根据Session ID根据从内存或数据库获取到Session对象；</li>
-<li>3、接着服务端把<strong>Session ID</strong>的值以<strong>name=value</strong>的形式放入响应报文的<strong>Set-Cookie</strong>首部中，其中name为Session ID的名字，value就是Session ID的值，name=value形式的Session ID就称为<strong>Cookie</strong>，Set-Cookie首部除了Session ID之外，还有一些其他name=value形式的信息，如Cookie的有效期、Cookie的域名范围等，然后把这个响应报文发送给客户端；</li>
+<li>3、接着服务端把<strong>Session ID</strong>的值以<strong>name=value</strong>的形式放入响应报文的<strong>Set-Cookie</strong>首部中，其中name为Session ID的名字，value就是Session ID的值，name=value形式的Session ID就称为<strong>Cookie</strong>，Set-Cookie首部除了Session ID之外，还有一些其他信息，如Cookie的有效期、Cookie的域名范围等，然后把这个响应报文发送给客户端；</li>
 <li>4、客户端收到响应报文之后从<strong>Set-Cookie</strong>首部中取出所有<strong>Cookie信息</strong>，然后把它保存到本地，客户端有时候会收到不止一个Set-Cookie首部，如果有多个，每个Set-Cookie首部中的Cookie信息都要保存；</li>
 <li>5、客户端之后对同一个服务端进行请求时都会从本地取出Cookie信息，这时可以校验Cookie的有效期、路径、域名等信息，然后取出其中的<strong>Cookie值</strong>放入请求报文的<strong>Cookie</strong>首部字段，如果有多个Cookie值，Cookie首部中就用 <strong>;</strong> 分隔，然后把这个请求报文发送给服务端；</li>
 <li>6、服务器收到请求后，从<strong>Cookie</strong>首部中取出Cookie，从Cookie中取出<strong>Session ID</strong>，然后用Session ID从内存或数据库取出用户信息，恢复用户之前的操作状态。</li>
@@ -708,13 +708,13 @@
 <p>我随便点开几篇文章，它的请求报文里的Cookie首部都会携带上面的Cookie，如下：</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/user/5b437173e51d45191d79c27a/posts</span> HTTP/1.1</span><br><span class="line">//...省略很多首部</span><br><span class="line"><span class="attribute">Cookie</span>: ab=&#123;&#125;;auth=eyJ0b2tlbiI6ImV5SmhZMk5sYzNOZmRHOXJaVzRpT2lKdVNYTkJVVzlOWldwMWNuSkJjamQ2SWl3aWNtVm1jbVZ6YUY5MGIydGxiaUk2SWpNMWNYZzVhME52V21wMFNuUXdVbTRpTENKMGIydGxibDkwZVhCbElqb2liV0ZqSWl3aVpYaHdhWEpsWDJsdUlqb3lOVGt5TURBd2ZRPT0iLCJjbGllbnRJZCI6MTU3OTE3MTcxNTI0OCwidXNlcklkIjoiNWI0MzcxNzNlNTFkNDUxOTFkNzljMjdhIn0=; auth.sig=nl1rsPof1lOURBJ1F81MyhGsoxs;QINGCLOUDELB=7526744c262201bf8ae89c7035a8ce8c9eb2c663a78c233d245e9356cc89386b|XiBG2|XiBG2;//省略了一些其他Cookie值</span><br></pre></td></tr></table></figure>
 <p>可以看到Cookie首部都携带上了ab=XX、_auth.sig=XX、_QINGCLOUDELB=XX、auth=XX这4个Cookie。</p>
-<p>挑一个Set-Cookie值解释一下它里面键值的含义，如下：</p>
+<p>挑一个Set-Cookie值解释一下它里面每个属性的含义，如下：</p>
 <figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Set-Cookie</span>: ab=&#123;&#125;; path=/; expires=Fri, 15 Jan 2021 11:13:21 GMT; secure; httponly</span><br></pre></td></tr></table></figure>
-<p>可以看到服务器端返回的Set-Cookie格式都是<strong>name=value</strong>形式，它里面的键值含义如下：</p>
+<p>可以看到服务器端返回的Set-Cookie首部值中，每个属性用分号 <strong>;</strong> 分隔，这些属性的解释如下：</p>
 <table>
 <thead>
 <tr>
-<th>属性(name=value)</th>
+<th>属性</th>
 <th>解释</th>
 </tr>
 </thead>
@@ -748,7 +748,7 @@
 <blockquote>
 <p>跨站脚本攻击 (XSS):  是指攻击者诱用户进入圈套，由用户在不知情的情况下执行攻击代码，攻击者事先编写脚本植入到用户的浏览器页面，用户在运行这些页面时就会触发脚本，发起攻击，常见的攻击有：利用脚本窃取用户的Cookie值、利用虚假输入表单骗取用户个人信息、显示伪造的图片或文章等。</p>
 </blockquote>
-<h2 id="HTTPS是什么"><a href="#HTTPS是什么" class="headerlink" title="HTTPS是什么"></a>HTTPS是什么</h2><img src="/2018/12/31/Http网络请求浅析/http13.png" title="http">
+<h2 id="七、HTTPS是什么"><a href="#七、HTTPS是什么" class="headerlink" title="七、HTTPS是什么"></a>七、HTTPS是什么</h2><img src="/2018/12/31/Http网络请求浅析/http13.png" title="http">
 <h3 id="1、HTTP的问题"><a href="#1、HTTP的问题" class="headerlink" title="1、HTTP的问题"></a>1、HTTP的问题</h3><p>讲到HTTP不得不讲HTTPS，HTTPS并非一种新的协议，HTTPS就是<strong>安全版</strong>的HTTP，由于HTTP设计简单，使用简单，导致了它存在了大量安全问题，主要体现在以下三个方面：</p>
 <ul>
 <li>1、<strong>HTTP通信双方使用不加密的明文，内容可能会被窃听</strong>：HTTP是使用明文在网络上进行报文的传输，而在网络上进行传输的任何内容，都有可能被截获，例如通过一些Wireshark、Fiddler等抓包工具就可以抓取HTTP的报文，从而查看报文中的内容，而报文中的内容是未经过加密的明文，那么一些重要的信息就被别人窃取到了；</li>
@@ -850,7 +850,8 @@
 <blockquote>
 <p>HTTPS这么安全，为什么不所有网站都使用？<br>1、效率问题：与HTTP的明文通信相比，加密通信需要消耗更多的CPU资源与内存；<br>2、部署问题：使用HTTPS需要有权威CA的证书颁发，从证书的选择、购买到部署都是一个耗时耗力的过程；<br>3、成本问题：购买证书也是一笔开销.</p>
 </blockquote>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>网络请求已经成为了一个应用最基本的部分，所以熟悉HTTP对于我们开发很重要，我们不仅会用开发环境提供给我们的API，还要属性它的原理，这样开发才能做到胸有成竹。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>网络请求已经成为了一个应用最基本的部分，所以熟悉HTTP对于我们开发很重要，我们不仅会用开发环境提供给我们的API，还要属性它的原理，本文从发展历史、工作特点、报文格式、状态码、常见首部、HTTPS这几个方面总结了一番HTTP，当然，HTTP肯定不止这一些，一篇文章是无法讲完的，限于篇幅，还有HTTP的缓存机制没有讲，这也是很重要的内容，我们要知道，HTTPS并不是一个新的协议，它只是安全版的HTTP。</p>
+<p>以上就是本文全部内容，希望大家有所收获。</p>
 <p>参考资料：</p>
 <p>图解HTTP</p>
 <p><a href="https://www.cnblogs.com/heluan/p/8620312.html" target="_blank" rel="noopener">HTTP1.0、HTTP1.1 和 HTTP2.0 的区别</a></p>
@@ -867,7 +868,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-16T13:50:35.044Z" itemprop="dateUpdated">2020-01-16 21:50:35</time>
+    Last updated: <time datetime="2020-01-16T14:52:37.690Z" itemprop="dateUpdated">2020-01-16 22:52:37</time>
 </span><br>
 
 
@@ -893,7 +894,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/">https</a></li></ul>
 
 
             
@@ -903,7 +904,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《图解HTTP协议》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -913,7 +914,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《图解HTTP协议》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -923,7 +924,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图解HTTP协议》 — jianyu的博客&url=http://yoursite.com/2018/12/31/Http网络请求浅析/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&url=http://yoursite.com/2018/12/31/Http网络请求浅析/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -1046,7 +1047,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《图解HTTP协议》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -1056,7 +1057,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《图解HTTP协议》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/31/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -1066,7 +1067,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图解HTTP协议》 — jianyu的博客&url=http://yoursite.com/2018/12/31/Http网络请求浅析/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&url=http://yoursite.com/2018/12/31/Http网络请求浅析/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
