@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/10/21/使用AIDL来进行进程间通信/aidl4.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/21/使用AIDL来进行进程间通信/aidl5.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/21/使用AIDL来进行进程间通信/aidl6.png">
-<meta property="og:updated_time" content="2019-10-21T13:04:01.172Z">
+<meta property="og:updated_time" content="2020-01-31T15:56:42.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用AIDL来进行进程间通信">
 <meta name="twitter:description" content="前言AIDL它是Android众多进程间通信方式中的一种，底层是Binder机制的实现，所以想要读懂AIDL自动生成的代码中各个类的作用，就必须对Binder有一定的了解，其实不止AIDL，Android进程间通信的大多数方式的底层都是Binder机制，本文主要介绍AIDL的使用，所以不会介绍Binder机制的原理，关于Binder机制的原理，我推荐下面的一篇文章，零基础也能看懂： 写给 Andr">
@@ -147,7 +147,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -257,6 +257,9 @@
 <p>接下来为了方便后面的讲解，我把ClientActivity指定为主活动，把MainActivity删除，再创建一个Server，并为它指定process属性，如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".ClientActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span> <span class="attr">android:name</span>=<span class="string">".RemoteService"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:enabled</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:exported</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:process</span>=<span class="string">"com.example.aidltest.remote"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 <p>ClientActivity启动时会运行在默认的进程上，RemoteService启动时会运行在名为com.example.aidltest.remote的进程上，它们在本文分别代表为本地客户端和远程服务端。</p>
+<blockquote>
+<p>通过给四大组件指定”android:process“属性开启多进程时，进程名以 <strong>:</strong> 开头属于当前应用的<strong>私有进程</strong>，其他应用的组件不能和它跑在同一个进程中；不以 <strong>:</strong> 开头的进程属于<strong>全局进程</strong>，其他应用如果签名相同时，可以通过sharedUserId方式和它跑在同一个进程中，本文没有使用 <strong>:</strong> 开头，而是直接给新进程指定名字，所以新进程属于全局进程。</p>
+</blockquote>
 <h2 id="使用AIDL"><a href="#使用AIDL" class="headerlink" title="使用AIDL"></a>使用AIDL</h2><p>前面花了一点篇幅来讲解序列化和其他进程间通信的方式，主要是让大家有个心理准备，下面进入正文：</p>
 <h3 id="1、AIDL是什么"><a href="#1、AIDL是什么" class="headerlink" title="1、AIDL是什么"></a>1、AIDL是什么</h3><p>它全称是Android Interface Definition Language，即Android接口定义语言，为了使其他的进程也可以访问本进程提供的服务，Android使用AIDL来公开服务的接口，它里面定义了本进程可以为其他进程提供什么服务，即定义了一些方法，其他进程就可以通过RPC（远程调用）来调用这些方法，从而获得服务，其中提供服务的进程称为服务端，获取服务的进程称为客户端。</p>
 <h3 id="2、AIDL接口的创建"><a href="#2、AIDL接口的创建" class="headerlink" title="2、AIDL接口的创建"></a>2、AIDL接口的创建</h3><p>AIDL接口用来暴露服务点提供给客户端的方法，新建一个AIDL接口文件，只需要在你的项目中 <strong>点击包名 -&gt; 右键 -&gt; new -&gt; AIDL -&gt; Aidl.file</strong>，然后输入AIDL接口名称，这里我输入了<strong>IUserManager</strong>，然后点击<strong>Finish</strong>，就会在你的main目录下创建了一个aidl文件夹，aidl文件夹里的包名和java文件夹里的包名相同，里面用来存放AIDL接口文件，如下：</p>
@@ -343,6 +346,7 @@
 <p>参考资料：</p>
 <p><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0204/2410.html" target="_blank" rel="noopener">Android系统中Parcelable和Serializable的区别</a></p>
 <p><a href="https://www.jianshu.com/p/062a6e4f5cbe" target="_blank" rel="noopener">关于Binder，作为应用开发者你需要知道的全部</a></p>
+<p><a href="https://blog.csdn.net/cmyperson/article/details/56278433" target="_blank" rel="noopener">如何理解Android的多进程</a></p>
 
         </div>
 
@@ -351,7 +355,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-21T13:04:01.172Z" itemprop="dateUpdated">2019-10-21 21:04:01</time>
+    Last updated: <time datetime="2020-01-31T15:56:42.077Z" itemprop="dateUpdated">2020-01-31 23:56:42</time>
 </span><br>
 
 
@@ -515,7 +519,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
