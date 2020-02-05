@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity3.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity4.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/activity5.png">
-<meta property="og:updated_time" content="2020-01-13T10:18:35.447Z">
+<meta property="og:updated_time" content="2020-02-01T15:35:44.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android8.0的Activity启动流程(1)">
 <meta name="twitter:description" content="前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家">
@@ -146,7 +146,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -324,9 +324,9 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
 <p>关于ApplicationThread中的scheduleLaunchActivity方法之后的流程就留到下一篇文章了。</p>
 <p>阅读源码真的是一个漫长的过程，又时候看别人写的那么简单，但是当自己去写，才发现要考虑的东西很多，所以这是一个日积月累的过程，所以阅读源码的时候，最好跟着前人的文章阅读，这样理解的更快。</p>
 <p>参考文章：</p>
-<p>《Android开发艺术探索》</p>
 <p><a href="http://gityuan.com/2016/03/12/start-activity/" target="_blank" rel="noopener">startActivity启动过程分析</a></p>
 <p><a href="http://liuwangshu.cn/framework/component/6-activity-start-1.html" target="_blank" rel="noopener">Android8.0 根Activity启动过程</a></p>
+<p><a href="https://www.cnblogs.com/jymblog/p/10917345.html" target="_blank" rel="noopener">从Activity的启动流程理解Binder</a></p>
 
         </div>
 
@@ -335,7 +335,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-13T10:18:35.447Z" itemprop="dateUpdated">2020-01-13 18:18:35</time>
+    最后更新时间：<time datetime="2020-02-01T15:35:44.209Z" itemprop="dateUpdated">2020-02-01 23:35:44</time>
 </span><br>
 
 
@@ -499,7 +499,7 @@ frameworks/base/services/core/java/com/android/server/am/*.java(*代表ActivityM
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

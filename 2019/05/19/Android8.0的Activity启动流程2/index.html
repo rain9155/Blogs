@@ -30,7 +30,7 @@
 <meta property="og:description" content="前言 上一篇文章Android8.0的Activity启动流程(1)  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/05/19/Android8.0的Activity启动流程2/activity1.jpg">
-<meta property="og:updated_time" content="2019-10-26T06:37:32.565Z">
+<meta property="og:updated_time" content="2020-02-01T15:35:56.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android8.0的Activity启动流程(2)">
 <meta name="twitter:description" content="前言 上一篇文章Android8.0的Activity启动流程(1)  上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下">
@@ -142,7 +142,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -313,7 +313,6 @@ frameworks/base/core/java/android/app/Instrumentation.java
 <p>参考资料：</p>
 <p><a href="https://www.jianshu.com/p/91984327690e" target="_blank" rel="noopener">Activity生命周期回调是如何被回调的</a></p>
 <p><a href="http://liuwangshu.cn/framework/component/7-activity-start-2.html" target="_blank" rel="noopener">Android8.0 根Activity启动过程（后篇）</a></p>
-<p>《Android源码分析与实战》</p>
 
         </div>
 
@@ -322,7 +321,7 @@ frameworks/base/core/java/android/app/Instrumentation.java
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2019-10-26T06:37:32.565Z" itemprop="dateUpdated">2019-10-26 14:37:32</time>
+    最后更新时间：<time datetime="2020-02-01T15:35:56.205Z" itemprop="dateUpdated">2020-02-01 23:35:56</time>
 </span><br>
 
 
@@ -489,7 +488,7 @@ frameworks/base/core/java/android/app/Instrumentation.java
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
