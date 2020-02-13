@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java7.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error1.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error2.png">
-<meta property="og:updated_time" content="2020-02-08T16:20:21.571Z">
+<meta property="og:updated_time" content="2020-02-11T14:37:50.149Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习总结之基础">
 <meta name="twitter:description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
@@ -424,6 +424,12 @@
 <li>然后使用<strong>instanceof </strong>判断两个对象是否是同一个类型.（类型相同）</li>
 <li>最后比较两个对象的内容是否一致.(内容相同)</li>
 </ul>
+<p>按照上面3步重写的equal方法，满足自反性、对称性、传递性，如下：</p>
+<ul>
+<li>自反性：对于非null的x，x.equal(x)返回true；</li>
+<li>对称性：对于非null的x，y，x.equal(y)返回true当且仅当y.equal(x)返回true；</li>
+<li>传递性：对于非null的x，y，z，如果x.equal(y)返回true，并且y.equal(z)返回true，那么x.equal(z)返回true。</li>
+</ul>
 <h3 id="3、hashCode"><a href="#3、hashCode" class="headerlink" title="3、hashCode()"></a>3、hashCode()</h3><p>hashCode()用来返回一个对象的hash值，它是一个native方法，它主要使用于哈希表中的hash算法，用于定位一个元素的位置，所以当你的对象要作为哈希表中的元素时，你要保证以下几个原则：</p>
 <ul>
 <li>要比较两个对象是否相等，必须使用equal方法，如果相等，那么调用两个对象的 hashCode 方法必须返回相同的结果，即相等的两个对象返回的hashCode必须是相等的.</li>
@@ -524,7 +530,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-02-08T16:20:21.571Z" itemprop="dateUpdated">2020-02-09 00:20:21</time>
+    最終更新：<time datetime="2020-02-11T14:37:50.149Z" itemprop="dateUpdated">2020-02-11 22:37:50</time>
 </span><br>
 
 
