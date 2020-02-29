@@ -45,7 +45,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http16.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http17.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/31/Http网络请求浅析/http18.png">
-<meta property="og:updated_time" content="2020-01-16T16:41:34.923Z">
+<meta property="og:updated_time" content="2020-02-29T14:30:04.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="这是一份关于HTTP协议的学习总结">
 <meta name="twitter:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
@@ -268,7 +268,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><strong>CET</strong></td>
+<td style="text-align:center"><strong>GET</strong></td>
 <td style="text-align:left"><strong>获取资源</strong>：客户端通过URL获取服务端中的某个资源，请求参数放在URL中，然后服务端返回对应资源给客户端</td>
 </tr>
 <tr>
@@ -696,7 +696,7 @@
 <p>Cookie需要和服务端的Session配合使用，Cookie是存储在客户端中，而Session是存储在服务器端中，Session是服务端保存用户状态的方式，它们的工作过程大概如下：</p>
 <ul>
 <li>1、当用户登陆网站时，填入账号、密码等信息，然后提交表单，这些信息会被放入HTTP的请求报文，然后发送给服务端；</li>
-<li>2、服务端收到请求后，验证该用户名和密码，如果正确，则为该用户创建一个<strong>Session</strong>对象，Session对象中保存了用户的状态信息，并生成Session对象的唯一ID，称为<strong>Session ID</strong>，然后把Session对象存储到内存或数据库中，根据Session ID根据从内存或数据库获取到Session对象；</li>
+<li>2、服务端收到请求后，验证该用户名和密码，如果正确，则为该用户创建一个<strong>Session</strong>对象，Session对象中保存了用户的状态信息，并生成Session对象的唯一ID，称为<strong>Session ID</strong>，然后把Session对象存储到内存或数据库中，根据Session ID可以从内存或数据库获取到Session对象；</li>
 <li>3、接着服务端把<strong>Session ID</strong>的值以<strong>name=value</strong>的形式放入响应报文的<strong>Set-Cookie</strong>首部中，其中name为Session ID的名字，value就是Session ID的值，name=value形式的Session ID就称为<strong>Cookie</strong>，Set-Cookie首部除了Session ID之外，还有一些其他信息，如Cookie的有效期、Cookie的域名范围等，然后把这个响应报文发送给客户端；</li>
 <li>4、客户端收到响应报文之后从<strong>Set-Cookie</strong>首部中取出所有<strong>Cookie信息</strong>，然后把它保存到本地，客户端有时候会收到不止一个Set-Cookie首部，如果有多个，每个Set-Cookie首部中的Cookie信息都要保存；</li>
 <li>5、客户端之后对同一个服务端进行请求时都会从本地取出Cookie信息，这时可以校验Cookie的有效期、路径、域名等信息，然后取出其中的<strong>Cookie值</strong>放入请求报文的<strong>Cookie</strong>首部字段，如果有多个Cookie值，Cookie首部中就用 <strong>;</strong> 分隔，然后把这个请求报文发送给服务端；</li>
@@ -808,7 +808,7 @@
 <p>2、<strong>有效期(Validity)</strong>: 表示证书的使用期限，过了有效期，证书就失效了</p>
 <p>3、<strong>名称（Subject)</strong>：表示证书所有人的名字，这个证书是发给谁的，一般是某个人或者某个公司名称、机构的名称、公司网站的网址等；</p>
 <p>4、<strong>公钥(Public-Key)</strong>: 表示证书所有人想要公布出去的公钥；</p>
-<p>5、<strong>签名算法(Signature algorithm)</strong>: 表示证书的数字签名所使用的加密算法，这样就可以使用证书发布机构的证书里面的公钥，根据这个算法对数字签名进行解密；</p>
+<p>5、<strong>签名算法(Signature algorithm)</strong>: 表示证书的数字签名所使用的加密算法，这样就可以使用证书发布机构的公钥，根据这个算法对数字签名进行解密；</p>
 <p>6、<strong>数字签名(Digital Signature)</strong>：表示证书发行者CA对该证书的数字签名，用于保证数字证书的完整性，确保证书没有被修改过.</p>
 </li>
 </ul>
@@ -868,7 +868,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-01-16T16:41:34.923Z" itemprop="dateUpdated">2020-01-17 00:41:34</time>
+    最終更新：<time datetime="2020-02-29T14:30:04.957Z" itemprop="dateUpdated">2020-02-29 22:30:04</time>
 </span><br>
 
 
