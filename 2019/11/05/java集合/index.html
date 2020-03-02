@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/11/05/java集合/java5.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/05/java集合/java6.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/05/java集合/java7.png">
-<meta property="og:updated_time" content="2020-02-09T14:21:30.062Z">
+<meta property="og:updated_time" content="2020-03-01T15:13:45.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习总结之集合框架">
 <meta name="twitter:description" content="前言在JDK1.2之前，java是没有完整的集合框架的，只有一些简单的可以扩展的容器类，如Vector、Stack、Hashtable等，这些容器类它们解决了数组不能动态扩容和使用复杂的问题，到了JDK1.2之后，为了管理这些容器类，就出现了集合框架这个概念，集合框架是为了表示和操作集合而规定的一种统一的标准的体系结构，它包含三大内容：对外的接口、接口的实现和对集合运算的算法（对某一种数据结构的算">
@@ -385,7 +385,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;()&#123;&#123;</span><br><span class="line">    put(<span class="number">1</span>, <span class="string">"1"</span>); put(<span class="number">2</span>, <span class="string">"2"</span>); put(<span class="number">3</span>, <span class="string">"3"</span>); put(<span class="number">4</span>, <span class="string">"4"</span>);</span><br><span class="line"></span><br><span class="line">&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1、遍历KeySet，通过Key取出Value</span></span><br><span class="line">Set&lt;Integer&gt; keySet = map.keySet();</span><br><span class="line"><span class="keyword">for</span>(Integer key : keySet)&#123;</span><br><span class="line">    System.out.print(key + <span class="string">"--"</span> + map.get(key) + <span class="string">" "</span>);</span><br><span class="line">&#125;</span><br><span class="line">System.out.println();</span><br><span class="line"></span><br><span class="line"><span class="comment">//2、遍历EntrySet，取出Key和Value</span></span><br><span class="line">Set&lt;Map.Entry&lt;Integer, String&gt;&gt; entrySet = map.entrySet();</span><br><span class="line"><span class="keyword">for</span>(Map.Entry&lt;Integer, String&gt; entry : entrySet)&#123;</span><br><span class="line">    System.out.print(entry.getKey() + <span class="string">"--"</span> + entry.getValue() + <span class="string">" "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>foreach遍历底层其实还是通过迭代器遍历。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实还有两个很少用到，但在特殊场景却一定会用到它的两个集合没有讲到，分别是：PriorityQueue(优先级队列)、WeakHashMap(Key为弱引用的HashMap)，PriorityQueue可以指定比较器实现<strong>小顶堆和大顶堆</strong>，WeakHashMap可以用在<strong>内存有限</strong>的环境下，防止OOM，关于它们的具体使用可以自行查阅资料。</p>
-<p>本文主要简单介绍了集合框架中经常用到的集合类：ArrayList、LinkedList、HashMap、LinkedHashMap、TreeMap、HashSet、LinkedHashMap、TreeSet、ArrayDeque，和一些古老的容器类：Stack、Vector、HashTable，其中容器类已经不推荐使用了，它们都有各自的替代品，分别是：ArrayDeque、ArrayList、HashMap，本文还讲解的集合类之间各自的区别和使用场景，还有集合的迭代方式，在使用集合时，要善用<strong>Collections和Arrays</strong>工具类，它里面有很多对集合操作的工具方法，能在开发中简化我们的工作量。</p>
+<p>本文主要简单介绍了集合框架中经常用到的集合类：ArrayList、LinkedList、HashMap、LinkedHashMap、TreeMap、HashSet、LinkedHashSet、TreeSet、ArrayDeque，和一些古老的容器类：Stack、Vector、HashTable，其中容器类已经不推荐使用了，它们都有各自的替代品，分别是：ArrayDeque、ArrayList、HashMap，本文还讲解了集合类之间各自的区别和使用场景，还有集合的迭代方式，在使用集合时，要善用<strong>Collections和Arrays</strong>工具类，它里面有很多对集合操作的工具方法，能在开发中简化我们的工作量。</p>
 <p>以上就是本文的全部内容，如有错误，欢迎指出！</p>
 <p>参考资料：</p>
 <p><a href="https://blog.csdn.net/justloveyou_/article/details/71713781" target="_blank" rel="noopener">彻头彻尾理解 LinkedHashMap</a></p>
@@ -401,7 +401,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-02-09T14:21:30.062Z" itemprop="dateUpdated">2020-02-09 22:21:30</time>
+    最終更新：<time datetime="2020-03-01T15:13:45.224Z" itemprop="dateUpdated">2020-03-01 23:13:45</time>
 </span><br>
 
 
