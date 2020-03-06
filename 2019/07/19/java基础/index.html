@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java7.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error1.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error2.png">
-<meta property="og:updated_time" content="2020-02-11T14:37:50.149Z">
+<meta property="og:updated_time" content="2020-03-06T14:21:43.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习总结之基础">
 <meta name="twitter:description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
@@ -150,7 +150,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -219,8 +219,9 @@
 <ul>
 <li>创建java源程序，扩展名为.java</li>
 <li>使用javac命令编译源程序为字节码文件，扩展名为.class</li>
-<li>使用java命令运行字节码文件，在不同平台执行<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2>下面用一张表概括：</li>
+<li>使用java命令运行字节码文件，在不同平台执行</li>
 </ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>下面用一张表概括：</p>
 <table>
 <thead>
 <tr>
@@ -268,16 +269,16 @@
 <td style="text-align:center">8</td>
 </tr>
 <tr>
-<td style="text-align:center">布尔类型</td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">8</td>
-<td style="text-align:center">1</td>
-</tr>
-<tr>
 <td style="text-align:center">字符类型</td>
 <td style="text-align:center">char</td>
 <td style="text-align:center">16</td>
 <td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">布尔类型</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
 </tr>
 <tr>
 <td style="text-align:center">字符串类型</td>
@@ -300,7 +301,11 @@
 <li><p>类类型/引用类型（class type or reference types）：用来保存复杂的组合数据，如String和自定义类型。</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps: 在java中，char类型实际是一个16位的无符号整数（&lt;=65535）,可以保存中文和转义字符(`\b`,`\t`,`\n`等)。</span><br></pre></td></tr></table></figure>
+<p>在java中，char类型实际是一个16位的无符号整数（&lt;=65535），可以保存中文和转义字符(<code>\b</code>,<code>\t</code>,<code>\n</code>等)。</p>
+<p>而在java中并没有明确的表示boolean类型应该占多少位，其大小与JVM实现相关，JVM的建议如下：</p>
+<p>1、boolean 类型应该被编译成 int 类型来使用，占 4 个字节；</p>
+<p>2、boolean 数组应该被编译成 byte 数组类型，每个 boolean 数组成员占 1 个 字节.</p>
+<p>可以肯定的是，boolean 类型不会只占 1 个位，boolean 类型的大小与JVM实现相关。</p>
 <h2 id="成员变量和局部变量"><a href="#成员变量和局部变量" class="headerlink" title="成员变量和局部变量"></a>成员变量和局部变量</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 类名</span>&#123;</span><br><span class="line"></span><br><span class="line">    数据类型 变量<span class="number">1</span>；<span class="comment">//成员变量</span></span><br><span class="line">    </span><br><span class="line">    返回值类型 方法名()&#123;</span><br><span class="line">    </span><br><span class="line">        数据类型 变量<span class="number">2</span>；<span class="comment">//局部变量</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>1、成员变量的作用域在整个类都是可见的。<br>2、局部变量的作用域仅在定义它们的方法中可见。<br>3、成员变量有默认的初始值（数字为0，对象为null）。<br>4、局部变量没有默认的初始值，需要赋初值再使用。<br>5、成员变量和局部变量重名时，局部变量的优先级更高。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><h3 id="1、String类型"><a href="#1、String类型" class="headerlink" title="1、String类型"></a>1、String类型</h3><p>在java中String是引用类型，它的构造器如下：</p>
@@ -468,9 +473,9 @@
 <li>2、运行时容易引发ClassCastException：由于任何类型的元素都可以放进集合中，导致集合中的元素的类型不一致，在取出元素强制类型转换时，就有可能人为地转换错误，引发ClassCastException异常，导致程序崩溃.</li>
 </ul>
 <p>所以为了解决集合编译时不检查类型的问题，就出现了<strong>泛型</strong>，泛型(GenericType)是从java5开始支持的新语法，它又被称为参数化类型<strong>ParameterizedType</strong>，ParameterizedType是java5新增的Type，泛型它表示广泛通用的类型，可以在代码编译期就进行<strong>类型检查</strong>，在创建集合的时候可以动态地指明元素的类型是什么，从而约束所有放进集合的元素<strong>类型一致</strong>，这样从集合中取出元素时就<strong>不需要进行强制类型转换</strong>，从而避免了在运行时出现<strong>ClassCastException</strong>异常，如果把错误类型元素放入集合，编译器就会提出<strong>错误</strong>，所以在java中使用泛型时它<strong>保证只要程序在编译期没有提示“UnChecked”未经检查警告，那么运行时就不会产生ClassCastException</strong>。</p>
-<p>所以从java5之后，集合框架中的全部类和接口都增加了泛型支持，从而在创建集合时可以动态地指明元素的类型是什么，如：<strong>List<string> list = new ArrayList<string>()</string></string></strong>，其中List<string>、ArrayList<string>就统称为泛型，而&lt;&gt;括号中的类型就称为<strong>类型形参</strong>。</string></string></p>
+<p>所以从java5之后，集合框架中的全部类和接口都增加了泛型支持，从而在创建集合时可以动态地指明元素的类型是什么，如：<strong>List\&lt;String> list = new ArrayList\&lt;String>()</strong>，其中List\&lt;String>、ArrayList\&lt;String>就统称为泛型，而&lt;&gt;括号中的类型就称为<strong>类型形参</strong>。</p>
 <blockquote>
-<p>java7的时候出现了菱形语法简化了泛型的写法，java7开始允许使用泛型时构造器后面的&lt;&gt;括号内不带类型形参，只需要给出&lt;&gt;括号就行，如：List<string> list = new ArrayList&lt;&gt;()。</string></p>
+<p>java7的时候出现了菱形语法简化了泛型的写法，java7开始允许使用泛型时构造器后面的&lt;&gt;括号内不带类型形参，只需要给出&lt;&gt;括号就行，如：List\&lt;String> list = new ArrayList&lt;&gt;()。</p>
 </blockquote>
 <p>泛型可以分为<strong>泛型类</strong>(包括类和接口)和<strong>泛型方法</strong>。</p>
 <h3 id="2、泛型类"><a href="#2、泛型类" class="headerlink" title="2、泛型类"></a>2、泛型类</h3><p>泛型类就是直接在类或接口上定义的泛型，上面所讲的集合也是属于泛型类，如下创建一个泛型类：</p>
@@ -497,7 +502,7 @@
 </blockquote>
 <h3 id="4、类型通配符、上限和下限"><a href="#4、类型通配符、上限和下限" class="headerlink" title="4、类型通配符、上限和下限"></a>4、类型通配符、上限和下限</h3><p>类型通配符使用<strong>?</strong>表示，它表示未知的元素类型，当不知道使用什么类型接收时，此时可以使用<strong>?</strong>，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//此时可以往doWork传入List&lt;String&gt;、List&lt;Integer&gt;等实例</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doWork</span><span class="params">(List&lt;?&gt; list)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Object o : list)&#123;</span><br><span class="line">        System.out.println(o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不管往doWork方法中传入任何类型的List<xx>实例，当用<strong>?</strong>接收后，此时List集合中的所有元素类型都是Object，不能往元素类型是<strong>?</strong>的集合中增加、修改元素，只能查询、删除。</xx></p>
+<p>不管往doWork方法中传入任何类型的List\&lt;XX>实例，当用<strong>?</strong>接收后，此时List集合中的所有元素类型都是Object，不能往元素类型是<strong>?</strong>的集合中增加、修改元素，只能查询、删除。</p>
 <p>类型通配符<strong>?</strong>一般代表所有类型的父类，即Object，可以为<strong>?</strong>添加上限或下限，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//上限：此时的类型形参必须为Number或Number的子类</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doWork</span><span class="params">(List&lt;? extends Number&gt; list)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Number o : list)&#123;</span><br><span class="line">        System.out.println(o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下限：此时的类型形参必须为Number或Number的父类</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doWork</span><span class="params">(List&lt;? <span class="keyword">super</span> Number&gt; list)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Object o : list)&#123;</span><br><span class="line">        System.out.println(o);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -505,7 +510,7 @@
 <blockquote>
 <p>extends和super也可以用于限制泛型的类型形参的上限和下限。</p>
 </blockquote>
-<h3 id="5、泛型擦除"><a href="#5、泛型擦除" class="headerlink" title="5、泛型擦除"></a>5、泛型擦除</h3><p>泛型其实是一个语法糖，系统并不会为每个泛型生成一个Class对象，它们在运行时始终具有相同的Class对象，例如List<string>、List<integer>等泛型类在编译之后，&lt;&gt;括号内的类型信息都会被擦除，在运行时都是使用List的Class对象，并且在反编译后，还是使用强制类型来获取元素，如下：</integer></string></p>
+<h3 id="5、泛型擦除"><a href="#5、泛型擦除" class="headerlink" title="5、泛型擦除"></a>5、泛型擦除</h3><p>泛型其实是一个语法糖，系统并不会为每个泛型生成一个Class对象，它们在运行时始终具有相同的Class对象，例如List\&lt;String>、List\&lt;Integer>等泛型类在编译之后，&lt;&gt;括号内的类型信息都会被擦除，在运行时都是使用List的Class对象，并且在反编译后，还是使用强制类型来获取元素，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="comment">//类型形参为Integer的泛型</span></span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    list.add(<span class="number">1</span>);</span><br><span class="line">    Integer num = list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">     <span class="comment">//类型形参为String的泛型</span></span><br><span class="line">    List&lt;String&gt; list2 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    list2.add(<span class="string">"1"</span>);</span><br><span class="line">    String str = list2.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//反编译后</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Integer类型被擦除</span></span><br><span class="line">    List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">    list.add(Integer.valueOf(<span class="number">1</span>));</span><br><span class="line">    Integer num = (Integer)list.get(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//String类型被擦除</span></span><br><span class="line">    List list2 = <span class="keyword">new</span> ArrayList();</span><br><span class="line">    list2.add(<span class="string">"1"</span>);</span><br><span class="line">    String str = (String)list2.get(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>还有当把一个具有泛型信息的变量赋值给另一个没有泛型信息的变量时，所有&lt;&gt;括号之间的类型信息都会被擦除，如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类型形参为Integer的泛型</span></span><br><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//把具有Integer类型信息的泛型list赋值给没有泛型信息的list2</span></span><br><span class="line">List list2 = list;</span><br><span class="line"><span class="comment">//此时list的所有类型信息被擦除，变成了Object类型，这是可以往里面添加任何类型的元素</span></span><br><span class="line"><span class="comment">//添加元素时会提示"UnChecked"警告，所以在访问list2中的元素时，如果访问不当就会在运行时引发ClassCastException</span></span><br><span class="line">list2.add(<span class="string">"123"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里尝试把"123"转化为Integer，将会引发ClassCastException</span></span><br><span class="line">Integer num = (Integer) list2.get(<span class="number">1</span>);</span><br><span class="line"><span class="comment">//这里访问正确</span></span><br><span class="line">Object o = list2.get(<span class="number">1</span>);<span class="comment">//或者String num = (String)list2.get(1)</span></span><br></pre></td></tr></table></figure>
@@ -530,7 +535,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-11T14:37:50.149Z" itemprop="dateUpdated">2020-02-11 22:37:50</time>
+    最終更新：<time datetime="2020-03-06T14:21:43.355Z" itemprop="dateUpdated">2020-03-06 22:21:43</time>
 </span><br>
 
 
@@ -694,7 +699,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
