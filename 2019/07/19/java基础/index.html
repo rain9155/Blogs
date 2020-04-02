@@ -38,7 +38,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/java7.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error1.png">
 <meta property="og:image" content="http://yoursite.com/2019/07/19/java基础/error2.png">
-<meta property="og:updated_time" content="2020-03-06T14:21:43.355Z">
+<meta property="og:updated_time" content="2020-03-22T14:42:17.944Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习总结之基础">
 <meta name="twitter:description" content="前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。">
@@ -150,7 +150,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -346,7 +346,7 @@
 <p>可以看到，StringBuilder的append方法会直接拷贝待拼接的字符串字节数组到<strong>内部的字节数组</strong>中，如果内部的字节数组长度不够，就会先扩容后再拷贝，所以append方法并不会产生新的StringBuilder对象，对于StringBuffer的append方法，它和StringBuilder的append方法的逻辑一样，只是多了一个synchronized关键字。</p>
 <p><strong>效率比较：</strong></p>
 <p>分别使用+、concat方法、StringBuffer和StringBuilder的append方法来拼接字符串，各自的效率怎么样？在单线程环境下的一个for循环中拼接大量字符串，经过测试，它们的效率高低如下：</p>
-<p><strong>StringBuilder &lt; StringBuffer &lt; concat &lt; +</strong></p>
+<p><strong>StringBuilder &gt; StringBuffer &gt; concat &gt; +</strong></p>
 <p>+效率最低，这是因为每次拼接字符串时，都会new一个StringBuilder对象来拼接，频繁的新建对象是很耗时的，而StringBuffer每次append都需要进行同步，所以它的效率比StringBuilder低。</p>
 <blockquote>
 <p>阿里巴巴Java开发手册建议：在循环体内，使用 <code>StringBuilder</code> 的 <code>append</code> 方法进行字符串的拼接，而不要使用<code>+</code>，因为<code>+</code>会频繁的创建新的<code>StringBuilder</code>对象导致耗费更多的时间和造成内存资源的浪费。</p>
@@ -451,8 +451,8 @@
 <h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>异常就是一种对象(Exception), 表示阻止程序正常执行的错误。异常类的层次结构如下：</p>
 <img src="/2019/07/19/java基础/error1.png" title="error1">
 <ul>
-<li>1、RuntimeException和Error以及它们的子类都称为免检异常</li>
-<li>2、除了免检异常，其他异常都称为必检异常</li>
+<li>1、RuntimeException和Error以及它们的子类都称为免检异常, 这种异常一般是由程序逻辑错误引起的，对于这种异常，可以选择捕获处理，也可以不处理；</li>
+<li>2、除了免检异常，其他异常都称为必检异常，这种异常跟程序运行的上下文环境有关，即使程序设计无误，仍然可能因使用的问题而引发，所以Java强制要求我们必须对这些异常进行处理.</li>
 </ul>
 <p>由于免检异常可能在程序的任何一个地方出现，为了避免过多的使用try-catch块，java语言不强制要求编写代码捕获免检异常，也不要求在方法头显示声明免检异常。</p>
 <h3 id="1、常见的异常类型"><a href="#1、常见的异常类型" class="headerlink" title="1、常见的异常类型"></a>1、常见的异常类型</h3><img src="/2019/07/19/java基础/error2.png" title="error2">
@@ -535,7 +535,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-03-06T14:21:43.355Z" itemprop="dateUpdated">2020-03-06 22:21:43</time>
+    最終更新：<time datetime="2020-03-22T14:42:17.944Z" itemprop="dateUpdated">2020-03-22 22:42:17</time>
 </span><br>
 
 
@@ -699,7 +699,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
         </p>
     </div>
     <div class="bottom">
