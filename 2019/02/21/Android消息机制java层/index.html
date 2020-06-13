@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,21 +22,21 @@
     
     <meta name="keywords" content="源码,handler">
     <meta name="description" content="前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成，Android中大量的交互都是通过消息机制，比如四大组件启动过程与服务的交互、View的绘制、更新等都离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统，在Android中消息机制的运作分为java层和native层，它们之间的运作机">
-<meta name="keywords" content="源码,handler">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android消息机制(java层)">
-<meta property="og:url" content="http://yoursite.com/2019/02/21/Android消息机制java层/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成，Android中大量的交互都是通过消息机制，比如四大组件启动过程与服务的交互、View的绘制、更新等都离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统，在Android中消息机制的运作分为java层和native层，它们之间的运作机">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler1.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler2.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler3.png">
-<meta property="og:updated_time" content="2019-12-11T13:32:47.808Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/handler1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/handler2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/handler3.png">
+<meta property="article:published_time" content="2019-02-21T05:33:11.000Z">
+<meta property="article:modified_time" content="2019-12-11T13:32:47.808Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="handler">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android消息机制(java层)">
-<meta name="twitter:description" content="前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成，Android中大量的交互都是通过消息机制，比如四大组件启动过程与服务的交互、View的绘制、更新等都离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统，在Android中消息机制的运作分为java层和native层，它们之间的运作机">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/21/Android消息机制java层/handler1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/handler1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -47,7 +47,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -168,7 +168,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/">消息机制</a></li></ul>
 
             
         </h5>
@@ -199,7 +199,7 @@
             <time class="post-time" title="2019-02-21 13:33:11" datetime="2019-02-21T05:33:11.000Z"  itemprop="datePublished">2019-02-21</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/">消息机制</a></li></ul>
 
 
 
@@ -342,7 +342,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-12-11T13:32:47.808Z" itemprop="dateUpdated">2019-12-11 21:32:47</time>
+    Last updated: <time datetime="2019-12-11T13:32:47.808Z" itemprop="dateUpdated">2019-12-11 21:32:47</time>
 </span><br>
 
 
@@ -368,7 +368,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/" rel="tag">handler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -378,7 +378,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -388,22 +388,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/&title=《Android消息机制(java层)》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android消息机制java层/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -426,7 +426,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/02/21/Android消息机制native层/" id="post-prev" class="post-nav-link">
+      <a href="/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6native%E5%B1%82/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">Android消息机制(native层)</h4>
       </a>
@@ -499,7 +499,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -521,7 +521,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/&title=《Android消息机制(java层)》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -531,22 +531,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android消息机制java层/&title=《Android消息机制(java层)》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/&title=《Android消息机制(java层)》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android消息机制java层/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Android消息机制(java层)》 — jianyu的博客&url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android消息机制java层/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -557,7 +557,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3aQXLDIAwF0Nz/0u5Mt2nIFyKZGh6rTEIxzwtVEjwe8bh+x/Pn8fznMV7heebigYGBcVvGNRzJ1p9nzq2Tr/bHOhgYGAcw8uXywNqZk+8NAwMD49Wc5Jsk7Rt/g4GBgdEPuPn86q8YGBgYc0VsJxEcz/xqLY6BgXFDRudg4NOfv3S+gYGB8Y8ZV3GMw2UespMWW2FXGBgYWzOqjbNOOjhXKhcOQTEwMDZlJGVhp8jMQ+r4WW9eNAYGxjGMtYF47spFtZzGwMA4gdG/8lV9ZH4IWr1+gYGBsTejnwLm7bbqzELAxcDA2JqRPKyaIOYvZS65fFnKYmBgbMrIC9r+RbG8zVcN0xgYGLsy5q5EdMB5cVt4NRgYGAcwqm2vtYG1GnAxMDDOZJSzyDiw5oVx62gBAwPjAMbniti5y2HlhBIDA+MAxtpydG6Fubbdgk4hBgbGTRjVAjLZdN4+m9z6q/8bGBgY2zHybc0tkV+emEs6kzIYAwPj7oykQVbta3VC5/gYoPy+MTAwNmJ0isk8pOabK5fNGBgYWzM+d6xYva7RL5IxMDB2ZVzFkTfIks/LGnAYGBhbM/KRp33JsWX1Gln1yhoGBsZ+jGojvlrufil9xMDAOICxqu019yIWFM8YGBgYQapXbZYlRw6FQ1YMDAyMqbbXqoAb/S0GBsYBjLxZn5+OVsvavG335iQWAwNjO0a1gOwUvZ1iuJ+eYmBg3JDxA4gfYL7gH1xtAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJ0lEQVR42u3ay2rjQBAF0Pz/T3tgVgMh9r1d8mBVjlZGlto6LUilHl9f8fH4e3z//O+Zn675/vmnM8kKybeXHdjY2Ng3YT+eHgksWfnsygT8fBN/fAZsbGzsdewkaD0/8zwgPV8/oU5eBjY2NjZ2mzzM78qvwcbGxsa+ip08epJstGUsbGxsbOy8qHTWSHhHqpOHyQtqadjY2Ngfz540ej/t83/qb2NjY2N/DPtRHskKSZqRNwOSBKNWYGNjYy9iTwo0k3/327GbdiujsSFsbGzsFey24ZpvQVvobwNeW3LCxsbG3s0+++FkhXn4aX+l7odgY2NjL2LnKUEb0pKgmLeHk2d7sRo2Njb2IvZZAzUfhZwXmCZFqBcvDBsbG3sRu+0nzMcf21bEvDFQvBJsbGzs27LzBKANSG2yMQ+ixZNjY2Nj35ydlI3a8DNPS9oCU5uiYGNjY29it2lAkkLkZf08LTlLbIpaGjY2NvZt2Uk7tj3mjYR2AKhOXbCxsbEXsSeNgaQl0Jb421DaFrawsbGx97HzP/3zMcp2U9rkpAiB2NjY2IvYk0Zv29BtWwhXFZJe6LCxsbFXsM8KN21joM6H3hYOsbGxsfexz4JKWwY6GwZqU5F66AcbGxv75ux2vKZtFSQB7GwM6IJCEjY2NvYKdkvNr5k0bs++bbcbGxsbewf7bOwyDz+TUZtk0w/fMDY2NvY6dhu02sLT2W/lAS9vHmBjY2NvZV9VvskL9+1dbWO4bg9gY2Njr2NPRmHOhjjzdZINfaHAxsbGXsR+R+GmHcS5NrAddkWwsbGxb8tuhx3bu/LQ1eLzo+hUY2NjY69gTwZozhKJJL3JNy4KjdjY2NiL2JPHPQs5k+J+vk59LzY2NvZt2fN/688CXlseylOjKBBiY2NjL2K3ozBt8agtISXn82fDxsbG/j3syQO1VZqzklNbQoqGh7CxsbHXsdvA8I4Ac1VxKtksbGxs7N/JPivQt6u9u/2MjY2NjZ2P1EyK/pNWRLQR2NjY2OvYeVFpAsgLRvPm8cW1NGxsbOwPZs8bve3Qz+Sh28Rj1PHGxsbG/nT2H1tLpYH9k4oGAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

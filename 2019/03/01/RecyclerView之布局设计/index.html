@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,21 +22,21 @@
     
     <meta name="keywords" content="recyclerView,源码">
     <meta name="description" content="前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式，例如ListView、GridView样式、瀑布流样式，所以加深对于RecyclerView的学习对于开发有很重要的意义。关于RecyclerView如何使用网上有很多文章，本篇文章从源码讲解RecyclerView如何通过layoutMana">
-<meta name="keywords" content="recyclerView,源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RecyclerView之布局设计">
-<meta property="og:url" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式，例如ListView、GridView样式、瀑布流样式，所以加深对于RecyclerView的学习对于开发有很重要的意义。关于RecyclerView如何使用网上有很多文章，本篇文章从源码讲解RecyclerView如何通过layoutMana">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/rv1.png">
-<meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/rv2.png">
-<meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/rv3.png">
-<meta property="og:updated_time" content="2019-11-30T11:48:19.916Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/rv1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/rv2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/rv3.png">
+<meta property="article:published_time" content="2019-03-01T07:10:00.000Z">
+<meta property="article:modified_time" content="2019-11-30T11:48:19.916Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="recyclerView">
+<meta property="article:tag" content="源码">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RecyclerView之布局设计">
-<meta name="twitter:description" content="前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式，例如ListView、GridView样式、瀑布流样式，所以加深对于RecyclerView的学习对于开发有很重要的意义。关于RecyclerView如何使用网上有很多文章，本篇文章从源码讲解RecyclerView如何通过layoutMana">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/01/RecyclerView之布局设计/rv1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/rv1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -47,7 +47,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -256,7 +256,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-11-30T11:48:19.916Z" itemprop="dateUpdated">2019-11-30 19:48:19</time>
+    Last updated: <time datetime="2019-11-30T11:48:19.916Z" itemprop="dateUpdated">2019-11-30 19:48:19</time>
 </span><br>
 
 
@@ -282,7 +282,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/" rel="tag">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -292,7 +292,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/&title=《RecyclerView之布局设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之布局设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -302,22 +302,22 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/&title=《RecyclerView之布局设计》 — jianyu的博客&source=前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之布局设计》 — jianyu的博客&source=前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之布局设计》 — jianyu的博客&url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之布局设计》 — jianyu的博客&url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -340,7 +340,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/03/08/RecyclerView之缓存设计/" id="post-prev" class="post-nav-link">
+      <a href="/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">RecyclerView之缓存设计</h4>
       </a>
@@ -349,7 +349,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/02/21/ThreadLocal解析/" id="post-next" class="post-nav-link">
+      <a href="/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">ThreadLocal原理解析</h4>
       </a>
@@ -420,7 +420,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -442,7 +442,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/&title=《RecyclerView之布局设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之布局设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -452,22 +452,22 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/&title=《RecyclerView之布局设计》 — jianyu的博客&source=前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之布局设计》 — jianyu的博客&source=前言RecyclerView功能强大，自推出以来受到了无数人的喜爱，它可以通过一个LayoutManager将一个RecyclerView显示为不同的样式..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之布局设计》 — jianyu的博客&url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之布局设计》 — jianyu的博客&url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/01/RecyclerView之布局设计/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -478,7 +478,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aQZLCMAxEUe5/6cwBIM5vKZmqyN8rCkLIY9FlWfp88DpO1ven63fOPl2/f9uSIUPGaxnHcvEf7vDIHc6ukSFDxj6MswTrXLP+1jqO+e/KkCFDxnpjR+IyBciQIUPGXYGbxuu69uwEvQwZMvZh1KIzvU8Ke6QWlyFDxgsZ/NT9/18/0t+QIUPGqxhHuDpFb9oYCJ5KhgwZoxk84GpNzX5w8+eRIUPGVAYpMjtH/7y1wBsJP66UIUPGaEb6w2mjkUf2DUd+MmTIGMro3Ki2NbxrHE2GDBm7MTojDmvw+j79TaEMGTL2ZPAtYKcATjegFyEuQ4aMDRitsMOhnE5N8L9ShgwZsxnpQRjfINaikzQPLjqxMmTIGMdotQzxBGk6a0oC/WJaRIYMGYMYaVn7XLGa/okyZMjYh1GLV96M5EFJoh8NW8iQIWMcox+76bfSAzvOliFDxlQGLx1rDYD+IR0pmGXIkDGbUWsM8IdOj8z4k/y4swwZMjZgPPFOugXs3EGGDBk7MGotQz4Cy5uaxYM/GTJkbMBIr0RDpbgETVsLaGsoQ4aMEYwjXLxV0LkmHZyVIUPGbAZfnY1d+ig8ymXIkLEPIx0/7bQt7w3cD+mIypAhYxAjLVlr8Zq2BIJTNRkyZMgI95K1sddai1SGDBkyasf9vHxNqRftARkyZIxmdJoB6TBremyHAl2GDBmjGWnpSIpbMmRGQrxWJMuQIWMQ4w8lhyy6xFoHSwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADHUlEQVR42u3awXIaQQwEUP//T5OrqwKbbgk7MLw9uciyO29yENPS11d83b5d3z+5vvPvex59a/Oc/Jn1hY2Njf0m7Nvldb2I67+vP0l47X9AYsHGxsY+lf3oBXmRSJaelL0ck68TGxsbG3tWJH7inrygYmNjY2NfP654QVnqZocTbGxsbOz2536+Wc9tKvyHLA0bGxv75dl5V/T1//6R/jY2Njb2C7Nv5ZUHPe3RYtZsnl3Y2NjYJ7H3MVB+2EiODbNSOlw/NjY29hHsvPy08U2Lz8Oj/ZOxsbGxz2Mn4NlyN+2BfSF8+HZsbGzsg9gJsi1RbZN4Fkvla4u63NjY2Nhvy96P1LRDNpujxabdi42Njf2Z7E2hSoKhWRG63pRo+7CxsbGPY+cPyk82s6BqVkSTsncnS8PGxsY+iJ0H+i2mjexnoVLebMDGxsY+m50Xj1lsNFt6PgxaHIqwsbGxD2K3ccxs0ZsW8ow3C56wsbGx35Gdk4rZn6CkPevtbYx1J0vDxsbGPoid/+jflLrNPbOBnjtPwMbGxj6OvRm+mZWQzT3J9v1jU7CxsbGPY7fN1Dz6aQ8em4ZBcT82Njb2Qew21m9L2r5VnEdO7bewsbGxT2Lvw6BN9D8b+tn/KzY2NvZ57LwU5b/t85IWNWjXsdSqAmNjY2O/JHtTGHJ2/oS81LWDnkVXBBsbG/sI9mY4JvlWfhTZ1J2Hm4iNjY19ELsduGlDpTzKrwcoyyMNNjY29tnstlmbHwD2n7fvKp6PjY2NfRD7WfF93vSdLWi2hrrtgY2Njf2G7NlITR7cJLt+G12rZgM2Njb20ex8O/KX7YOkdguwsbGxP5M9awm0p5xNE2I2HoqNjY19Knv/039W3maAfaN3da7CxsbGfkn2pu614zj7ZW3awLOyh42Njf0u7FnRaheU4GeHk7YhjY2NjX0quy0MyWjOs9rAswocjexgY2NjfzA7KRWbcL9tPNexFzY2NvbHs1tw24SYBUxF8wAbGxv7OHZSHvKWwCzo+c1vYWNjY5/E3o/LJEeF/bjPDDx7CzY2NvabsP8AmOh+GZCDJsgAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

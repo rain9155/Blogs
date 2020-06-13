@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,19 +22,18 @@
     
     <meta name="keywords" content="设计模式">
     <meta name="description" content="前言单例模式是应用最广的模式之一，也是最简单的模式，但越是简单的东西，就越容易忽略它的细节，在应用这个模式时，同一个进程内，单例对象的类必须保证只有一个实例存在，比如在一个应用中，应该只有一个ImagerLoader实例，因为这个ImagerLoader中含有线程池、缓存系统、网路请求等，创建一次需要消耗很多资源，因此，没有理由让它构造多个实例，这种不能自由的构造对象，确保某一个类有且只有一个对象">
-<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你知道有多少种方式实现单例模式？">
-<meta property="og:url" content="http://yoursite.com/2019/11/16/单例模式/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言单例模式是应用最广的模式之一，也是最简单的模式，但越是简单的东西，就越容易忽略它的细节，在应用这个模式时，同一个进程内，单例对象的类必须保证只有一个实例存在，比如在一个应用中，应该只有一个ImagerLoader实例，因为这个ImagerLoader中含有线程池、缓存系统、网路请求等，创建一次需要消耗很多资源，因此，没有理由让它构造多个实例，这种不能自由的构造对象，确保某一个类有且只有一个对象">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/11/16/单例模式/design1.png">
-<meta property="og:updated_time" content="2019-11-29T12:35:46.824Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/design1.png">
+<meta property="article:published_time" content="2019-11-16T06:32:26.000Z">
+<meta property="article:modified_time" content="2019-11-29T12:35:46.824Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你知道有多少种方式实现单例模式？">
-<meta name="twitter:description" content="前言单例模式是应用最广的模式之一，也是最简单的模式，但越是简单的东西，就越容易忽略它的细节，在应用这个模式时，同一个进程内，单例对象的类必须保证只有一个实例存在，比如在一个应用中，应该只有一个ImagerLoader实例，因为这个ImagerLoader中含有线程池、缓存系统、网路请求等，创建一次需要消耗很多资源，因此，没有理由让它构造多个实例，这种不能自由的构造对象，确保某一个类有且只有一个对象">
-<meta name="twitter:image" content="http://yoursite.com/2019/11/16/单例模式/design1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/design1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -45,7 +44,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -142,7 +141,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -166,7 +165,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
             
         </h5>
@@ -197,7 +196,7 @@
             <time class="post-time" title="2019-11-16 14:32:26" datetime="2019-11-16T06:32:26.000Z"  itemprop="datePublished">2019-11-16</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
 
 
@@ -342,7 +341,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-11-29T12:35:46.824Z" itemprop="dateUpdated">2019-11-29 20:35:46</time>
+    Last updated: <time datetime="2019-11-29T12:35:46.824Z" itemprop="dateUpdated">2019-11-29 20:35:46</time>
 </span><br>
 
 
@@ -368,7 +367,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
 
 
             
@@ -378,7 +377,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/11/16/单例模式/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -388,22 +387,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/11/16/单例模式/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/11/16/单例模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《你知道有多少种方式实现单例模式？》 — jianyu的博客&url=http://yoursite.com/2019/11/16/单例模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《你知道有多少种方式实现单例模式？》 — jianyu的博客&url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/11/16/单例模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -426,7 +425,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2020/01/17/Http网络请求浅析/" id="post-prev" class="post-nav-link">
+      <a href="/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">这是一份关于HTTP协议的学习总结</h4>
       </a>
@@ -435,7 +434,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/11/05/java集合/" id="post-next" class="post-nav-link">
+      <a href="/2019/11/05/java%E9%9B%86%E5%90%88/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">java学习总结之集合框架</h4>
       </a>
@@ -506,7 +505,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -528,7 +527,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/11/16/单例模式/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -538,22 +537,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/11/16/单例模式/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&title=《你知道有多少种方式实现单例模式？》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/11/16/单例模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《你知道有多少种方式实现单例模式？》 — jianyu的博客&url=http://yoursite.com/2019/11/16/单例模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《你知道有多少种方式实现单例模式？》 — jianyu的博客&url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/11/16/单例模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -564,7 +563,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3aQW7DMAwEwP7/0+41QGFnl3IKRB6dgsS1OT6wFKmfn3gdL+v1m9n1f3+9/v62hYGB8bWM43KdXZNgkqck97/+WwwMjOcwzh58/bm9MiflsWFgYGC0hV0SdJKaMTAwMO5KuHnB136DgYGBMdvEztLorFj84F4cAwPjCxl5s+z/P39kvoGBgfFVjKNceXJcKQTrqDAwMLZm5AkuH17eVSa28WBgYOzKSI5n3ZsiZ8PRN2AMDIwHMNoxZILJk+wNYAwMjK0ZSek2GzcmhzPy7lkSLQYGxpMZbU5Lxo35q5ltcTEwMHZiJGmxHRWsJNClESYGBsYDGOul3izhzqhFuw0DA2MLRp4u29Zbu4ltj3RgYGA8h5EXZ8mGs301s3FmdFoEAwNjC0Zers1a9u3Ic1ZKYmBg7M3ID1skga4f1ximYwwMjAcw2pFh8pi8Y5+zo3YbBgbG1oz8ke2IcemAV3IcBAMDY2tGnkbb8UCerNum2xs2BgbGpoz2Fm26XLl/8ZowMDAexrhOuLODF21CT/4lYGBgYOQBzcYJ7WY4qm0xMDC2Yxzlyt9Nm0bbwcPpCBMDA2M7xkpzfzbInI05l0LHwMDYgtE269vB5F3lIwYGBsasoZ+36pJt8217cQwMDIyy+Ls33NP7YGBgYJQpsh1ttsXimxEmBgbGpoz2UEVeDrbh5gMDDAyM5zBmhVo7mJzhV2LAwMDYgvELfLDk85A2NPYAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3awU7DQAwEUP7/p0HiWprO2NnSw8sJlbbZt0ixGe/XV3x9/17PXn+8Hj/1+A3JO6+/4bYLDw8Pb7T0ZKH5Ox8/lW9TvgXXK8HDw8M7zbsuBs9unNyyLS1JcUrWjIeHh/cJvLypTbYj4c02Cw8PD+8zeftlJSWhDSbw8PDw3smbNcSz0GHGOJ614OHh4cW8tkX+hJ8Pzvfw8PDwFlP1/OG7aco3LfiLFeLh4eEd4LUBQdI6zx7ryfdcByJR1oKHh4d3gJd0pLMF5UFwfq8ohsDDw8M7wMuPWM0KSXv4YIYp/oZ4eHh4a94sgGgXlEcV+aZEG42Hh4d3Ky8fKeUP4lk8MQuLX7yCh4eHd4zXNqntIa3Z4a22+Y7me3h4eHhr3ub2bRiRMGaByIs74uHh4d3Ka2OIPJJoF70vMH/8Fg8PD+8wry0SeWzRbkR73yifxsPDw7uV187ZZ2FuWwZuaLLx8PDwDvDawVIb7LbFIz9AUBQzPDw8vMO8NqidjbXuDR1ebC4eHh7eAd7+ANamj90UhlX1w8PDw1vzZtP2HJAUm9mhq+JTeHh4eGve5sjUph2fDcnqURkeHh7eAd6skpxoqWcBbl398PDw8Na8WSw7I7WNch7pFoeu8PDw8G7itR/LI4bNkYJ20IWHh4f3Hl5L2h+HumGI9WTNw9EXHh4eXsmb/fM/C3DbowPtqOxpGIGHh4d3K6+tIdfU/aN/MyorWmo8PDy8Be+7vGYHC9piM2vrVyfI8PDw8CZP12K4lW9EEtom1Lyo4OHh4b2H146XZsOwduPuatzx8PDwzvFmQW1+ACs5IrCpYy8CXDw8PLx/5d1bMGZhR35AAQ8PD+9/eZuzXfuQom3Q8fDw8E7zZmHErIGeAWZRBR4eHt4JXjsAaxeaMxJA8g2r+R4eHh7eFe8Hr9u7YB8W/2sAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

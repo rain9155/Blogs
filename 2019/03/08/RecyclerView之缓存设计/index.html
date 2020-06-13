@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,19 +22,19 @@
     
     <meta name="keywords" content="recyclerView,源码">
     <meta name="description" content="前言 上一篇文章RecyclerView之布局设计  RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存逻辑判断，RecyclerView的基本单元是ViewHolder，里面有一个itemView代表了视图上的子View，所以RecyclerView的缓存基本单元也是ViewHolder。本文将从源码的角度来讲解RecyclerView的缓存设计">
-<meta name="keywords" content="recyclerView,源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RecyclerView之缓存设计">
-<meta property="og:url" content="http://yoursite.com/2019/03/08/RecyclerView之缓存设计/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言 上一篇文章RecyclerView之布局设计  RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存逻辑判断，RecyclerView的基本单元是ViewHolder，里面有一个itemView代表了视图上的子View，所以RecyclerView的缓存基本单元也是ViewHolder。本文将从源码的角度来讲解RecyclerView的缓存设计">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/03/08/RecyclerView之缓存设计/rv4.png">
-<meta property="og:updated_time" content="2020-01-15T09:37:31.196Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/rv4.png">
+<meta property="article:published_time" content="2019-03-08T06:56:50.000Z">
+<meta property="article:modified_time" content="2020-01-15T09:37:31.196Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="recyclerView">
+<meta property="article:tag" content="源码">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RecyclerView之缓存设计">
-<meta name="twitter:description" content="前言 上一篇文章RecyclerView之布局设计  RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存逻辑判断，RecyclerView的基本单元是ViewHolder，里面有一个itemView代表了视图上的子View，所以RecyclerView的缓存基本单元也是ViewHolder。本文将从源码的角度来讲解RecyclerView的缓存设计">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/08/RecyclerView之缓存设计/rv4.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/rv4.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -45,7 +45,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -142,7 +142,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -279,7 +279,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-01-15T09:37:31.196Z" itemprop="dateUpdated">2020-01-15 17:37:31</time>
+    Last updated: <time datetime="2020-01-15T09:37:31.196Z" itemprop="dateUpdated">2020-01-15 17:37:31</time>
 </span><br>
 
 
@@ -305,7 +305,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/" rel="tag">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -315,7 +315,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/&title=《RecyclerView之缓存设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之缓存设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -325,7 +325,7 @@ frameworks/support/v7/recyclerview/src/android/support/v7/widget/LinearLayoutMan
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/&title=《RecyclerView之缓存设计》 — jianyu的博客&source=前言
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之缓存设计》 — jianyu的博客&source=前言
 上一篇文章RecyclerView之布局设计
 
 RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存..." data-title=" QQ">
@@ -333,17 +333,17 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之缓存设计》 — jianyu的博客&url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之缓存设计》 — jianyu的博客&url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -366,7 +366,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/03/09/RecyclerView之观察者模式/" id="post-prev" class="post-nav-link">
+      <a href="/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">RecyclerView之观察者模式</h4>
       </a>
@@ -375,7 +375,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/03/01/RecyclerView之布局设计/" id="post-next" class="post-nav-link">
+      <a href="/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">RecyclerView之布局设计</h4>
       </a>
@@ -446,7 +446,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -468,7 +468,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/&title=《RecyclerView之缓存设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之缓存设计》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -478,7 +478,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/&title=《RecyclerView之缓存设计》 — jianyu的博客&source=前言
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/&title=《RecyclerView之缓存设计》 — jianyu的博客&source=前言
 上一篇文章RecyclerView之布局设计
 
 RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存..." data-title=" QQ">
@@ -486,17 +486,17 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之缓存设计》 — jianyu的博客&url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之缓存设计》 — jianyu的博客&url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/08/RecyclerView之缓存设计/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -507,7 +507,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3aS27DMAwFwNz/0um2RRvlkXQKWBqvAjuRNVkQ/OjxiK/nr+v7/Vef86fr+5ddGBgYt2U8l9easd5E9U7+9I89YGBgHMB4ta08sL4KoDl4/fnNyhgYGBjLLSaJYy9lxMDAwJgwkhV6TzEwMDAmRWzy/aTgzGEfqcUxMDBuyMi77v//+SPzDQwMjFsxJkFzMuach+8f62BgYGzNyANcvlyV3Qu4GBgYpzHmL6gOCSaDhEL6iIGBsQUjLxevTRyrSeGbEQIGBsYxjEmgLCdt145OMTAwtmbkLbN1iEzaatXtJkkhBgbGCYxPtM+qRyWqRzrKeSsGBsbNGZMDEPkLeqXy+s6bphsGBsZ2jGqLP9nofJ08ScXAwDiZ0Uv+ktf0xgDNYxYYGBg3Z1Sba0kjrFesVk+IYGBgnMbIy8VmotYqRy84bIGBgbERI8f0hp3VOWr1OxgYGGcy8ob+PAWcFLFvAi4GBsYWjOpYMQnNyWvyMJ2AMTAwTmBUU7TqwYt8/SgRTJpuGBgYmzLmjf7qCpO/4NGL4hgYGFswqpvOg2by216SioGBsTfjWbyqR8eqQ80q9Y+uIQYGxnaMXtOtOhjoBda8eMbAwDiBcVWQze9fFXBHGS4GBsYNGXng64XL3kig8NdgYGBgxCna6GTHclcXB1wMDIytGUkRmzfLemXty/EABgbG1oykiM2Pq1abbtUwjYGBcRrjE4laEqCrK/TGDBgYGDdnfAEZDkupsD77QwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKUlEQVR42u3ay27bQBAEQP//TytXA46Z7h0qkEbFk2DTImsv7Xl8fcXX49v1/Se/ff55/8878ydef0/+nfWFjY2N/Sbsx+V1/RL5468Bv/32+liTQ//1m7GxsbHXsZOH5S/UBtg1Zn702NjY2NhtmLUHkd/TvgM2NjY29jUpLznye5LiZBK02NjY2FvZSVNp0tbJDysZBvzXXho2Njb2y7Pzqejrf37KfBsbGxv7hdmP8sobPXnDaDJsPruwsbGxN7HzAGjxeRC2pcL1QRfvj42Njb2CPWm+t4F3Vti0yKhcwcbGxl7HPmvctEVIOx44C8Lo6djY2NiL2NdLLcnY9a5YygueSfMLGxsbex+7bcrkkZPHSR5Uk3EvNjY29mey81FuPlQ4i6I2Sv9xfNjY2Njr2O3WYgvIA6ltPOWx95deGjY2NvYi9iSizhr09zaV8mEDNjY29m72ZCHmbIibvHo+uijux8bGxl7HnpQf7Sh3chBnRx/NtLGxsbHflp03a+ZDgnyVpx1aHI6NsbGxsRex8+IhT4G2wdQOFfKFnnwtCRsbG/vd2ZMmTrvik79ufsT5G2JjY2PvZudtmqJ9c7TuUxcSZ/djY2Njr2Dn49I20trRbLuyc7bog42Njf0J7HvLibxtlDee5r/FxsbG3sFO/ux5xUA+Emjjql7WwcbGxl7BnrR72hWcfGycN7mK3hE2Njb2UnYSTmehko8WJutB+YWNjY29iX32Qkksta38PAjPShpsbGzs3ez2q/MS4izA8uBsCxhsbGzsrewkPNpSJPmcR1rSTspH1NjY2Nj72JOmfF5anIXQWQlUbCphY2NjL2K37fi2IKnHsTHjcFCNjY2NvZqdt5ai+qYsKtrVzPyJ2NjY2PvY83/9267VBDAf9B7WPdjY2NgvzJ7k3mSJ567xQD5+OIs9bGxs7Hdh39WCP6yExsVJXrRgY2Nj72a3wTBv5Z+1tPIEjlZ2sLGxsT+YncfYWSPpOqgm42FsbGxs7MlgYLLWMxkqYGNjY38Cu11qbEcLZwXM8/4KGxsbexP7rsBoW0jz6MqXdQ4Xd7CxsbFfnf0HM1shTJPc16kAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

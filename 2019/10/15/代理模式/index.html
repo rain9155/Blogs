@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,20 +22,20 @@
     
     <meta name="keywords" content="静态代理,动态代理">
     <meta name="description" content="前言代理模式，也称委托模式，是结构型设计模式之一，何为代理呢? 在日常生活中就比如叫朋友替你拿个快递，叫朋友替你做一下作业，叫朋友替你买点东西等等，这个朋友就是你的代理，你把事情委托你的朋友做了，同样在代码的世界中也存在代理，而且在你以后阅读到更多的设计模式时，你会发现很多的设计模式中也有代理模式的影子，代理模式是一个非常重要的设计模式，代理模式分为静态代理和动态代理，本文将会通过一个简单的例子讲">
-<meta name="keywords" content="静态代理,动态代理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="静态和动态代理模式">
-<meta property="og:url" content="http://yoursite.com/2019/10/15/代理模式/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言代理模式，也称委托模式，是结构型设计模式之一，何为代理呢? 在日常生活中就比如叫朋友替你拿个快递，叫朋友替你做一下作业，叫朋友替你买点东西等等，这个朋友就是你的代理，你把事情委托你的朋友做了，同样在代码的世界中也存在代理，而且在你以后阅读到更多的设计模式时，你会发现很多的设计模式中也有代理模式的影子，代理模式是一个非常重要的设计模式，代理模式分为静态代理和动态代理，本文将会通过一个简单的例子讲">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/10/15/代理模式/design1.png">
-<meta property="og:image" content="http://yoursite.com/2019/10/15/代理模式/design2.png">
-<meta property="og:updated_time" content="2020-03-07T15:23:03.145Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/design1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/design2.png">
+<meta property="article:published_time" content="2019-10-15T12:05:03.000Z">
+<meta property="article:modified_time" content="2020-03-07T15:23:03.145Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="静态代理">
+<meta property="article:tag" content="动态代理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="静态和动态代理模式">
-<meta name="twitter:description" content="前言代理模式，也称委托模式，是结构型设计模式之一，何为代理呢? 在日常生活中就比如叫朋友替你拿个快递，叫朋友替你做一下作业，叫朋友替你买点东西等等，这个朋友就是你的代理，你把事情委托你的朋友做了，同样在代码的世界中也存在代理，而且在你以后阅读到更多的设计模式时，你会发现很多的设计模式中也有代理模式的影子，代理模式是一个非常重要的设计模式，代理模式分为静态代理和动态代理，本文将会通过一个简单的例子讲">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/15/代理模式/design1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/design1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -46,7 +46,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -143,7 +143,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -167,7 +167,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
             
         </h5>
@@ -198,7 +198,7 @@
             <time class="post-time" title="2019-10-15 20:05:03" datetime="2019-10-15T12:05:03.000Z"  itemprop="datePublished">2019-10-15</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
 
 
@@ -329,7 +329,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-03-07T15:23:03.145Z" itemprop="dateUpdated">2020-03-07 23:23:03</time>
+    Last updated: <time datetime="2020-03-07T15:23:03.145Z" itemprop="dateUpdated">2020-03-07 23:23:03</time>
 </span><br>
 
 
@@ -355,7 +355,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态代理/">动态代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态代理/">静态代理</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">动态代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">静态代理</a></li></ul>
 
 
             
@@ -365,7 +365,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/15/代理模式/&title=《静态和动态代理模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&title=《静态和动态代理模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -375,22 +375,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/15/代理模式/&title=《静态和动态代理模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&title=《静态和动态代理模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/15/代理模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《静态和动态代理模式》 — jianyu的博客&url=http://yoursite.com/2019/10/15/代理模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《静态和动态代理模式》 — jianyu的博客&url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/15/代理模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -413,7 +413,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/10/19/策略模式/" id="post-prev" class="post-nav-link">
+      <a href="/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">策略模式</h4>
       </a>
@@ -422,7 +422,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/10/08/从进程的角度看Android的系统架构/" id="post-next" class="post-nav-link">
+      <a href="/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">从进程的角度看Android的系统架构</h4>
       </a>
@@ -493,7 +493,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -515,7 +515,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/15/代理模式/&title=《静态和动态代理模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&title=《静态和动态代理模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -525,22 +525,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/15/代理模式/&title=《静态和动态代理模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&title=《静态和动态代理模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/15/代理模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《静态和动态代理模式》 — jianyu的博客&url=http://yoursite.com/2019/10/15/代理模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《静态和动态代理模式》 — jianyu的博客&url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/15/代理模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -551,7 +551,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACH0lEQVR42u3aS27DMAwFwN7/0um2QGDjkXRSmB6tjHxsjQIwpKifn3i8/oz315PPv18f3e3onhcMDAyM2zJepyOfVu8pR+/mc8PAwHgO4+jB5+HyPAQn4bi3QBgYGBhVxnlKl3ymtxAYGBgY57erJnbVVzAwMDB6Rew5qbcc/1CLY2Bg3JCR77p///oj/Q0MDIxbMV7F0WtwVhPB8qwwMDBWM65tQCZ3axaoycJhYGAsZfQStfPAOimJ8/L48HfAwMBYyrjqgFfv+MUFYAwMjMcwkoKz2rxM2gbzwxkYGBi7GdWv9UJnvhB5GRx1YjEwMNYx8q9VmwfVANrchsPAwFjK6G1vJQ3LPOBeEPQxMDAeyZhH8V4Rm5fHhy1MDAyM1YxJkE0275LwWi2SC7U1BgbGbRlJm3B+8KIXTAtVOAYGxmpGHiLzDfreovTaohgYGE9j9NK7/Lpa3BbexcDAWM0o5I+DRmN1u7+XyGJgYOxm5LVhldFrcyYTvexgKwYGxk0YnzsMUU0cL/7fwMDAWMfIg+O8qZlsriV3wMDAeDKjOsU89+w1IcqZLAYGxiLGqziqm2uTVPKCTiwGBsYKxiSmzYvY7xS9GBgYOxiTzfpqETtZMgwMDIx8Cz5/zKQYrs4WAwMDI3nM5EDqPMXEwMDAmATlecoYtS4wMDAewKgeicg33arTbbYcMDAwVjMmiVovjCYBtNpCwMDAWMr4BfaiVYOuX1+aAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACxElEQVR42u3aS5LbMAwFwLn/pZOq7FIZy+8B5MSL1kol68PmgoQBfH3Fx68/x6sr/56/uvLqePXF5M4DBx4eHt5o6M+ve3X+6j3Jt54nMRlDNAV4eHh413ibjyVPJdefJ6L9Oh4eHt4n8JKA+/mpFrmZXDw8PLxP4CVDb5MOCRUPDw/vM3lJMqINf5PEa5vMvZhrwcPDw5usz1EB7BPOL9b38PDw8BZV9TbMzZMOyTtnLQh/PYWHh4d3gZckW/PWq7xZ6vl6G1K/2Tbw8PDwjvKS9ME+qbpP/s7aDvDw8PDu8Z5flDcBJFvLDJ+3L0T/GPDw8PAWvNmf/DyVkKRlk3fOCmN4eHh4N3jJUrvZBtqweJYEKbIseHh4eId47WK9WeJnv7YhNR4eHt5t3qYNaxOCty0IbXsBHh4e3j1em8xNymb3AutiDHh4eHjXeEkyor1nE6zn73lzPx4eHt4FXlLCzwPlZNFPGrzyzSOaJjw8PLwf4Z1qkEpKZe1WcaAMhoeHh3eI14bC+XLfBsdt0uHN1OPh4eFd4M22gXyBbq+0ieN6a8HDw8Nb89rBtQ1Ys+lIgvLou3h4eHhHeW1hKS+DtUnhuqEqaT7Aw8PDu8xrC/xtK8CsmWCVesDDw8O7zDtVAGsH1CZzV6UvPDw8vEO8WWvUbPneFM/aUeHh4eHd481Im8LVLAmSV/CiZAQeHh7eiLcpgL1JoZYDalMkxbfw8PDwjvKSx/IB7Zf+/fFN6wAeHh7eZd7zkaR3Z/grQTkeHh7erf/7wzA3Sc4mgP35gW0GDw8Pr+Qlm0Gy9G/aCPIGrLp5Cw8PD+8ab1N8miUjclKRgHgugOHh4eH9OG8T5ubL+ib5G7Ve4eHh4f0nXp7A3aR093fi4eHh3eO1YXGbPmibqPaTgoeHh3ePNyuAtYFyO0GbJPKB+h4eHh7e97/+BqeU+T7rU5VyAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

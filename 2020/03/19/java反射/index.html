@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,17 +22,16 @@
     
     <meta name="keywords" content="反射">
     <meta name="description" content="前言在java中，反射就是在程序运行时动态的获取某一个类的元数据(metadata，描述数据的数据)的过程，这些元数据包括构造器、方法、成员变量、内部类、接口、父类等，通过反射，我们可以在程序运行时动态地去操作类的方法、成员变量等信息，所以，在java中，反射为我们提供了一种动态访问、修改类的能力，掌握反射，对我们加深java语言的理解很有帮助，反射大部分所使用到的类都在java.lang.ref">
-<meta name="keywords" content="反射">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java学习总结之反射">
-<meta property="og:url" content="http://yoursite.com/2020/03/19/java反射/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言在java中，反射就是在程序运行时动态的获取某一个类的元数据(metadata，描述数据的数据)的过程，这些元数据包括构造器、方法、成员变量、内部类、接口、父类等，通过反射，我们可以在程序运行时动态地去操作类的方法、成员变量等信息，所以，在java中，反射为我们提供了一种动态访问、修改类的能力，掌握反射，对我们加深java语言的理解很有帮助，反射大部分所使用到的类都在java.lang.ref">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-19T14:21:08.809Z">
+<meta property="article:published_time" content="2020-03-19T06:59:32.000Z">
+<meta property="article:modified_time" content="2020-03-19T14:21:08.809Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="反射">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java学习总结之反射">
-<meta name="twitter:description" content="前言在java中，反射就是在程序运行时动态的获取某一个类的元数据(metadata，描述数据的数据)的过程，这些元数据包括构造器、方法、成员变量、内部类、接口、父类等，通过反射，我们可以在程序运行时动态地去操作类的方法、成员变量等信息，所以，在java中，反射为我们提供了一种动态访问、修改类的能力，掌握反射，对我们加深java语言的理解很有帮助，反射大部分所使用到的类都在java.lang.ref">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -43,7 +42,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -140,7 +139,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -324,7 +323,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-03-19T14:21:08.809Z" itemprop="dateUpdated">2020-03-19 22:21:08</time>
+    Last updated: <time datetime="2020-03-19T14:21:08.809Z" itemprop="dateUpdated">2020-03-19 22:21:08</time>
 </span><br>
 
 
@@ -350,7 +349,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/反射/">反射</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a></li></ul>
 
 
             
@@ -360,7 +359,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/19/java反射/&title=《java学习总结之反射》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/&title=《java学习总结之反射》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -370,22 +369,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/19/java反射/&title=《java学习总结之反射》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/&title=《java学习总结之反射》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/03/19/java反射/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java学习总结之反射》 — jianyu的博客&url=http://yoursite.com/2020/03/19/java反射/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java学习总结之反射》 — jianyu的博客&url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/03/19/java反射/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -405,12 +404,19 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/05/30/java%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">java学习总结之I/O操作</h4>
+      </a>
+    </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2020/01/17/Http网络请求浅析/" id="post-next" class="post-nav-link">
+      <a href="/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">这是一份关于HTTP协议的学习总结</h4>
       </a>
@@ -481,7 +487,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -503,7 +509,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/19/java反射/&title=《java学习总结之反射》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/&title=《java学习总结之反射》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -513,22 +519,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/19/java反射/&title=《java学习总结之反射》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/&title=《java学习总结之反射》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/03/19/java反射/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java学习总结之反射》 — jianyu的博客&url=http://yoursite.com/2020/03/19/java反射/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java学习总结之反射》 — jianyu的博客&url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/03/19/java反射/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -539,7 +545,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByUlEQVR42u3aQW6DQAwF0Nz/0lTqqlIU+LaZCarerBAh8GBheWy/XvE6fldy/u+Z4229n3+tWLi4uGPucboS7vmVyT0TAy4u7n7ueZD69OckVCWBLA+UuLi4T+MmyU3+L1xc3P/BvUg+BhsqXFzcZ3LvSkqqCdDCvRouLu6AOwk6dx0vrO/i4uIWuUdx9QoieSH14um4uLhbuHnJI39AtYxSTqFwcXEXcycPnhRNkl8/hjBcXNzF3MkwVi9ByUcx8tfDxcW9l5sXMXtBZz7g9XHbg4uLu4xbLWTkxEmL5fw1cHFx93B7ISYJhfMuySj/wsXFbXGrIayaGN1VKMHFxd3JrVLmoa1afi10gXBxcW/i5u2Q6jfIAxkuLu4zuZPbTYYq8iIpLi7uTm7homJy0xvGSj4WLi7uau6kjVrFJeiL0IaLi7uRWy2I9AJTr9GCi4v7LW6+egWUPIQ1O7G4uLi3cnvdzHn7pLpxKr8MLi7umJsHr2oA6t3nog2Di4u7kdtLR/LEaDSANa+14OLiLuPmx8md80+Ai4v7fG4+hFEFReNcuLi4G7nVMmjedu21aW8oi+Di4g641R1HNfQkG6FeyRUXF3cB9wf3Xfwzod9xXQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3aQZKjMAwF0Nz/0pntTPVA/pdJV2GeV6luCH5ZCFnS6xWv91/r59/Pr/95b3LX6xsLAwPjtoz36Tp6wNGVLen825K9YWBgPIdx9Pijz/ldSZg+f9b5UzAwMDCSzeUpXXsNBgYGxozR3pWHVwwMDIxzRl4ga4tlK7CvnMUxMDBuyMir7r//+Sv9DQwMjFsx3uVqD6izBkO9KwwMjK0ZbQlsVvRfCeLF8AcGBsamjGsTtdkxOCm9fdgDBgbG1oz60lG5bfbfZOz1P+8NDAyMTRkr4w55eG2LaPloLAYGxhMYbVEsSeOSUl0yXp/fhYGBsSvjvEA/G5XIGwZt4li8HzAwMLZjtCEy+QlacPvN/1yJgYGxNaM9pq4UznLGh0y27cRiYGBsxFgqwcfFslmbM4FhYGDsymjLarOB1HbYIj/0YmBgYLQjEUnRbXaI/YDBwMB4AKM9TLarTTHbwh8GBsbejMuSs7hslzcSikIbBgbGYxh54/CqQ2m+0aQgiIGB8QRGO/QwGwu7LLye57kYGBibMmZf0aZ3bcEuaTNgYGA8h9EeRNvGQL2tcuAMAwNjV8asxD8LxEniOBvXwMDA2JuRrxZTlMlGgxdDDAYGxm0ZeZBdoea/3HAPGBgYD2CsB75ZUG7fAIdXYmBgYMRtyPWEbyl7xcDAwAiOpknwnbUTPjQqMDAwHsDImwFJ9a4dP52FbwwMjOcw1vOuvPOw0p68rL+BgYFxJ8YfKgosuhzij0oAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

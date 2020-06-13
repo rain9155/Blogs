@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,16 +22,14 @@
     
     <meta name="keywords" content="android">
     <meta name="description" content="记录我学习的点点滴滴">
-<meta name="keywords" content="android">
 <meta property="og:type" content="website">
 <meta property="og:title" content="jianyu的博客">
 <meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="记录我学习的点点滴滴">
-<meta property="og:locale" content="default">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="android">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jianyu的博客">
-<meta name="twitter:description" content="记录我学习的点点滴滴">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -42,7 +40,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -139,7 +137,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -173,6 +171,64 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-通过源码全面解剖Retrofit2的整体流程"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-10-23 22:00:22" datetime="2019-10-23T14:00:22.000Z"  itemprop="datePublished">2019-10-23</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E4%BC%98%E7%A7%80%E5%BC%80%E6%BA%90%E5%BA%93%E5%88%86%E6%9E%90/">优秀开源库分析</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/">通过源码全面解剖Retrofit2的整体流程</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言上两篇文章：
+
+okhttp3源码分析之请求流程
+okhttp3源码分析之拦截器
+
+Retrofit与Okhttp是Android开发中最最热门的网络请求库，它们都来自square公司，Okhttp在前面的两篇文章中已经通过源码从请求流程和拦截器两个角度分析过，本文的主角是Retrofit，经过这几天的研究，我发现Retrofit只是一个对Okhttp网络请求框架的巧妙包装，它通过注解去定义一个HTTP请求，然后在底层通过Okhttp发起网络请求，就是这样的一个简单的过程，其间运用了很多的设计模式：外观模式、动态代理模式、适配器模式、装饰者模式等，其最核心的是动态代理模式，所以在此之前大家对动态代理要有一个了解：
+静态和动态代理模式
+其他的设计模式我会在讲解的过程中简单介绍，除了使用了大量的设计模式，Retrofit还应用了面向接口编程的思想，使得整个系统解耦彻底，本文会通过一个简单的Retrofit使用示例，然后引出Retrofit的核心类，面向接口思想、构建过程、动态代理和网络请求过程，通过这几部分来解剖Retrofit。
+Retrofit的项目地址：Retrofit
+
+本文源码基于Retrofit2.4
+
+    
+
+        <a href="/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/retrofit/" rel="tag">retrofit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-使用AIDL来进行进程间通信"
   class="article-card article-type-post" itemprop="blogPost">
 
@@ -191,7 +247,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/21/使用AIDL来进行进程间通信/">使用AIDL来进行进程间通信</a>
+      <a class="post-title-link" href="/2019/10/21/%E4%BD%BF%E7%94%A8AIDL%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/">使用AIDL来进行进程间通信</a>
     </h3>
   
 
@@ -209,14 +265,14 @@ Binder系列—开篇
 上面两个系列就是从设计和源码的角度去解读Binder，有点深入。好了，对Binder有一个大体上的认识后，接下来我们就要通过AIDL的使用来完成Android进程间通信的实践。
     
 
-        <a href="/2019/10/21/使用AIDL来进行进程间通信/" class="post-more waves-effect waves-button">
-            続きを読む…
+        <a href="/2019/10/21/%E4%BD%BF%E7%94%A8AIDL%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" class="post-more waves-effect waves-button">
+            Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AIDL/">AIDL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPC/">IPC</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AIDL/" rel="tag">AIDL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPC/" rel="tag">IPC</a></li></ul>
 
     </div>
     
@@ -232,7 +288,7 @@ Binder系列—开篇
         <time class="post-time" title="2019-10-19 22:56:38" datetime="2019-10-19T14:56:38.000Z"  itemprop="datePublished">2019-10-19</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
 
 
@@ -243,7 +299,7 @@ Binder系列—开篇
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/19/策略模式/">策略模式</a>
+      <a class="post-title-link" href="/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">策略模式</a>
     </h3>
   
 
@@ -256,14 +312,14 @@ Binder系列—开篇
         介绍在开发中也经常遇到这种情况，实现某一个功能往往有许多算法或者策略，我们在实际开发中选择不同的算法或策略来完成该功能。一般的情况是我们会把所有的算法或策略写入一个类中，通过if…else…或case语句来根据实际情况来选择具体算法或策略，但是这种方法会使这个类臃肿，维护难，当增加一种算法或策略时又要修改源代码，违反了面向对象的单一原则和开闭原则。如果将这些算法或者策略抽象出来，提供一个统一...
     
 
-        <a href="/2019/10/19/策略模式/" class="post-more waves-effect waves-button">
-            続きを読む…
+        <a href="/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" class="post-more waves-effect waves-button">
+            Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
 
     </div>
     
@@ -279,7 +335,7 @@ Binder系列—开篇
         <time class="post-time" title="2019-10-15 20:05:03" datetime="2019-10-15T12:05:03.000Z"  itemprop="datePublished">2019-10-15</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
 
 
@@ -290,7 +346,7 @@ Binder系列—开篇
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/15/代理模式/">静态和动态代理模式</a>
+      <a class="post-title-link" href="/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">静态和动态代理模式</a>
     </h3>
   
 
@@ -303,14 +359,14 @@ Binder系列—开篇
         前言代理模式，也称委托模式，是结构型设计模式之一，何为代理呢? 在日常生活中就比如叫朋友替你拿个快递，叫朋友替你做一下作业，叫朋友替你买点东西等等，这个朋友就是你的代理，你把事情委托你的朋友做了，同样在代码的世界中也存在代理，而且在你以后阅读到更多的设计模式时，你会发现很多的设计模式中也有代理模式的影子，代理模式是一个非常重要的设计模式，代理模式分为静态代理和动态代理，本文将会通过一个简单的...
     
 
-        <a href="/2019/10/15/代理模式/" class="post-more waves-effect waves-button">
-            続きを読む…
+        <a href="/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="post-more waves-effect waves-button">
+            Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态代理/">动态代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态代理/">静态代理</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">动态代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">静态代理</a></li></ul>
 
     </div>
     
@@ -337,7 +393,7 @@ Binder系列—开篇
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/10/08/从进程的角度看Android的系统架构/">从进程的角度看Android的系统架构</a>
+      <a class="post-title-link" href="/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">从进程的角度看Android的系统架构</a>
     </h3>
   
 
@@ -353,61 +409,14 @@ Binder系列—开篇
 上一篇文章从5个层次简述了Android的系统架构，那么这5个层次是怎么联系起来的呢？本文从进程的角度看Android的系统架构，简述一下Android系统启动的过程中，各大进程的启动顺序是如何的，本文并不会涉及到任何源码，只是为了让读者对Android的进程有个大概的了解。
     
 
-        <a href="/2019/10/08/从进程的角度看Android的系统架构/" class="post-more waves-effect waves-button">
-            続きを読む…
+        <a href="/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="post-more waves-effect waves-button">
+            Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/进程/">进程</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-工厂模式"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-09-07 19:47:08" datetime="2019-09-07T11:47:08.000Z"  itemprop="datePublished">2019-09-07</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/09/07/工厂模式/">工厂模式</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言工厂方法模式是一种结构简单的模式，并且在我们的应用中很广泛，如Android中Activity的各个生命周期的回调，以onCreate方法为例，它就可以看做是一个工厂方法，我们在其中构造我们的View并返回给framework处理。
-    
-
-        <a href="/2019/09/07/工厂模式/" class="post-more waves-effect waves-button">
-            続きを読む…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B/" rel="tag">进程</a></li></ul>
 
     </div>
     
@@ -435,7 +444,7 @@ Binder系列—开篇
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,19 +22,18 @@
     
     <meta name="keywords" content="设计模式">
     <meta name="description" content="介绍在开发中也经常遇到这种情况，实现某一个功能往往有许多算法或者策略，我们在实际开发中选择不同的算法或策略来完成该功能。一般的情况是我们会把所有的算法或策略写入一个类中，通过if…else…或case语句来根据实际情况来选择具体算法或策略，但是这种方法会使这个类臃肿，维护难，当增加一种算法或策略时又要修改源代码，违反了面向对象的单一原则和开闭原则。如果将这些算法或者策略抽象出来，提供一个统一的接口">
-<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="策略模式">
-<meta property="og:url" content="http://yoursite.com/2019/10/19/策略模式/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="介绍在开发中也经常遇到这种情况，实现某一个功能往往有许多算法或者策略，我们在实际开发中选择不同的算法或策略来完成该功能。一般的情况是我们会把所有的算法或策略写入一个类中，通过if…else…或case语句来根据实际情况来选择具体算法或策略，但是这种方法会使这个类臃肿，维护难，当增加一种算法或策略时又要修改源代码，违反了面向对象的单一原则和开闭原则。如果将这些算法或者策略抽象出来，提供一个统一的接口">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/10/19/策略模式/desgin1.png">
-<meta property="og:updated_time" content="2019-10-19T15:04:34.601Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/desgin1.png">
+<meta property="article:published_time" content="2019-10-19T14:56:38.000Z">
+<meta property="article:modified_time" content="2019-10-19T15:04:34.601Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="策略模式">
-<meta name="twitter:description" content="介绍在开发中也经常遇到这种情况，实现某一个功能往往有许多算法或者策略，我们在实际开发中选择不同的算法或策略来完成该功能。一般的情况是我们会把所有的算法或策略写入一个类中，通过if…else…或case语句来根据实际情况来选择具体算法或策略，但是这种方法会使这个类臃肿，维护难，当增加一种算法或策略时又要修改源代码，违反了面向对象的单一原则和开闭原则。如果将这些算法或者策略抽象出来，提供一个统一的接口">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/19/策略模式/desgin1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/desgin1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -45,7 +44,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -142,7 +141,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -166,7 +165,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
             
         </h5>
@@ -197,7 +196,7 @@
             <time class="post-time" title="2019-10-19 22:56:38" datetime="2019-10-19T14:56:38.000Z"  itemprop="datePublished">2019-10-19</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
 
 
@@ -238,7 +237,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-19T15:04:34.601Z" itemprop="dateUpdated">2019-10-19 23:04:34</time>
+    Last updated: <time datetime="2019-10-19T15:04:34.601Z" itemprop="dateUpdated">2019-10-19 23:04:34</time>
 </span><br>
 
 
@@ -264,7 +263,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
 
 
             
@@ -274,7 +273,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/19/策略模式/&title=《策略模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&title=《策略模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -284,22 +283,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/19/策略模式/&title=《策略模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&title=《策略模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/19/策略模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《策略模式》 — jianyu的博客&url=http://yoursite.com/2019/10/19/策略模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《策略模式》 — jianyu的博客&url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/19/策略模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -322,7 +321,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/10/21/使用AIDL来进行进程间通信/" id="post-prev" class="post-nav-link">
+      <a href="/2019/10/21/%E4%BD%BF%E7%94%A8AIDL%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">使用AIDL来进行进程间通信</h4>
       </a>
@@ -331,7 +330,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/10/15/代理模式/" id="post-next" class="post-nav-link">
+      <a href="/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">静态和动态代理模式</h4>
       </a>
@@ -402,7 +401,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -424,7 +423,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/19/策略模式/&title=《策略模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&title=《策略模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -434,22 +433,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/19/策略模式/&title=《策略模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&title=《策略模式》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/19/策略模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《策略模式》 — jianyu的博客&url=http://yoursite.com/2019/10/19/策略模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《策略模式》 — jianyu的博客&url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/19/策略模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -460,7 +459,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQW7DMAwEwP7/0ynQa+Fkl0pRhB6dgsS2ND4wosivr3g8fsbVN4+LcfXr87t+z/W2gYGB8bGM5HHtNFfXXD3h91w1FQMD4waM50tpP7fPSa5/sWYMDAyMixD8XnYyCwYGBkbOyIPjScKMgYGB0SaxeYKaH7f9Qy6OgYHxgYyTIPjXn/+wvoGBgfEhjMdonBQ1k9BZ34uBgbGakUyfH4cl17fNGcUxHAYGxmpGfbA1Sl+T6082phgYGFsZ+cTPYe0raEsRL67HwMBYzciD5jCKl9+3S8fAwLgDIy8NztLX2UazLmRiYGCsZpxvzt5V8syP1aKVYGBgLGK07VZtI1ebAA+fj4GBsZqRlAzbAue7qop1cRQDA2MpY9ZmMWueyMNoHZQxMDBuz2gbT2elyiSRfvGPgYGBcQNGPn1e7Gy3nsm9lz0jGBgYqxknR2CzBPjNrRsYGBirGSeFw3bb17adJdtTDAyMOzDajV2bvp4kycVmEQMDYzUjWXR75fmrmRVQMTAwtjLywmQLPi8z5OEbAwNjN6NNQZPUNJ+s+B8ISpsYGBhbGY9ynCeoeVniaGuIgYGxiJGPvJGiLR6cFDJrDAYGxscy2iDbFgZmyGHiioGBsZqRJ42zRb9o6oqDftRygYGBcXtG+2uyBczPBS9fFgYGBkaZxOaHcS1gmGdjYGCsYMyKAe1RWr6sNsRjYGDsZswKAyflz6QUOuwWwcDA2Mb4BjxWHfPzHchaAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3aS27jQAwFQN//0jNAVrOYlh/JZuxFaRX4I6k6gJp+5OsVH39+juor/77+fOTfem0ceHh4eK1bfz7dM+b07uk8z6TTJ0/vvlkCPDw8vDVe9WLV53CCP30mWdDj63h4eHgf5fUe38mSPS9cslHh4eHhfScvDw4mgOeNBA8PD+97eEkY0QPnJfhk4S5kLXh4eHi1flOhAfYNfy/29/Dw8PAGXfWkzE0uXD1nbzP4z7fw8PDwFnjz8alkDKv6em8E4bjEeHh4eAu8yUO8GjTkm8EkGn7zn8TDw8Mb8KoNp3zDuIvvFe54eHh4G7x8iOr5MZ2Uv8nn58U9Hh4e3jYvuaE8jJgPY+W/AAopCx4eHt5VXrXtlF84D2QvJCjP94mHh4d3lZdsAPNZpvxs1eWLSmo8PDy8q7xqQHBrOe4W9G9KfDw8PLwF3rzhNI+Dq1fpLTQeHh7eNq8aoebFdG9kobkZ4OHh4S3w8i9XRweScrm6VZS/i4eHh3eVNxmH6u0/1UUcLToeHh7er/CqLfw8fp2X6dWyGw8PD2+bNxmQ6oWtvSI738zw8PDwNnj5g3sSs1ZHE/IliyIPPDw8vGXevH2VRw/5tfIoeTRThoeHhxfz8uZWL8bN22bzwhoPDw9vm1ctiPMYt3fOPLyIfgbg4eHhrfHyllW+efQChXm5fxwdwMPDw7vEuztAUL31JByZhMJ4eHh4G7xCeXqpqZ9gqscRiYeHh7fMS47eDeVnmwwKRFkLHh4e3pjXK3Or7BzT+/vCNoOHh4dX5FU3g0nykQQN1WGCQiSBh4eHd5XXa9gnu83d5agOdeHh4eF9llcdJsjDiMlIQZS44OHh4X0BLzl1j1r95JvmHB4eHt4ar/r4njzce0FwdVHw8PDw9ni9BlghDogbadV2162xLTw8PLyY9xcIVe9k2tStlwAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

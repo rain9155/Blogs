@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-19T14:21:08.809Z</updated>
+  <updated>2020-05-30T15:24:11.337Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,12 +14,38 @@
     <email>jianyu9155@gmail.com</email>
   </author>
   
-  <generator uri="http://hexo.io/">Hexo</generator>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java学习总结之I/O操作</title>
+    <link href="http://yoursite.com/2020/05/30/java%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/"/>
+    <id>http://yoursite.com/2020/05/30/java%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/</id>
+    <published>2020-05-30T15:20:42.000Z</published>
+    <updated>2020-05-30T15:24:11.337Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>I/O(Input/Output)操作，即输入输出操作，它是一个相对的过程，我们一般站在位于内存中的程序的角度来思考这个操作的过程，<strong>输入</strong>就是程序需要数据，把数据从数据源中流入程序，<strong>输出</strong>就是程序需要保存或传输数据，把数据从程序中流出到数据源，这个<strong>数据源</strong>一般为文件、网络、压缩包等，所以数据源和程序就通过数据流通道组成了一个半双工的输入/输出模式，如下：</p><img src="/2020/05/30/java输入输出/io1.png" title="I/O1"><p>java从更高层次把输入和输出抽象出来，封装成一些对程序员友好的API，我们只需要操作这些I/O接口就能简单的实现I/O操作，了解了输入输出模式的大体结构后，下面进入正文讲解。</p><h2 id="I-O框架"><a href="#I-O框架" class="headerlink" title="I/O框架"></a>I/O框架</h2><img src="/2020/05/30/java输入输出/io2.png" title="I/O1"><p>有关I/O的类主要都在java .io包中，从上图可以看出，java中的I/O流根据数据的单位划分可以分为字节流和字符流，两类都有输入和输出操作：</p><ul><li><strong>字节流</strong>：字节流主要用来处理字节(byte)或二进制对象，字节流的标志就是以Stream结尾，在字节流中，输入数据使用InputStream，输出数据使用OutputStream，InputStream/OutputStream是其他所有输入/输出字节流的抽象父类；</li><li><strong>字符流</strong>：字符流主要用来处理字符(char)或字符串，字符流的标志就是以Reader或Writer结尾，在字符流中，输入数据使用Reader，输出数据使用Writer，Reader/Writer是其他所有输入/输出字符流的抽象父类.</li></ul><p>不管是字节流还是字符流，它们都有一个close方法，用来关闭资源，因为它们都实现了Closeable接口，所以我们在通过这些流对象操作了文件后，记得调用close方法关闭资源，不然流对象就会一直关联着文件，导致文件无法释放，造成内存泄漏。</p><blockquote><p>在磁盘上保存或在网络上传输的数据最终都是二进制字节数据而不是字符数据，之所以存在字符流，是因为字符流中增加了对编码的处理，对多国语言支持比较好，所以如果需要处理文本、字符串等建议使用字符流，但是如果是处理音频、视频、图片等建议使用字节流。</p></blockquote><h2 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h2><h3 id="1、InputStream"><a href="#1、InputStream" class="headerlink" title="1、InputStream"></a>1、InputStream</h3><img src="/2020/05/30/java输入输出/io3.png" title="I/O1"><p>InputStream是所有字节输入流的抽象父类，为所有字节输入流提供一个标准的、基本的读取字节的方法，它常用方法如下：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>int read()</td><td>从输入流中读取下一个字节数据(0~255)，已到达最后没有可读取数据时返回-1</td></tr><tr><td>int read(byte[] b)</td><td>从输入流中读取b.length个字节到数组b中，并返回实际读取的字节数，已到达最后没有可读取数据时返回-1</td></tr><tr><td>int read(byte[] b, int off, int len)</td><td>读取字节保存在b数组的下标off到len - 1处，已到达最后没有可读取数据时返回-1</td></tr><tr><td>int available()</td><td>返回可以从输入流中读取的字节数(估计值)</td></tr></tbody></table><p>InputStream的常用子类如下：</p><table><thead><tr><th>InputStream子类</th><th>描述</th></tr></thead><tbody><tr><td>FileInputStream</td><td>文件字节输入流，用于从文件中读取信息</td></tr><tr><td>ByteArrayInputSream</td><td>字节数组输入流，允许将内存的缓冲区作为输入流使用，用于读取其内置缓存字节数组中的字节</td></tr><tr><td>ObjectInputStream</td><td>对象字节输入流，从输入流中读取对象</td></tr><tr><td>BufferedInputStream</td><td>缓冲字节输入流，使用缓冲区的输入流，它常常用来装饰其他字节输入流，为其提供缓冲功能，提高访问效率</td></tr><tr><td>DataInputStream</td><td>数据字节输入流，可以从输入流中读取基本的数据类型，如int、char、long等</td></tr></tbody></table><p>使用InputStream读取数据的大概流程如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    InputStream in = <span class="keyword">new</span> FileInputStream(<span class="string">"file.txt"</span>);</span><br><span class="line">    <span class="keyword">int</span> size = in.available();</span><br><span class="line">    <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[size];</span><br><span class="line">    <span class="keyword">int</span> len = in.read(b, <span class="number">0</span>, size);</span><br><span class="line">    String value = <span class="keyword">new</span> String(b);</span><br><span class="line">    System.out.println(<span class="string">"读取出的内容：value = "</span> + value);</span><br><span class="line">    in.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2、OutputStream"><a href="#2、OutputStream" class="headerlink" title="2、OutputStream"></a>2、OutputStream</h3><img src="/2020/05/30/java输入输出/io4.png" title="I/O1"><p>OutputStream是所有字节输出流的抽象父类，为所有字节输出流提供一个标准的、基本的写入字节的方法，它常用方法如下：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>void write()</td><td>将指定的字节写入到输出流中</td></tr><tr><td>void write(byte[] b)</td><td>将字节数组b的内容写入到输出流中</td></tr><tr><td>void write(byte[] b, int off, int len)</td><td>将字节数组中下标off到len - 1的字节写入到输出流中</td></tr><tr><td>void flush()</td><td>清除输出流中的缓存，强制写出任何输出缓冲中的字节</td></tr></tbody></table><p>OutputStream的常用子类如下：</p><table><thead><tr><th>OutputStream子类</th><th>描述</th></tr></thead><tbody><tr><td>FileOutputStream</td><td>文件字节输出流，用于把字节写入到文件中</td></tr><tr><td>ByteArrayOutputSream</td><td>字节数组输出流，允许将内存的缓冲区作为输出流使用，用于把字节写入到内置缓存字节数组中</td></tr><tr><td>ObjectOutputStream</td><td>对象字节输出流，用于把对象写入到输出流中</td></tr><tr><td>BufferedOutputStream</td><td>缓冲字节输出流，使用缓冲区的输出流，它常常用来装饰其他字节输出流，为其提供缓冲功能，提高访问效率</td></tr><tr><td>DataOutputStream</td><td>数据字节输出流，可以把基本的数据类型写入到输出流中</td></tr></tbody></table><p>使用OutputStream写入数据的大概流程如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    OutputStream os = <span class="keyword">new</span> FileOutputStream(<span class="string">"file.txt"</span>, <span class="keyword">true</span>);</span><br><span class="line">    String content = <span class="string">"待写入的内容"</span>;</span><br><span class="line">    os.write(content.getBytes());</span><br><span class="line">    os.flush();</span><br><span class="line">    os.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h2><h3 id="1、Reader"><a href="#1、Reader" class="headerlink" title="1、Reader"></a>1、Reader</h3><img src="/2020/05/30/java输入输出/io5.png" title="I/O1"><p> Reader是所有字符输入流的抽象父类，为所有字符输入流提供一个标准的、基本的读取字符的方法，它常用方法如下：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>int read()</td><td>从输入流中读取下一个字符(0~65535)，已到达最后没有可读取数据时返回-1</td></tr><tr><td>int read(char[] cbuf)</td><td>从输入流中读取b.length个字符到数组b中，并返回实际读取的字符数，已到达最后没有可读取数据时返回-1</td></tr><tr><td>int read(char[] cbuffer,int off,int len)</td><td>读取字符保存在b数组的下标off到len - 1处，已到达最后没有可读取数据时返回-1</td></tr><tr><td>boolean ready()</td><td>判断输入流是否做好读的准备</td></tr></tbody></table><p>Reader的常用子类如下：</p><table><thead><tr><th>Reader子类</th><th>描述</th></tr></thead><tbody><tr><td>CharArrayReader</td><td>字符数组输入流，实现了字符缓冲区的输入流，将其内置字符缓存数组中的数据（通过构造方法传入）读取到程序中</td></tr><tr><td>InputStreamReader</td><td>字节转换流，用于将字节流转换成字符流，它读取字节，并使用指定的charset将其解码为字符</td></tr><tr><td>FileReader</td><td>文件字符输入流，以字符的形式读取文件中的内容</td></tr><tr><td>BufferedReader</td><td>缓冲字符输入流，它是一个装饰类，装饰其他字符输入流，为其提供缓冲功能，提高效率</td></tr></tbody></table><p>使用Reader读取数据的大概流程如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    FileReader reader = <span class="keyword">new</span> FileReader(<span class="string">"file.txt"</span>);</span><br><span class="line">    BufferedReader bReader = <span class="keyword">new</span> BufferedReader(reader);</span><br><span class="line">    StringBuilder content = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    String line;</span><br><span class="line">    <span class="comment">//readLine方法是BufferedReader中的方法，它一次读取一行，比read方法一次读取一个字符的效率快很多</span></span><br><span class="line">    <span class="keyword">while</span>((line = bReader.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">        content.append(line);</span><br><span class="line">        content.append(<span class="string">"\r\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"读取到的内容：content"</span> + content);</span><br><span class="line">    bReader.close();</span><br><span class="line">    reader.close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//将字节流转换为Buffer字符流，同样可以使用readLine方法一行一行地读</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span>  <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    StringBuilder content = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    String line;</span><br><span class="line">    BufferedReader reader = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">        <span class="keyword">new</span> InputStreamReader(<span class="keyword">new</span> FileInputStream(<span class="string">"file.txt"</span>))</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">while</span>((line = reader.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">        content.append(line);</span><br><span class="line">        content.append(<span class="string">"\r\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"读取到的内容：content"</span> + content);</span><br><span class="line">    reader.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2、Writer"><a href="#2、Writer" class="headerlink" title="2、Writer"></a>2、Writer</h3><img src="/2020/05/30/java输入输出/io6.png" title="I/O1"><p>Writer是所有字符输出流的抽象父类，为所有字符输出流提供一个标准的、基本的写入字符的方法，它常用方法如下：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>void write()</td><td>将指定字符写入到输出流中</td></tr><tr><td>void write(char[] cbuf)</td><td>将字符数组b的内容写入到输出流中</td></tr><tr><td>void write(char[] cbuffer,int off,int len)</td><td>将字符数组中下标off到len - 1的字符写入到输出流中</td></tr><tr><td>void flush()</td><td>将缓存区中的所有数据写到文件中</td></tr></tbody></table><p>Writer的常用子类如下：</p><table><thead><tr><th>Reader子类</th><th>描述</th></tr></thead><tbody><tr><td>CharArrayWriter</td><td>字符数组输出流，实现了字符缓冲区的输出流，将字符写入到内置的字符缓存数组中</td></tr><tr><td>InputStreamWriter</td><td>字节转换流，用于将字节流转换成字符流，它可以使用指定的charset来写入字符</td></tr><tr><td>FileWriter</td><td>文件字符输出流，将字符写入到指定的文件中</td></tr><tr><td>BufferedWriter</td><td>缓冲字符输出流，它是一个装饰类，装饰其他字符输出流，为其提供缓冲功能，提高效率</td></tr></tbody></table><p>使用Writer写入数据的大概流程如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    FileWriter writer = <span class="keyword">new</span> FileWriter(<span class="string">"file.txt"</span>, <span class="keyword">true</span>);</span><br><span class="line">    BufferedWriter bWriter = <span class="keyword">new</span> BufferedWriter(writer);</span><br><span class="line">    StringBuilder content = <span class="keyword">new</span> StringBuilder(<span class="string">"待写入的内容"</span>);</span><br><span class="line">    writer.write(content.toString());</span><br><span class="line">    bWriter.flush();</span><br><span class="line">    bWriter.close();</span><br><span class="line">    writer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="RandomAccessFile"><a href="#RandomAccessFile" class="headerlink" title="RandomAccessFile"></a>RandomAccessFile</h2><p>RandomAccessFile它是属于IO系统的一部分，在java中，RandomAccessFile用来表示<strong>可随机访问</strong>的文件，前面我们所讲的字符流或字节流都是一种顺序流，通过顺序流打开的文件只能按顺序地从上往下地访问，不能说从后往前，或者说从中间开始访问，而通过RandomAccessFile打开的文件可以让我们不按顺序地读取文件，RandomAccessFile内部其实是通过称为file point的指针来进行文件地读写，我们可以设置指针在文件中的位置，从而达到从任意位置开始读写的目的，它的常用方法如下：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>RandomAccessFile(File f, String mode)</td><td>使用指定的File对象和模式(r/rw)创建随机文件流</td></tr><tr><td>long getFilePointer()</td><td>返回以字节计算的文件偏移量(从文件开始计算)，作为下一个read或writer的起点</td></tr><tr><td>long length() / setLength(long)</td><td>返回文件中的字节数 / 为文件设置新的长度</td></tr><tr><td>int read() / int read(byte[])</td><td>从文件中读取字节数据</td></tr><tr><td>void seek(long pos)</td><td>设置文件偏移量，以字节为单位</td></tr><tr><td>int skipBytes(int n)</td><td>跳过n个字节</td></tr><tr><td>void write(byte[] b)</td><td>将指定的字节数组写入到文件中，从当前的文件指针开始写</td></tr></tbody></table><p>下面是它的一些基本使用：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从指定的位置开始读取数据</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    File file=<span class="keyword">new</span> File(<span class="string">"file.txt"</span>);</span><br><span class="line">    RandomAccessFile randomFile = <span class="keyword">new</span> RandomAccessFile(file,<span class="string">"r"</span>);</span><br><span class="line">    <span class="comment">// 获取 RandomAccessFile对象文件指针的位置，初始位置为0</span></span><br><span class="line">    System.out.print(<span class="string">"输入内容："</span> + randomFile.getFilePointer());</span><br><span class="line">    <span class="comment">//移动文件记录指针的位置</span></span><br><span class="line">    randomFile.seek(<span class="number">1000</span>);</span><br><span class="line">    <span class="keyword">byte</span>[] b=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">int</span> hasRead = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>((hasRead = randomFile.read(b))&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">//输出文件读取的内容</span></span><br><span class="line">        System.out.print(<span class="keyword">new</span> String(b, <span class="number">0</span>, hasRead));</span><br><span class="line">    &#125;</span><br><span class="line">    randomFile.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过RandomAccessFile很容易地实现断点下载。</p><h2 id="File"><a href="#File" class="headerlink" title="File"></a>File</h2><p>文件是输入/输出流的操作对象之一，java中用File代表文件，File类中封装了很多对文件或文件夹操作的方法，我把File类中常用的方法分为四类：状态检测、路径和名称操作、文件操作、目录操作。</p><p>File中的状态检测方法：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>boolean canExecute()</td><td>判断此File实例对应的文件是否是可执行文件</td></tr><tr><td>int length()</td><td>返回此File实例对应文件的长度，单位为字节</td></tr><tr><td>boolean canRead()</td><td>判断此File实例对应的文件是否可读</td></tr><tr><td>boolean canWrite()</td><td>判断此File实例对应的文件是否可写</td></tr><tr><td>boolean isHidden()</td><td>判断此File实例对应的文件是否是隐藏文件</td></tr><tr><td>long lastModified()</td><td>返回此File实例的最后修改时间</td></tr></tbody></table><p>File路径和名称操作方法：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>String getAbsolutePath()</td><td>获取此File实例对应文件或文件夹的绝对路径</td></tr><tr><td>String getPath()</td><td>获取此File实例对应文件或文件夹的相对路径</td></tr><tr><td>String getName()</td><td>获取此File实例对应文件或文件夹的名称</td></tr><tr><td>File getParentFile()</td><td>获取此File实例对应文件的上级目录文件</td></tr><tr><td>String getParent()</td><td>获取此File实例对应文件的上级目录路径</td></tr></tbody></table><p>File中的文件操作方法：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>boolean exists()</td><td>判断此File实例对应的文件是否存在</td></tr><tr><td>boolean isFile()</td><td>判断此File实例是否是一个标准文件</td></tr><tr><td>boolean delete()</td><td>删除此File实例对应的文件</td></tr><tr><td>boolean createNewFile()</td><td>根据File实例创建新的文件</td></tr><tr><td>void deleteOnExit()</td><td>在JVM终止时删除File实例对应的文件</td></tr><tr><td>boolean renameTo(File dest)</td><td>根据dest重命名此File实例对应的文件</td></tr><tr><td>static File createTempFile(String prefix, String suffix, File directory)</td><td>在directory目录下创建prefix.suffix临时文件</td></tr></tbody></table><p>File中的目录(文件夹)操作方法：</p><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>boolean isDirectory()</td><td>判断此File实例是否是一个文件夹</td></tr><tr><td>boolean mkdir()</td><td>根据File实例对应的文件夹创建当前目录（一级目录）</td></tr><tr><td>boolean mkdirs()</td><td>根据File实例对应的文件夹创建当前目录和上级目录（多级目录）</td></tr><tr><td>String[] list()</td><td>根据File实例对应的文件夹列出当前目录中所有文件和文件夹的路径</td></tr><tr><td>File[] listFiles()</td><td>根据File实例对应的文件夹列出当前目录中所有文件和文件夹的File实例</td></tr><tr><td>static File[] listRoots()</td><td>列出可用的文件系统盘符(根路径)</td></tr><tr><td>File[] listFiles(FileFilter filter)</td><td>返回一个File数组，表示当前File实例下满足指定过滤器filter的所有文件和目录</td></tr></tbody></table><p>我们可以发现File中的方法只能获取或设置文件相应的<strong>信息</strong>，并不能获取或设置文件里面的<strong>内容</strong>，想要获取或设置文件里面的内容需要通过前面讲过的<strong>流操作</strong>来完成，除此之外File还有一些静态字段用来表示与系统无关的属性，例如目录分隔符separator、属性分隔符pathSeparator，这些分隔符在不同的操作系统上的表示是不一样的，例如在window上通过File的separator和pathSeparator获取到的输出是 \ 和 ; ，在Unix上获取到的输出是 / 和 ：。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>本文从字节流、字符流，文件操作等介绍了java的IO系统，同时这些基于流的IO操作又被称为传统的IO操作，为什么说它是传统的呢，因为早在java4就推出<strong>NIO</strong>，即New IO，NIO相对与传统的IO的主要区别是NIO是基于通道和缓冲区的，同时NIO是非阻塞的，所以它比传统的IO更高效，所以在java4之后，NIO完全可以替代传统的IO，但是话虽是这么说，传统的IO也十分重要，毕竟在一些简单的场景下它的使用还是更加的方便，NIO更多地是使用在高并发的服务端上。</p><p>参考资料：</p><p><a href="https://www.jianshu.com/p/d30893c4d6bb" target="_blank" rel="noopener">Java：带你全面了解神秘的Java NIO</a></p><p><a href="https://blog.csdn.net/jssg_tzw/article/details/77991749" target="_blank" rel="noopener">Java IO体系架构图</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;I/O(Input/Output)操作，即输入输出操作，它是一个相对的过程，我们一般站在位于内存中的程序的角度来思考这个操作的过程，&lt;str
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="I/O" scheme="http://yoursite.com/tags/I-O/"/>
+    
+  </entry>
   
   <entry>
     <title>java学习总结之反射</title>
     <link href="http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/"/>
-    <id>http://yoursite.com/2020/03/19/java反射/</id>
+    <id>http://yoursite.com/2020/03/19/java%E5%8F%8D%E5%B0%84/</id>
     <published>2020-03-19T06:59:32.000Z</published>
     <updated>2020-03-19T14:21:08.809Z</updated>
     
@@ -45,7 +71,7 @@
   <entry>
     <title>这是一份关于HTTP协议的学习总结</title>
     <link href="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/"/>
-    <id>http://yoursite.com/2020/01/17/Http网络请求浅析/</id>
+    <id>http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/</id>
     <published>2020-01-17T07:33:15.000Z</published>
     <updated>2020-03-05T15:02:04.376Z</updated>
     
@@ -70,7 +96,7 @@
   <entry>
     <title>你知道有多少种方式实现单例模式？</title>
     <link href="http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2019/11/16/单例模式/</id>
+    <id>http://yoursite.com/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</id>
     <published>2019-11-16T06:32:26.000Z</published>
     <updated>2019-11-29T12:35:46.824Z</updated>
     
@@ -96,7 +122,7 @@
   <entry>
     <title>java学习总结之集合框架</title>
     <link href="http://yoursite.com/2019/11/05/java%E9%9B%86%E5%90%88/"/>
-    <id>http://yoursite.com/2019/11/05/java集合/</id>
+    <id>http://yoursite.com/2019/11/05/java%E9%9B%86%E5%90%88/</id>
     <published>2019-11-05T10:33:15.000Z</published>
     <updated>2020-03-01T15:13:45.224Z</updated>
     
@@ -130,7 +156,7 @@
   <entry>
     <title>通过源码全面解剖Retrofit2的整体流程</title>
     <link href="http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/"/>
-    <id>http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/</id>
+    <id>http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/</id>
     <published>2019-10-23T14:00:22.000Z</published>
     <updated>2019-11-30T11:45:12.344Z</updated>
     
@@ -166,7 +192,7 @@
   <entry>
     <title>使用AIDL来进行进程间通信</title>
     <link href="http://yoursite.com/2019/10/21/%E4%BD%BF%E7%94%A8AIDL%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
-    <id>http://yoursite.com/2019/10/21/使用AIDL来进行进程间通信/</id>
+    <id>http://yoursite.com/2019/10/21/%E4%BD%BF%E7%94%A8AIDL%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</id>
     <published>2019-10-21T13:04:01.000Z</published>
     <updated>2020-01-31T15:56:42.077Z</updated>
     
@@ -196,7 +222,7 @@
   <entry>
     <title>策略模式</title>
     <link href="http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2019/10/19/策略模式/</id>
+    <id>http://yoursite.com/2019/10/19/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</id>
     <published>2019-10-19T14:56:38.000Z</published>
     <updated>2019-10-19T15:04:34.601Z</updated>
     
@@ -222,7 +248,7 @@
   <entry>
     <title>静态和动态代理模式</title>
     <link href="http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2019/10/15/代理模式/</id>
+    <id>http://yoursite.com/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</id>
     <published>2019-10-15T12:05:03.000Z</published>
     <updated>2020-03-07T15:23:03.145Z</updated>
     
@@ -250,7 +276,7 @@
   <entry>
     <title>从进程的角度看Android的系统架构</title>
     <link href="http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/"/>
-    <id>http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/</id>
+    <id>http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</id>
     <published>2019-10-08T08:32:55.000Z</published>
     <updated>2020-01-13T07:56:05.369Z</updated>
     
@@ -276,7 +302,7 @@
   <entry>
     <title>工厂模式</title>
     <link href="http://yoursite.com/2019/09/07/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2019/09/07/工厂模式/</id>
+    <id>http://yoursite.com/2019/09/07/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</id>
     <published>2019-09-07T11:47:08.000Z</published>
     <updated>2019-09-07T11:57:45.306Z</updated>
     
@@ -299,7 +325,7 @@
   <entry>
     <title>Builder模式</title>
     <link href="http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2019/09/07/Builder模式/</id>
+    <id>http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/</id>
     <published>2019-09-07T11:35:25.000Z</published>
     <updated>2019-09-07T11:51:17.125Z</updated>
     
@@ -322,7 +348,7 @@
   <entry>
     <title>责任链模式</title>
     <link href="http://yoursite.com/2019/09/07/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2019/09/07/责任链模式/</id>
+    <id>http://yoursite.com/2019/09/07/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/</id>
     <published>2019-09-07T08:46:01.000Z</published>
     <updated>2019-09-07T09:04:44.598Z</updated>
     
@@ -345,7 +371,7 @@
   <entry>
     <title>okhttp3源码分析之拦截器</title>
     <link href="http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/"/>
-    <id>http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/</id>
+    <id>http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/</id>
     <published>2019-09-07T07:01:40.000Z</published>
     <updated>2020-01-15T13:44:07.306Z</updated>
     
@@ -377,7 +403,7 @@
   <entry>
     <title>okhttp3源码分析之请求流程</title>
     <link href="http://yoursite.com/2019/09/03/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/"/>
-    <id>http://yoursite.com/2019/09/03/okhttp3源码分析之请求流程/</id>
+    <id>http://yoursite.com/2019/09/03/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/</id>
     <published>2019-09-03T14:49:13.000Z</published>
     <updated>2019-09-19T11:17:46.186Z</updated>
     
@@ -407,7 +433,7 @@
   <entry>
     <title>View的事件分发机制</title>
     <link href="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/"/>
-    <id>http://yoursite.com/2019/07/29/View的事件分发机制/</id>
+    <id>http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/</id>
     <published>2019-07-29T15:14:42.000Z</published>
     <updated>2020-01-05T08:04:29.887Z</updated>
     
@@ -423,16 +449,16 @@
       <category term="View机制" scheme="http://yoursite.com/categories/View%E6%9C%BA%E5%88%B6/"/>
     
     
-      <category term="源码" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="view" scheme="http://yoursite.com/tags/view/"/>
+    
+      <category term="源码" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
   <entry>
     <title>View的工作原理</title>
     <link href="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
-    <id>http://yoursite.com/2019/07/22/View的工作原理/</id>
+    <id>http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</id>
     <published>2019-07-22T11:57:11.000Z</published>
     <updated>2019-10-30T12:23:13.716Z</updated>
     
@@ -448,16 +474,16 @@
       <category term="View机制" scheme="http://yoursite.com/categories/View%E6%9C%BA%E5%88%B6/"/>
     
     
-      <category term="源码" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="view" scheme="http://yoursite.com/tags/view/"/>
+    
+      <category term="源码" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
   <entry>
     <title>java学习总结之面向对象</title>
     <link href="http://yoursite.com/2019/07/19/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    <id>http://yoursite.com/2019/07/19/java面向对象/</id>
+    <id>http://yoursite.com/2019/07/19/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</id>
     <published>2019-07-19T04:29:50.000Z</published>
     <updated>2020-02-05T06:57:29.464Z</updated>
     
@@ -482,7 +508,7 @@
   <entry>
     <title>java学习总结之线程池</title>
     <link href="http://yoursite.com/2019/07/19/java%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
-    <id>http://yoursite.com/2019/07/19/java线程池/</id>
+    <id>http://yoursite.com/2019/07/19/java%E7%BA%BF%E7%A8%8B%E6%B1%A0/</id>
     <published>2019-07-19T04:26:00.000Z</published>
     <updated>2020-03-06T14:25:10.914Z</updated>
     
@@ -508,7 +534,7 @@
   <entry>
     <title>java学习总结之线程</title>
     <link href="http://yoursite.com/2019/07/19/java%E7%BA%BF%E7%A8%8B/"/>
-    <id>http://yoursite.com/2019/07/19/java线程/</id>
+    <id>http://yoursite.com/2019/07/19/java%E7%BA%BF%E7%A8%8B/</id>
     <published>2019-07-19T04:25:50.000Z</published>
     <updated>2020-01-13T12:45:35.313Z</updated>
     
@@ -531,7 +557,7 @@
   <entry>
     <title>java学习总结之基础</title>
     <link href="http://yoursite.com/2019/07/19/java%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/2019/07/19/java基础/</id>
+    <id>http://yoursite.com/2019/07/19/java%E5%9F%BA%E7%A1%80/</id>
     <published>2019-07-19T04:24:58.000Z</published>
     <updated>2020-03-22T14:42:17.944Z</updated>
     
@@ -554,7 +580,7 @@
   <entry>
     <title>如何获取Android应用和系统信息</title>
     <link href="http://yoursite.com/2019/07/12/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96Android%E5%BA%94%E7%94%A8%E4%B8%8E%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF/"/>
-    <id>http://yoursite.com/2019/07/12/如何获取Android应用与系统信息/</id>
+    <id>http://yoursite.com/2019/07/12/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96Android%E5%BA%94%E7%94%A8%E4%B8%8E%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF/</id>
     <published>2019-07-12T14:36:32.000Z</published>
     <updated>2019-10-08T09:30:38.340Z</updated>
     
@@ -581,7 +607,7 @@
   <entry>
     <title>SVG入门学习</title>
     <link href="http://yoursite.com/2019/07/12/SVG%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://yoursite.com/2019/07/12/SVG入门学习/</id>
+    <id>http://yoursite.com/2019/07/12/SVG%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/</id>
     <published>2019-07-12T09:39:00.000Z</published>
     <updated>2019-10-08T09:26:36.249Z</updated>
     
@@ -604,7 +630,7 @@
   <entry>
     <title>Activity应用窗口的添加过程</title>
     <link href="http://yoursite.com/2019/07/10/Activity%E5%BA%94%E7%94%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E6%B7%BB%E5%8A%A0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/2019/07/10/Activity应用窗口的添加过程/</id>
+    <id>http://yoursite.com/2019/07/10/Activity%E5%BA%94%E7%94%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E6%B7%BB%E5%8A%A0%E8%BF%87%E7%A8%8B/</id>
     <published>2019-07-10T07:20:32.000Z</published>
     <updated>2019-10-26T07:03:14.493Z</updated>
     
@@ -638,7 +664,7 @@
   <entry>
     <title>Android8.0的Activity启动流程(2)</title>
     <link href="http://yoursite.com/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B2/"/>
-    <id>http://yoursite.com/2019/05/19/Android8.0的Activity启动流程2/</id>
+    <id>http://yoursite.com/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B2/</id>
     <published>2019-05-19T08:12:34.000Z</published>
     <updated>2020-02-01T15:35:56.205Z</updated>
     
@@ -666,7 +692,7 @@
   <entry>
     <title>Android8.0的Activity启动流程(1)</title>
     <link href="http://yoursite.com/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B1/"/>
-    <id>http://yoursite.com/2019/05/19/Android8.0的Activity启动流程1/</id>
+    <id>http://yoursite.com/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B1/</id>
     <published>2019-05-19T08:11:17.000Z</published>
     <updated>2020-02-01T15:35:44.209Z</updated>
     
@@ -691,7 +717,7 @@
   <entry>
     <title>Window,WindowManager和WindowManagerService之间的关系</title>
     <link href="http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/"/>
-    <id>http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/</id>
+    <id>http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/</id>
     <published>2019-03-22T14:36:32.000Z</published>
     <updated>2020-01-02T11:17:15.300Z</updated>
     
@@ -718,7 +744,7 @@
   <entry>
     <title>RecyclerView之观察者模式</title>
     <link href="http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://yoursite.com/2019/03/09/RecyclerView之观察者模式/</id>
+    <id>http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/</id>
     <published>2019-03-09T09:39:00.000Z</published>
     <updated>2019-10-08T09:28:35.249Z</updated>
     
@@ -743,7 +769,7 @@
   <entry>
     <title>RecyclerView之缓存设计</title>
     <link href="http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/"/>
-    <id>http://yoursite.com/2019/03/08/RecyclerView之缓存设计/</id>
+    <id>http://yoursite.com/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/</id>
     <published>2019-03-08T06:56:50.000Z</published>
     <updated>2020-01-15T09:37:31.196Z</updated>
     
@@ -771,7 +797,7 @@
   <entry>
     <title>RecyclerView之布局设计</title>
     <link href="http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/"/>
-    <id>http://yoursite.com/2019/03/01/RecyclerView之布局设计/</id>
+    <id>http://yoursite.com/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/</id>
     <published>2019-03-01T07:10:00.000Z</published>
     <updated>2019-11-30T11:48:19.916Z</updated>
     
@@ -796,7 +822,7 @@
   <entry>
     <title>ThreadLocal原理解析</title>
     <link href="http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/"/>
-    <id>http://yoursite.com/2019/02/21/ThreadLocal解析/</id>
+    <id>http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/</id>
     <published>2019-02-21T05:55:50.000Z</published>
     <updated>2019-12-08T10:28:37.515Z</updated>
     
@@ -815,16 +841,16 @@
       <category term="java" scheme="http://yoursite.com/categories/java/"/>
     
     
-      <category term="源码" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81/"/>
-    
       <category term="ThreadLocal" scheme="http://yoursite.com/tags/ThreadLocal/"/>
+    
+      <category term="源码" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81/"/>
     
   </entry>
   
   <entry>
     <title>Android消息机制(native层)</title>
     <link href="http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6native%E5%B1%82/"/>
-    <id>http://yoursite.com/2019/02/21/Android消息机制native层/</id>
+    <id>http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6native%E5%B1%82/</id>
     <published>2019-02-21T05:51:51.000Z</published>
     <updated>2020-02-13T16:36:55.136Z</updated>
     
@@ -855,7 +881,7 @@
   <entry>
     <title>Android消息机制(java层)</title>
     <link href="http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/"/>
-    <id>http://yoursite.com/2019/02/21/Android消息机制java层/</id>
+    <id>http://yoursite.com/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/</id>
     <published>2019-02-21T05:33:11.000Z</published>
     <updated>2019-12-11T13:32:47.808Z</updated>
     

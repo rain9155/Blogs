@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,20 +22,20 @@
     
     <meta name="keywords" content="recyclerView,设计模式">
     <meta name="description" content="前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客观察者模式, RecyclerView在更新数据时也算是对观察者模式的一种应用。">
-<meta name="keywords" content="recyclerView,设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RecyclerView之观察者模式">
-<meta property="og:url" content="http://yoursite.com/2019/03/09/RecyclerView之观察者模式/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客观察者模式, RecyclerView在更新数据时也算是对观察者模式的一种应用。">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/03/09/RecyclerView之观察者模式/rv5.png">
-<meta property="og:image" content="http://yoursite.com/2019/03/09/RecyclerView之观察者模式/rv6.png">
-<meta property="og:updated_time" content="2019-10-08T09:28:35.249Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/rv5.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/rv6.png">
+<meta property="article:published_time" content="2019-03-09T09:39:00.000Z">
+<meta property="article:modified_time" content="2019-10-08T09:28:35.249Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="recyclerView">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RecyclerView之观察者模式">
-<meta name="twitter:description" content="前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客观察者模式, RecyclerView在更新数据时也算是对观察者模式的一种应用。">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/09/RecyclerView之观察者模式/rv5.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/rv5.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -46,7 +46,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -143,7 +143,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -230,7 +230,7 @@ frameworks/base/core/java/android/database/Observable.java
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-08T09:28:35.249Z" itemprop="dateUpdated">2019-10-08 17:28:35</time>
+    Last updated: <time datetime="2019-10-08T09:28:35.249Z" itemprop="dateUpdated">2019-10-08 17:28:35</time>
 </span><br>
 
 
@@ -256,7 +256,7 @@ frameworks/base/core/java/android/database/Observable.java
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/" rel="tag">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
 
 
             
@@ -266,7 +266,7 @@ frameworks/base/core/java/android/database/Observable.java
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/&title=《RecyclerView之观察者模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/&title=《RecyclerView之观察者模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -276,22 +276,22 @@ frameworks/base/core/java/android/database/Observable.java
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/&title=《RecyclerView之观察者模式》 — jianyu的博客&source=前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyX..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/&title=《RecyclerView之观察者模式》 — jianyu的博客&source=前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyX..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之观察者模式》 — jianyu的博客&url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之观察者模式》 — jianyu的博客&url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -314,7 +314,7 @@ frameworks/base/core/java/android/database/Observable.java
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" id="post-prev" class="post-nav-link">
+      <a href="/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">Window,WindowManager和WindowManagerService之间的关系</h4>
       </a>
@@ -323,7 +323,7 @@ frameworks/base/core/java/android/database/Observable.java
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/03/08/RecyclerView之缓存设计/" id="post-next" class="post-nav-link">
+      <a href="/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">RecyclerView之缓存设计</h4>
       </a>
@@ -394,7 +394,7 @@ frameworks/base/core/java/android/database/Observable.java
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -416,7 +416,7 @@ frameworks/base/core/java/android/database/Observable.java
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/&title=《RecyclerView之观察者模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/&title=《RecyclerView之观察者模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -426,22 +426,22 @@ frameworks/base/core/java/android/database/Observable.java
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/&title=《RecyclerView之观察者模式》 — jianyu的博客&source=前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyX..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/&title=《RecyclerView之观察者模式》 — jianyu的博客&source=前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyX..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之观察者模式》 — jianyu的博客&url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《RecyclerView之观察者模式》 — jianyu的博客&url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/09/RecyclerView之观察者模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -452,7 +452,7 @@ frameworks/base/core/java/android/database/Observable.java
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3awQ4CIQxFUf//p8fErZG5j+IklMvKGAMcFrW0vF54XJ8x/v76Gun3379ZPGTIkLEtg0xHpk63xddFc8qQIeMABgmmqwI3PzKyNxkyZMjg6R05gvEWeaCXIUOGjMpWKgf06P+GDBkyNmSkl8lx2jeXJpJAv+AuLkOGjA0ZaWPgyc9/7G/IkCFjE8Y1NcYpWiWATu5HhgwZrRmVlI5vMS3hpaU3GTJknMCoJ4U8c5tbq370MmTI2JcRlN3x5vjypCGKDkuGDBmHMdJJ0/SOHAef52fAlSFDRjvGgtZgGI4rF92bQpsMGTKaMsaBjwfE9PpKUkP0SxkyZLRmVIpfaauS3zd5i1SGDBnnMFZtlydzHBkUCmXIkNGUwZOtyoOwNDWMmwoyZMg4hsFbjGSBSqJJnnf8DLgyZMhoykDFd7ChyU2A+W/CvQwZMloz+BSV1HCOxJ+myZAhozfjyW5DWoALjkCGDBmtGekDL17ij5fBs00+YpMhQ8bmjErTkYfmcRKZXo+D85YhQ0YjBm8xppvgDctSs1OGDBmtGSQUkoXrjy3q6aMMGTL6Ma5wpMunZbW5hxcyZMjozUjDHFkmDdbpVbYSrGXIkLEvgwdZ/qgiffiVBtz430OGDBktGOlifGFOmks0ZciQISMNqWm5Pw27ky1MGTJkHMOolMbSZ6n80itDhoxzGKuaAWsvxkFdUIYMGa0ZqxoDPKXjM/BDkSFDRlPGG9fZA/E58ShgAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADKUlEQVR42u3a0W7iQAwF0P7/T7OvK1XAvZ4gNebkCUHCzDFS3bH98xNfj1/X7/eTZ5OnHi+v/+/5/friCxsbG/sm7HyZ14s9wyTbTWB5CF7fj42Njb2V/ewvfJIkEkDyfkvK94mNjY2Nnd9zsq1ZWsLGxsbGnrHbp5IAJZ+e/zzY2NjYW9ltYrjqnjwQ56kOGxsbeys774r+/dcf6W9jY2Nj/2H2o7zyo0ibSNpm88mFjY2NvYmdJ4DZP/T5oSL/5tfHkmL/2NjY2IvY+a1JQX824tOO/px8MzY2NvY+9myBpLh/0h7Iee1+sLGxsTex8422ZaZZIPIhnqMWMjY2NvY69qzEkzQMZo2H/JDTHn6wsbGxt7LPE0abTtoklwc6+pGwsbGxF7GvauLmbYMEn/8Mbckp+s2xsbGxb8WeHSdmx4BZ+GbHmDf3Y2NjY69j54nnE6Wi/NAyKzYNi0rY2NjYt2K3S84mg5KCVB7upMz0dOfY2NjYi9h5ejgpFeXNgFniTFZ8WkvDxsbGvjm7LbW3mDZk7adt46Hoh2BjY2Pflp0Xg/IxmjbxXNtUeNroxcbGxl7Ebos+bcEoD9/sCJQEPaqZYWNjYy9lt82AJHzFseGiFPi00YuNjY19c/Yn/tGfNQBmz87CgY2Njb2Jncdmlh5miTA/Gg33g42Njf1l7NmITDExFB85ZgOXT0d2sLGxsRexZ+3ek023IzttWN/sBxsbG3sd+yQ9XHVoqQcoTwY3sbGxsVezrxroKQZoypTZtoHf9LexsbGxb86eLXO+6fb7Z6mxXgsbGxv7tuyT0tLrp5LU0rZpL2s2YGNjYy9lz0o8+fEgLw/ljCTQ2NjY2N/DTlJRnmauDWJ++IkCio2Njb2C/SivGWBWrG9bC8Va2NjY2IvYR3lv1DyYJct8D+cjR9jY2Nh3ZOfFmlk5Pk+NeSqajQ1hY2Nj72a3gzttgb5NcidDQsXIDjY2NvZXspPi0bXpMN9DEURsbGzsr2fnZfrhSM1xAntzUMHGxsZex56Ve5Kyfh7EWXno47U0bGxs7D/PniWM8xR1nrradgI2Njb2OvY/3zvPqzT4UGEAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -20,25 +20,25 @@
     <meta name="theme-color" content="#009688">
     
     
-    <meta name="keywords" content="源码,view">
+    <meta name="keywords" content="view,源码">
     <meta name="description" content="前言前几天写过一篇文章View的工作原理，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过setOnClickListener()方法来设置一个View的点击监听，那你有没有想过这个点击事件底层是怎么样传递到这个View的呢？当你自定义控件时，如果要处理滑动事件，那么到底返回true还是false？还有当你遇到了滑动嵌套的情景，你要怎么解决">
-<meta name="keywords" content="源码,view">
 <meta property="og:type" content="article">
 <meta property="og:title" content="View的事件分发机制">
-<meta property="og:url" content="http://yoursite.com/2019/07/29/View的事件分发机制/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言前几天写过一篇文章View的工作原理，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过setOnClickListener()方法来设置一个View的点击监听，那你有没有想过这个点击事件底层是怎么样传递到这个View的呢？当你自定义控件时，如果要处理滑动事件，那么到底返回true还是false？还有当你遇到了滑动嵌套的情景，你要怎么解决">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/07/29/View的事件分发机制/view1.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/29/View的事件分发机制/view2.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/29/View的事件分发机制/view3.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/29/View的事件分发机制/view4.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/29/View的事件分发机制/view5.png">
-<meta property="og:updated_time" content="2020-01-05T08:04:29.887Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/view1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/view2.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/view3.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/view4.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/view5.png">
+<meta property="article:published_time" content="2019-07-29T15:14:42.000Z">
+<meta property="article:modified_time" content="2020-01-05T08:04:29.887Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="view">
+<meta property="article:tag" content="源码">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="View的事件分发机制">
-<meta name="twitter:description" content="前言前几天写过一篇文章View的工作原理，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过setOnClickListener()方法来设置一个View的点击监听，那你有没有想过这个点击事件底层是怎么样传递到这个View的呢？当你自定义控件时，如果要处理滑动事件，那么到底返回true还是false？还有当你遇到了滑动嵌套的情景，你要怎么解决">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/29/View的事件分发机制/view1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/view1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -49,7 +49,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -146,7 +146,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -170,7 +170,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View机制/">View机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View%E6%9C%BA%E5%88%B6/">View机制</a></li></ul>
 
             
         </h5>
@@ -187,7 +187,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备知识"><span class="post-toc-text">准备知识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、什么是触摸事件"><span class="post-toc-text">1、什么是触摸事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、什么是MotionEvent"><span class="post-toc-text">2、什么是MotionEvent</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、一个事件序列"><span class="post-toc-text">3、一个事件序列</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、事件分发的起点，事件从何而来"><span class="post-toc-text">4、事件分发的起点，事件从何而来</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#View的事件分发"><span class="post-toc-text">View的事件分发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、View-dispatchTouchEvent"><span class="post-toc-text">1、View::dispatchTouchEvent()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、View-onTouchEvent"><span class="post-toc-text">2、View::onTouchEvent()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、case-ACTION-DOWN"><span class="post-toc-text">2.1、case ACTION_DOWN:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、case-ACTION-UP"><span class="post-toc-text">2.2、case ACTION_UP:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、小结"><span class="post-toc-text">3、小结</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ViewGroup的事件分发"><span class="post-toc-text">ViewGroup的事件分发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、ViewGroup-dispatchTouchEvent"><span class="post-toc-text">1、ViewGroup::dispatchTouchEvent()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、ViewGroup处理ACTION-DOWN事件的流程"><span class="post-toc-text">2、ViewGroup处理ACTION_DOWN事件的流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、intercepted-false"><span class="post-toc-text">2.1、intercepted = false</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、intercepted-true"><span class="post-toc-text">2.2、intercepted = true</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、ViewGroup处理除了ACTION-DOWN以外的事件的流程"><span class="post-toc-text">3、ViewGroup处理除了ACTION_DOWN以外的事件的流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-1、mFirstTouchTarget-null"><span class="post-toc-text">3.1、mFirstTouchTarget == null</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-2、mFirstTouchTarget-null"><span class="post-toc-text">3.2、mFirstTouchTarget != null</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、子View如何禁止ViewGroup拦截事件"><span class="post-toc-text">4、子View如何禁止ViewGroup拦截事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、小结"><span class="post-toc-text">5、小结</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备知识"><span class="post-toc-text">准备知识</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、什么是触摸事件"><span class="post-toc-text">1、什么是触摸事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、什么是MotionEvent"><span class="post-toc-text">2、什么是MotionEvent</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、一个事件序列"><span class="post-toc-text">3、一个事件序列</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、事件分发的起点，事件从何而来"><span class="post-toc-text">4、事件分发的起点，事件从何而来</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#View的事件分发"><span class="post-toc-text">View的事件分发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、View-dispatchTouchEvent"><span class="post-toc-text">1、View::dispatchTouchEvent()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、View-onTouchEvent"><span class="post-toc-text">2、View::onTouchEvent()</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、case-ACTION-DOWN"><span class="post-toc-text">2.1、case ACTION_DOWN:</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、case-ACTION-UP"><span class="post-toc-text">2.2、case ACTION_UP:</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、小结"><span class="post-toc-text">3、小结</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ViewGroup的事件分发"><span class="post-toc-text">ViewGroup的事件分发</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、ViewGroup-dispatchTouchEvent"><span class="post-toc-text">1、ViewGroup::dispatchTouchEvent()</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、ViewGroup处理ACTION-DOWN事件的流程"><span class="post-toc-text">2、ViewGroup处理ACTION_DOWN事件的流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-1、intercepted-false"><span class="post-toc-text">2.1、intercepted &#x3D; false</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-2、intercepted-true"><span class="post-toc-text">2.2、intercepted &#x3D; true</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、ViewGroup处理除了ACTION-DOWN以外的事件的流程"><span class="post-toc-text">3、ViewGroup处理除了ACTION_DOWN以外的事件的流程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-1、mFirstTouchTarget-null"><span class="post-toc-text">3.1、mFirstTouchTarget &#x3D;&#x3D; null</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-2、mFirstTouchTarget-null"><span class="post-toc-text">3.2、mFirstTouchTarget !&#x3D; null</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、子View如何禁止ViewGroup拦截事件"><span class="post-toc-text">4、子View如何禁止ViewGroup拦截事件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、小结"><span class="post-toc-text">5、小结</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-text">结语</span></a></li></ol>
         </nav>
     </aside>
 
@@ -201,7 +201,7 @@
             <time class="post-time" title="2019-07-29 23:14:42" datetime="2019-07-29T15:14:42.000Z"  itemprop="datePublished">2019-07-29</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View机制/">View机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View%E6%9C%BA%E5%88%B6/">View机制</a></li></ul>
 
 
 
@@ -360,7 +360,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-01-05T08:04:29.887Z" itemprop="dateUpdated">2020-01-05 16:04:29</time>
+    Last updated: <time datetime="2020-01-05T08:04:29.887Z" itemprop="dateUpdated">2020-01-05 16:04:29</time>
 </span><br>
 
 
@@ -386,7 +386,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/">view</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/" rel="tag">view</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -396,7 +396,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/29/View的事件分发机制/&title=《View的事件分发机制》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/&title=《View的事件分发机制》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -406,22 +406,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/29/View的事件分发机制/&title=《View的事件分发机制》 — jianyu的博客&source=前言前几天写过一篇文章View的工作原理，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过set..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/&title=《View的事件分发机制》 — jianyu的博客&source=前言前几天写过一篇文章View的工作原理，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过set..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/29/View的事件分发机制/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的事件分发机制》 — jianyu的博客&url=http://yoursite.com/2019/07/29/View的事件分发机制/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的事件分发机制》 — jianyu的博客&url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/29/View的事件分发机制/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -444,7 +444,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/09/03/okhttp3源码分析之请求流程/" id="post-prev" class="post-nav-link">
+      <a href="/2019/09/03/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">okhttp3源码分析之请求流程</h4>
       </a>
@@ -453,7 +453,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/07/22/View的工作原理/" id="post-next" class="post-nav-link">
+      <a href="/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">View的工作原理</h4>
       </a>
@@ -524,7 +524,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -546,7 +546,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/29/View的事件分发机制/&title=《View的事件分发机制》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/&title=《View的事件分发机制》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -556,22 +556,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/29/View的事件分发机制/&title=《View的事件分发机制》 — jianyu的博客&source=前言前几天写过一篇文章View的工作原理，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过set..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/&title=《View的事件分发机制》 — jianyu的博客&source=前言前几天写过一篇文章View的工作原理，讲述的View工作的三大流程，其实与View的工作流程同样重要还有View的事件分发机制，平时我们经常通过set..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/29/View的事件分发机制/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的事件分发机制》 — jianyu的博客&url=http://yoursite.com/2019/07/29/View的事件分发机制/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的事件分发机制》 — jianyu的博客&url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/29/View的事件分发机制/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -582,7 +582,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3a0W7jMAwEwPz/T6evB1zt7FJOAVvjp6CRY40LEKTI1yu+3qfXv2v+X3/07flTXt+4MDAwbsvIt3j+gPOtn/9O8tyjNRgYGPswjrY1W3POzsNx8lwMDAyMdk0LO/8LBgYGxlWMJGWchWkMDAyM9aO0WcGZs79Si2NgYNyQkZ+6//3nr/Q3MDAwbsV4l9dK+ZqnifWuMDAwHs3IA1yeluWp20rAxcDA2JMxG4OYlZ3Jb7btBAwMjKcykq23R/ZtsM4H0Q4xGBgYmzFm4xGzSN/CDpNLDAyMRzNmW2+TvJy9VCRjYGBsw5iNfLVjXi2y7rJiYGBswCgKyNFW2hd3vh4DA2MHRoI5D77Jttphr/yQDgMDYwdGUpSuj1MkryYJ4nUtjoGBcXNGflueIM6GM2ZNBQwMjB0Y7QNWjvKv/Vz8TzAwMB7EaA/xVxK7Wbs0CrgYGBiPY7QDrLMWZn7XbNQDAwPj2Yw2mWvjWzsL0Q55FOMXGBgYN2eshNeVErdtan54xRgYGBsw8lRsNnaff4uBgYHRnlbloxJ5gpiH+OReDAyMZzPe5dUe7s/K0Zz6y6khBgbG4xht6bjSgFxP/jAwMHZmzIJsW6Dmx23D9BEDA2MDxizwrR/954H4w29iYGBglA2AfMDisgYnBgYGRlm+tsdqbVl72B7AwMB4NOOqcrS9N28kfGigYmBgPJrR5l3rid0sZF+cPmJgYNyD8QNEXjaUb6UnLAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADK0lEQVR42u3aS47jMAwFwL7/pXuAWc0iTh5JZRAz5VWQj6ySG2DrUT8/8fX79/r39fN3ktGuruffvPr05x0XNjY29k3YySSukMlEr8Y5tcTP53a5NNjY2Njr2JPbv2OEhPf89QsjNjY29leye//VJyVtsgnBxsbGxq6Wn2Qb0Ctyyb2uvo+NjY2NnZeZ/NNJ9J83AN6epWFjY2N/PLvX6P3M12/vb2NjY2N/GHseA1VbudVtQ17eCgpsbGzsReznsU6+MUjw1QZDbz6Fx4CNjY29iJ0PUY1ykiXoRVe9h/ciUcPGxsa+ITuP0Sfxfa8lkN+3vBDY2NjYi9h5OcnjnvydXhO3OnK0A8PGxsa+LTuBNdeyeLxmEhjly/egbmNjY2MvYieR0DuauKcCrLwtjY2Njb2PfSq4n7SNqweDJu1hbGxs7E3svEgkv8phvdA/P45TuC82Njb2zdnz4L4a+uQl89TzfDA+NjY29jp2/o/+PGya7AV+D13Y2NjYu9nz+Cb5NFnECbtcwLCxsbFvzu4dyjnVKpiUxnzMwg+wsbGxb8XOY/e8LJ3dNuQhV3ULhI2Njb2J3Yv7q4cpk3d67eH88WBjY2NvZeeFIdl+VL95aiOU/wobGxt7K3vSKki2Iu84jtkrq9jY2Nj72PkBnaQwVNuu1eZx8jAKMRM2Njb2zdnVFcoXIklvJs3dXlDV/MPAxsbG/nh2MtzkNvmGZLIVye+OjY2NvYk9aQNM4p78eFAeclUt2NjY2DvYvWgm/34yxXnrt1wCsbGxsdex84LRC/fPLkF1abCxsbF3s09NqBro5G3d6gapoMDGxsZewa6WqPzY5aRB24ur8kYyNjY29j523prNuw3/5/hmtZRiY2Njb2VPStTkGM2k0VtdJmxsbOyt7PxKClivOFUP6OSLmJdPbGxs7Luze1FRDpgs3KmW84Plw8bGxl7HrrZse59Wx5k0nsv9bWxsbOwvYOfHaPLQqto8qM7hcgRsbGzsL2b3ov/e1HuHe6LMDBsbG3sde15geoUkb9xWG8wvlgMbGxt7Ebt3kDEvKr0DN9VJHyts2NjY2Hdi/wGdDumtI+Kd6gAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

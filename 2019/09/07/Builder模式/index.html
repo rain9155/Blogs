@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,19 +22,18 @@
     
     <meta name="keywords" content="设计模式">
     <meta name="description" content="前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对外部隐藏实现细节，就可以使用Builder模式将部件和组装过程分离，使得构建过程和部件可以自由扩展，两者之间的耦合度也降到最低。">
-<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Builder模式">
-<meta property="og:url" content="http://yoursite.com/2019/09/07/Builder模式/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对外部隐藏实现细节，就可以使用Builder模式将部件和组装过程分离，使得构建过程和部件可以自由扩展，两者之间的耦合度也降到最低。">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/09/07/Builder模式/design1.png">
-<meta property="og:updated_time" content="2019-09-07T11:51:17.125Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/design1.png">
+<meta property="article:published_time" content="2019-09-07T11:35:25.000Z">
+<meta property="article:modified_time" content="2019-09-07T11:51:17.125Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Builder模式">
-<meta name="twitter:description" content="前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对外部隐藏实现细节，就可以使用Builder模式将部件和组装过程分离，使得构建过程和部件可以自由扩展，两者之间的耦合度也降到最低。">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/07/Builder模式/design1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/design1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -45,7 +44,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -142,7 +141,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -166,7 +165,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
             
         </h5>
@@ -197,7 +196,7 @@
             <time class="post-time" title="2019-09-07 19:35:25" datetime="2019-09-07T11:35:25.000Z"  itemprop="datePublished">2019-09-07</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li></ul>
 
 
 
@@ -259,7 +258,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-09-07T11:51:17.125Z" itemprop="dateUpdated">2019-09-07 19:51:17</time>
+    Last updated: <time datetime="2019-09-07T11:51:17.125Z" itemprop="dateUpdated">2019-09-07 19:51:17</time>
 </span><br>
 
 
@@ -285,7 +284,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
 
 
             
@@ -295,7 +294,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/Builder模式/&title=《Builder模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/&title=《Builder模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -305,22 +304,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/Builder模式/&title=《Builder模式》 — jianyu的博客&source=前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/&title=《Builder模式》 — jianyu的博客&source=前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/Builder模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Builder模式》 — jianyu的博客&url=http://yoursite.com/2019/09/07/Builder模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Builder模式》 — jianyu的博客&url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/Builder模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -343,7 +342,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/09/07/工厂模式/" id="post-prev" class="post-nav-link">
+      <a href="/2019/09/07/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">工厂模式</h4>
       </a>
@@ -352,7 +351,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/09/07/责任链模式/" id="post-next" class="post-nav-link">
+      <a href="/2019/09/07/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">责任链模式</h4>
       </a>
@@ -423,7 +422,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -445,7 +444,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/Builder模式/&title=《Builder模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/&title=《Builder模式》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -455,22 +454,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/Builder模式/&title=《Builder模式》 — jianyu的博客&source=前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/&title=《Builder模式》 — jianyu的博客&source=前言Builder模式是一步步创建一个复杂对象的创建型模式，它允许用户在不知道内部构建细节的情况下，可以更加精准的控制对象的构造过程，为了在构建过程中，对..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/Builder模式/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Builder模式》 — jianyu的博客&url=http://yoursite.com/2019/09/07/Builder模式/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Builder模式》 — jianyu的博客&url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/Builder模式/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/Builder%E6%A8%A1%E5%BC%8F/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -481,7 +480,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3aQY7CMAwFUO5/aWY9mmn53wGkpi8rBKXN68JybD8e8Xr+We33R78ePeXxiYWBgXFZxvN05Q9O/vWu1/EPFQMD4waMowh2dE1y6/PNJc9K9oaBgYFxfs15Ypd/0z4XAwMDIw+4+X3OgzIGBgZGwkiOo23QbLf+pbM4BgbGBRl51f37nz/S38DAwLgU41mudV5yh3pXGBgYWzPWS2lJ4pgAku9fjGVgYGBszWiD4Oz69ppkyKPOZzEwMC7LyFO6lVPyrIRX7AcDA+NmjDwgDpO2OJjmB2AMDIy9GXnTcdbUTGAr5TkMDIw7MNoD56zQP0sBi9eBgYGxKaMtzefDW7Ng2h6Vf3ViMTAwNmW0UWvWMEhCdh523xB8MTAwLsVoQ1ubMp4/fmXr9bQIBgbGZRkrW0xCarvdN0yIYGBgbMfIa3Kzoa5ZrloPf2BgYNyAkRT6Z22DtqnQHo+L+Q4MDIzLMvL0axZk81ZBfv/oKIuBgbEpY1ZEa4cwZqlkO2SGgYGxH6M+NAalsbZhOQuvh10ODAyMmzFm6VpbyGvBGBgYGMNS15tKeMM7Y2BgbMpYGZVYPzHnyeWLxBQDA2NrRr5aal44y4czkkMvBgbGrow8yLZNx88F3PpNY2BgbMHIA99687I9GC8NhGFgYGCUhblZghj9ioGBgVF+zpsBs5bAP//FwMC4ASNvBuQbagtzS+kmBgbG1oz26Jgg89LeLBld6m9gYGBcifEDLEUi4LDaOu0AAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQW6DQAwF0Nz/0lTqqlJF+LZJVWYeqwgimMfCeGy/XvFxfB8/f/8+c3Y1P3/2n9sODAyMxzKOt0fyn8kdzl5EvjYMDIx9GEmQPbt1frfk/2fPvXgKBgYGRrCIScBNkk4MDAyMnPH+Mb1FJGkiBgYGxmST2auA5a/p5r04BgbGAxm9xsDf/P54fwMDA+PfMz5R7k8KbcetBwYGxtqMXtE/L5P1BizyM+U9NwYGxgMZ1e1itRCWMyZDaRgYGGszLi7Eu8V8sLU6kFEY6cDAwFiUUQ12eTOg2iKdBHQMDIy1Gb2FVscy8rDb2/RiYGCszegVxXol/iqjMGCBgYGxASPZyiZX5+nd+9/lxgAGBsYSjLz4dW97Ml9o4ekYGBiLMnopXS9Y5+W2vAyHgYGxD6MX8uapYb7oQlKIgYGxGSMftpiH2t5gGQYGxp6MQueziJwE7ov0EQMDY2lGkqj1wMkGdfJqyv1YDAyMxzLKSdi4YTBJSUcZLgYGxmMZvaiVD4rlYbT6lcDAwNiHMV9QNTjmAfqGTiwGBsYSjOpWtopJgubkNWFgYOzAOIpHtYVQLcA1E0cMDIylGZOELy+E5S+i2shsfgcwMDAeyOgV0e5qavaKceVZDwwMjCUYvVbB/D75F+Di1WBgYGAUN6vVre9k+AMDAwOjulntJXnz1ikGBsYOjEmJfzJskRfpLlaCgYGxNGM+qZG3P/Nhi5vDMQYGxlMZXzH1esApAsHwAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

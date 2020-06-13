@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,21 +22,21 @@
     
     <meta name="keywords" content="源码,retrofit">
     <meta name="description" content="前言上两篇文章：  okhttp3源码分析之请求流程 okhttp3源码分析之拦截器  Retrofit与Okhttp是Android开发中最最热门的网络请求库，它们都来自square公司，Okhttp在前面的两篇文章中已经通过源码从请求流程和拦截器两个角度分析过，本文的主角是Retrofit，经过这几天的研究，我发现Retrofit只是一个对Okhttp网络请求框架的巧妙包装，它通过注解去定义一">
-<meta name="keywords" content="源码,retrofit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通过源码全面解剖Retrofit2的整体流程">
-<meta property="og:url" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言上两篇文章：  okhttp3源码分析之请求流程 okhttp3源码分析之拦截器  Retrofit与Okhttp是Android开发中最最热门的网络请求库，它们都来自square公司，Okhttp在前面的两篇文章中已经通过源码从请求流程和拦截器两个角度分析过，本文的主角是Retrofit，经过这几天的研究，我发现Retrofit只是一个对Okhttp网络请求框架的巧妙包装，它通过注解去定义一">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit1.png">
-<meta property="og:image" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit2.png">
-<meta property="og:image" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit3.png">
-<meta property="og:updated_time" content="2019-11-30T11:45:12.344Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/retrofit1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/retrofit2.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/retrofit3.png">
+<meta property="article:published_time" content="2019-10-23T14:00:22.000Z">
+<meta property="article:modified_time" content="2019-11-30T11:45:12.344Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="retrofit">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="通过源码全面解剖Retrofit2的整体流程">
-<meta name="twitter:description" content="前言上两篇文章：  okhttp3源码分析之请求流程 okhttp3源码分析之拦截器  Retrofit与Okhttp是Android开发中最最热门的网络请求库，它们都来自square公司，Okhttp在前面的两篇文章中已经通过源码从请求流程和拦截器两个角度分析过，本文的主角是Retrofit，经过这几天的研究，我发现Retrofit只是一个对Okhttp网络请求框架的巧妙包装，它通过注解去定义一">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/retrofit1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/retrofit1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -47,7 +47,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -144,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -168,7 +168,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/优秀开源库分析/">优秀开源库分析</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E4%BC%98%E7%A7%80%E5%BC%80%E6%BA%90%E5%BA%93%E5%88%86%E6%9E%90/">优秀开源库分析</a></li></ul>
 
             
         </h5>
@@ -199,7 +199,7 @@
             <time class="post-time" title="2019-10-23 22:00:22" datetime="2019-10-23T14:00:22.000Z"  itemprop="datePublished">2019-10-23</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/优秀开源库分析/">优秀开源库分析</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E4%BC%98%E7%A7%80%E5%BC%80%E6%BA%90%E5%BA%93%E5%88%86%E6%9E%90/">优秀开源库分析</a></li></ul>
 
 
 
@@ -404,7 +404,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-11-30T11:45:12.344Z" itemprop="dateUpdated">2019-11-30 19:45:12</time>
+    Last updated: <time datetime="2019-11-30T11:45:12.344Z" itemprop="dateUpdated">2019-11-30 19:45:12</time>
 </span><br>
 
 
@@ -430,7 +430,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/retrofit/">retrofit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/retrofit/" rel="tag">retrofit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -440,7 +440,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -450,7 +450,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&source=前言上两篇文章：
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&source=前言上两篇文章：
 
 okhttp3源码分析之请求流程
 okhttp3源码分析之拦截器
@@ -460,17 +460,17 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -493,7 +493,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/11/05/java集合/" id="post-prev" class="post-nav-link">
+      <a href="/2019/11/05/java%E9%9B%86%E5%90%88/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">java学习总结之集合框架</h4>
       </a>
@@ -502,7 +502,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/10/21/使用AIDL来进行进程间通信/" id="post-next" class="post-nav-link">
+      <a href="/2019/10/21/%E4%BD%BF%E7%94%A8AIDL%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">使用AIDL来进行进程间通信</h4>
       </a>
@@ -573,7 +573,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -595,7 +595,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -605,7 +605,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&source=前言上两篇文章：
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/&title=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&source=前言上两篇文章：
 
 okhttp3源码分析之请求流程
 okhttp3源码分析之拦截器
@@ -615,17 +615,17 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过源码全面解剖Retrofit2的整体流程》 — jianyu的博客&url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/23/通过源码全面解剖Retrofit2的整体流程/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/23/%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E5%85%A8%E9%9D%A2%E8%A7%A3%E5%89%96Retrofit2%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -636,7 +636,7 @@ Retrofit与Okhttp是Android开发中最最热门的网络..." data-title=" QQ">
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3awW4bMQwEUP//T7dATwVSOzOklO7h+WQ49q6eAlj0kK9X/Pj15/H386+vfP3ru3cmr3++zuEHHh4e3mjpybI+f/bzO9+9f7OeaAvw8PDwrvGSwyBfxGdGflS0m4iHh4f3NF67EQkj2b5ku/Hw8PCeyWsPjOj2o03Bw8PDewJv9uO/DXY3B8n1rAUPDw/vQhfpOc+v9/fw8PDwRq2mU0MAbQstD3y/WSceHh7eBV7ezk9+9q8ig+DKs2EFPDw8vHu8NkJNhgn2QwOz6OEfBwMeHh7eId6mkb85YPKhhOTgqYtpPDw8vAWvzUJnQ1GbsYBZIIKHh4f3k7zZ6MAsethfvz5g8PDw8Na8DSMvspPFtSFvVPTj4eHhXeDlw0xJyZsfMElEO4sw3v4P8fDw8C7wZhFAOzqQf+pKAIGHh4d3NLptm0mzIYA2wE1GB6IBLDw8PLyjvLNhxKk4Iy/io/kIPDw8vGu8PIRtxwgSzKzB9s178PDw8I7y2hsPW1BBWZyPauXDBHh4eHj3eHnZ2g5mbaLbgvHuCnh4eHgXeO1yN1Fve4TMhrfw8PDwbvNmBe4sWt2nJvka8PDw8G7z2iBg1sJPSJtBhDqMwMPDwzvTyXrNLpcHu20cvG+t4eHh4d3gzQKI9lMz8CZKxsPDw7vHmzW9Zu3/aCmjULio0/Hw8PDWvNkxMCuvkzZYfvBEhTUeHh7eNd4mpEgGCNryOn8UYQQeHh7emreJHvZjUrMIeBhA4OHh4R3itV++s2ZYXpTnB1K7oXh4eHhneZvDILlNG1Lkx8mBrAUPDw/vaM7ZfhG3X/3FEveRBB4eHt6DeW3zbHP3qDTHw8PD+6+8ttE1LILL0vxYSY2Hh4d3IYxoC9+21M43sZ6MwMPDwzvKaxtgm41oxwWSMYIDSDw8PLz0ld+xue9kzMJG7gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAAE+CAAAAAAxUyPsAAAFMklEQVR42u3a0Y7TWhQD0Pn/nwbdZ2hre2fgSqw8ITFNTlYq1cc7X1/x8ePF8evfvPrsr+d59b/v1/D+zO/X/H49769+OvDhw4cPH76A5v1t5zfQXjG/Snv+RCA3wYcPHz58+C58SeDI48j7xSUhJo8s+QNOsNqV4MOHDx8+fH+eL9mot0vPz5OcoS0s8OHDhw8fvv8bXxtKoqUErXgSnnKU5FP48OHDhw/fd/AlUeCyFc+jSRt92vI953t41oEPHz58+PBNoeFf+PfDBz58+PDhwxf8PCc/2O2LZVsRn69/Kzu2Ax8+fPjw4ds0kh/sHKit5ret+FZtbIP/D6vFhw8fPnz4HuXLg8s9suTnbAPKVusXsw58+PDhw4fvIb627M7jS1sitEP0vErIz3PKffjw4cOHD18QC767Ut8INqYW6324wYcPHz58+Fq+pyrvZyHu2/t76Ik6AXz48OHDh6/ka+PFFj7uD2wbe7fDhuQv8eHDhw8fvgtfGx22xbUPLB8DPDWeb8ftLysDfPjw4cOHL+DLB8OXLXq7yW9LivZs93vHhw8fPnz4Nr58G38fgddNxmFUcBknJFfEhw8fPnz4Wr62zm63+skLYe1QvB2Bb8TFlwkfPnz48OHbc0hRvm833w7U2+DybMWfjw3w4cOHDx++ja8t3Ntb2rbxz1YVbVnfliD48OHDhw9f3jO3t9SGg3Yr3oaMrbzIV4gPHz58+PBd+LbN/BZ62vPnAaitMy7XwocPHz58+C58P4KjjS8XsssI/KmYVcQXfPjw4cOH71Ac5Nvsp8JH+zDua7h8CfDhw4cPH747X7vQtnZvt/33TX5b7m9X/9qeMz58+PDh++f57lV7ApE8nnbTnkeunO+BsgMfPnz48OEr57z54vINeRto8tsrKvX4tYAi7uDDhw8fPnwT33eU2luh0AadHPESmD68ZYAPHz58+PBNfPdeui33L6+stef/9moeHz58+PDhOxDkm/CnYkE+FM+jyWWIHo0i8OHDhw8fvkf5LuPkvCbI64b8UV1eAijiET58+PDhw3fg236R2xfCtmH2/XHmpUZx1/jw4cOHD9+BLwkcT1XkbXBpcfOwst01Pnz48OHDd+dLfsK30XW7gc//t40sLfSHO8KHDx8+fPgmvmgkXI66t/CxXaV9+SwfDHy4Fj58+PDhwzfxXQbYp7L7EIMuZUdy3fEFNXz48OHDhy8+z3aTl1Ig39hvw+/7uL14iQ0fPnz48OGb+LbQ0I6rL/FlizsbWbFyfPjw4cOHL+ZrP7aNxtuxdxJZ2u9IDloMKvDhw4cPH76Y7/4aWV4c5JV6+/dtBNleyxtbFnz48OHDhy8OHNsrX1sF39YQl7J+q/JfyuDDhw8fPnwHvmQb327mt2o+v1byAPKqoi4U8OHDhw8fvqWLPm3789jRLj2pFS7lwiWE4cOHDx8+fC1fW3m3gSDZwOeP5BKDtnj0Yc348OHDhw/fxLdxtKV2Xka044F2HL4NJH5zZnz48OHDh+/Ml2/j2+VeCvTkivnIIQ8oH4oGfPjw4cOHr+Qbf7CnbfZ9DHB5fe0SxfJCBB8+fPjw4Us+m9fx+eK2ZW30l7izBRd8+PDhw4fvzpff9paGktu7l/X5eOB+XXz48OHDh+/v8m1wLUQeXO4jhyii4cOHDx8+fH+Eb7tkXpfnV2lx24f3IWDhw4cPHz58E18SHfL40t5qe7b8Ltpiov4y4cOHDx8+fHsOqU/6FGU+DLhXAHkweqzox4cPHz58+P47fgIq72loRMJICAAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

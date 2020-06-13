@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,20 +22,21 @@
     
     <meta name="keywords" content="window,windowManager,WMS">
     <meta name="description" content="前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS">
-<meta name="keywords" content="window,windowManager,WMS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Window,WindowManager和WindowManagerService之间的关系">
-<meta property="og:url" content="http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window2.jpg">
-<meta property="og:updated_time" content="2020-01-02T11:17:15.300Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/window1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/window2.jpg">
+<meta property="article:published_time" content="2019-03-22T14:36:32.000Z">
+<meta property="article:modified_time" content="2020-01-02T11:17:15.300Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="window">
+<meta property="article:tag" content="windowManager">
+<meta property="article:tag" content="WMS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Window,WindowManager和WindowManagerService之间的关系">
-<meta name="twitter:description" content="前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager和WindowManagerService之间的关系/window1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/window1.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -46,7 +47,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -143,7 +144,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -167,7 +168,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Window机制/">Window机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Window%E6%9C%BA%E5%88%B6/">Window机制</a></li></ul>
 
             
         </h5>
@@ -198,7 +199,7 @@
             <time class="post-time" title="2019-03-22 22:36:32" datetime="2019-03-22T14:36:32.000Z"  itemprop="datePublished">2019-03-22</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Window机制/">Window机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Window%E6%9C%BA%E5%88%B6/">Window机制</a></li></ul>
 
 
 
@@ -279,7 +280,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-01-02T11:17:15.300Z" itemprop="dateUpdated">2020-01-02 19:17:15</time>
+    Last updated: <time datetime="2020-01-02T11:17:15.300Z" itemprop="dateUpdated">2020-01-02 19:17:15</time>
 </span><br>
 
 
@@ -305,7 +306,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/">windowManager</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/" rel="tag">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/" rel="tag">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/" rel="tag">windowManager</a></li></ul>
 
 
             
@@ -315,7 +316,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -325,22 +326,22 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&source=前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Wi..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&source=前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Wi..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -363,7 +364,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/05/19/Android8.0的Activity启动流程1/" id="post-prev" class="post-nav-link">
+      <a href="/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B1/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">Android8.0的Activity启动流程(1)</h4>
       </a>
@@ -372,7 +373,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/03/09/RecyclerView之观察者模式/" id="post-next" class="post-nav-link">
+      <a href="/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">RecyclerView之观察者模式</h4>
       </a>
@@ -443,7 +444,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -465,7 +466,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -475,22 +476,22 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&source=前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Wi..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&title=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&source=前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Wi..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Window,WindowManager和WindowManagerService之间的关系》 — jianyu的博客&url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/22/Window, WindowManager和WindowManagerService之间的关系/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -501,7 +502,7 @@ frameworks/base/services/core/java/com/android/server/wm/Session.java
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADP0lEQVR42u3aS44CMQwFQO5/aWY7EtA820EioXqF+KbSC2O/3G7xdX+4rl9N3vn/mcfHyavXzy+4sLGxsTdhJ4uuvpov7vpT12t+9Ti5AdjY2NjnsfOvnheb3i/2SuDL57GxsbGxL8vYdWFLPtUrftjY2NjY+d/95P3XDUavhVg2eMLGxsY+jp2Mja5JqxqMZLOqwy9sbGzss9nzcfz3PP5Ivo2NjY39xex78UpKSK8tmcTJZQU2Njb2Qey8AOQtSrUQVluFXpuBjY2NfSo7Hx5Njlpeh8SrRldRJJCf+sHGxsbeiv2mvi0NffN4oHpMZ9SEYGNjY2/Lzkc51en6KlIPFt0kbGxs7IPYyQ9XR0hJaawOoSZp9pvxEzY2Nva27F4BqIbBvTg2H2+VNxEbGxv7OHYyuO+1CpOC9JFgoJpXYGNjY2/Crparcn8zCAl6h3sKwQA2Njb2cexqUektfR4z99qSJx0YNjY29ubs5E9/rznpNTx5hDC5MdjY2NgnsfNmI3l/Xg7zFijZyvImYmNjYx/Ersa3yfGdfCyVNx6997/ZRGxsbOxD2fmBm/JBmUVRce/w0JsCho2Njb0tu1qc8iFRLwyoHvfJN7o8kcLGxsbekD1pPKptySSEmDROTwoYNjY29tHs6s8kP1lYXBAMV+PqW343sLGxsbdi53/x86XkhXASP+QhRLS72NjY2Iey8+i0eXQm3pTeTXryKWxsbOyD2PkIPj98k4+H8jajFyoUtgkbGxt7c3beVPQG+r0uoLeVhbKHjY2NfRA7H/fkBWlSAqtldbTd2NjY2Eew501FPpqvNif52Ci3YGNjY5/Krh7fqQ76e1tW3crCiAobGxv7OHa+6F7rksfJvcM6o7qNjY2NfRC72n5Uh0fzsHbxeSVsbGzszdn34hXtYuswUF4Ue2dvXo6TsLGxsTdn9wrAZHHVRa+aBSWvYmNjY+/LXhXZTva7Oh6qFjBsbGzsX2BXw9reEZw8VM43pVfqsLGxsX+ZPSHlC80HW8lAKsq3sbGxsX+GXR0SJZjFM7AkbMDGxsY+jj1ZbrX9SLZp1ZHQBfEANjY29teze8VgEhLkEW+Cz2MDbGxs7OPYf8TO41/3f/SUAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEiUlEQVR42u3aS24jORAFQN//0j3bBnpUfi+TBkQ5aiXIElWMMpAf5tdXfP356/r7nefX/3731fXqu7M72f/K8MKECRMmTG/JlC/9/M6r1fb3k2xv88nnvWPChAkTps9gyn/4FU3712Rjm888P8h8TUyYMGHC9NuYTpXQecjP05E8/GPChAkTJkz7Ruoe+rkcTUrWzYPBhAkTJkyfxJQvtyHL15mlAm3r+Ud64ZgwYcKE6c2Y8sD8ea8PX5gwYcKE6c2Y/pRX3jzNC9fkk8n29mOyL3eNCRMmTJiuZcoD5KagbQ8g2+3N7rz9FiZMmDBhupEpCbGb8Jy3U08lJbPxo28eMyZMmDBhupZpNihz6p02VM9SgeT9OmnAhAkTJkwXMrVjNLNBn1l7d1Ykt6V4dA+YMGHChOlCpk2gzVOHPABvWDefHD4HTJgwYcJ0CVPe5E1Kx1nAPkXZhvzo3jBhwoQJ0+VMecjct2XzsjkpuWfF/Kr0xYQJEyZMFzJthl3akngWpNtfnKG8xMKECRMmTJczJYF2ljq0q7WjNm2K0KYgmDBhwoTpM5g2QT1fJ4ebJQQzxLoXjgkTJkyYLmFqC8JZ2N6M1LQJQX4UWvwTYMKECROmy5nyAZrZzyft11kjeHZ4WfNhwoQJE6YPYso30G4jTyxayudtH0gpMGHChAnT5UztYeHsVvbN2Ryr5f7mQWLChAkTpsuZ2qDeQrepQL5Om158zS5MmDBhwnQt06z4zBu77eb3jypPYjZJBiZMmDBhupGpLVCTtGCTmsyK801KET1mTJgwYcJ0FdNmvCZ/Au1ozuZIcrOvl/SYMGHChOlaplkztD2AzPlOhfNZY7covzFhwoQJ0yVMLUrewE0+3wbytsk7SyMwYcKECdNvY5qVu5uDz9lWZ2lHlFJgwoQJE6ZrmfKFkqC+aRNvithkEKdNJuq0ABMmTJgwvT3TbLk88OfF7TN3W3Ln60RHmJgwYcKE6UKm/MfyMZckMJ8qoZMxnTYVwIQJEyZMn8GUl4vtJk+xnkoL8vBfFL2YMGHChOntmWZhcvM6L49Pjfskx5z5w8OECRMmTHcxnR15aZmSIrwtj3+iNYwJEyZMmO5laodXZhBJQtCO+OSHqe3B6jBXwoQJEyZMb880C9WntneqeI7ObGd7x4QJEyZM1zLlzdB9yzW/uXydTVO4fTyYMGHChOkuprr8OxRo822fTT7ydKc++cSECRMmTG/PlNzu/qAxbyLnZfampRv9i2DChAkTpmuZZgF1M3azbyjPaPIkBhMmTJgwfRLTrNTMh2ZmiG2qkSc3yX3+z18xYcKECdO1TD+RU2zau5um8OagtD3ExYQJEyZMdzHN2q9tU/j5JmbJx9mQ/82dY8KECROmy5nywNmG82Rjbat3doRZj+zkZ7+YMGHChOmDmNoUoQ3Ss3vI11wdamLChAkTpl/A1G5+UyrnZXNCs2kfY8KECROm25mSW88buPk46WaMZtbqzb81PM7EhAkTJkxvxpQXhPnQTF5S1seKAX2SuCQrYMKECROmy5n+A2ZiYoNe8R99AAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -20,27 +20,27 @@
     <meta name="theme-color" content="#009688">
     
     
-    <meta name="keywords" content="源码,view">
+    <meta name="keywords" content="view,源码">
     <meta name="description" content="前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个很炫酷的自定义View的开源库，我们也是拿来主义，时间长了你就会发现你只是一个只会使用控件和依赖被人开源库的程序员，这并不是一个开发者，所以我们并不能只满足于使用，我们要理解它背后的工作原理和流程，这样才能自己做出一个属于自己的控件，一直都说自定">
-<meta name="keywords" content="源码,view">
 <meta property="og:type" content="article">
 <meta property="og:title" content="View的工作原理">
-<meta property="og:url" content="http://yoursite.com/2019/07/22/View的工作原理/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个很炫酷的自定义View的开源库，我们也是拿来主义，时间长了你就会发现你只是一个只会使用控件和依赖被人开源库的程序员，这并不是一个开发者，所以我们并不能只满足于使用，我们要理解它背后的工作原理和流程，这样才能自己做出一个属于自己的控件，一直都说自定">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view1.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view2.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view3.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view4.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view5.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view6.png">
-<meta property="og:image" content="http://yoursite.com/2019/07/22/View的工作原理/view7.png">
-<meta property="og:updated_time" content="2019-10-30T12:23:13.716Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view1.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view2.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view3.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view4.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view5.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view6.png">
+<meta property="og:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view7.png">
+<meta property="article:published_time" content="2019-07-22T11:57:11.000Z">
+<meta property="article:modified_time" content="2019-10-30T12:23:13.716Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="view">
+<meta property="article:tag" content="源码">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="View的工作原理">
-<meta name="twitter:description" content="前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个很炫酷的自定义View的开源库，我们也是拿来主义，时间长了你就会发现你只是一个只会使用控件和依赖被人开源库的程序员，这并不是一个开发者，所以我们并不能只满足于使用，我们要理解它背后的工作原理和流程，这样才能自己做出一个属于自己的控件，一直都说自定">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/22/View的工作原理/view1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/view1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -51,7 +51,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -148,7 +148,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -172,7 +172,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View机制/">View机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View%E6%9C%BA%E5%88%B6/">View机制</a></li></ul>
 
             
         </h5>
@@ -203,7 +203,7 @@
             <time class="post-time" title="2019-07-22 19:57:11" datetime="2019-07-22T11:57:11.000Z"  itemprop="datePublished">2019-07-22</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View机制/">View机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/View%E6%9C%BA%E5%88%B6/">View机制</a></li></ul>
 
 
 
@@ -351,7 +351,7 @@ frameworks/base/core/java/android/FrameLayout.java
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-10-30T12:23:13.716Z" itemprop="dateUpdated">2019-10-30 20:23:13</time>
+    Last updated: <time datetime="2019-10-30T12:23:13.716Z" itemprop="dateUpdated">2019-10-30 20:23:13</time>
 </span><br>
 
 
@@ -377,7 +377,7 @@ frameworks/base/core/java/android/FrameLayout.java
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/">view</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/view/" rel="tag">view</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -387,7 +387,7 @@ frameworks/base/core/java/android/FrameLayout.java
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/22/View的工作原理/&title=《View的工作原理》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/&title=《View的工作原理》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -397,22 +397,22 @@ frameworks/base/core/java/android/FrameLayout.java
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/22/View的工作原理/&title=《View的工作原理》 — jianyu的博客&source=前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/&title=《View的工作原理》 — jianyu的博客&source=前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/22/View的工作原理/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的工作原理》 — jianyu的博客&url=http://yoursite.com/2019/07/22/View的工作原理/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的工作原理》 — jianyu的博客&url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/22/View的工作原理/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -435,7 +435,7 @@ frameworks/base/core/java/android/FrameLayout.java
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/07/29/View的事件分发机制/" id="post-prev" class="post-nav-link">
+      <a href="/2019/07/29/View%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%9C%BA%E5%88%B6/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">View的事件分发机制</h4>
       </a>
@@ -444,7 +444,7 @@ frameworks/base/core/java/android/FrameLayout.java
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/07/19/java面向对象/" id="post-next" class="post-nav-link">
+      <a href="/2019/07/19/java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">java学习总结之面向对象</h4>
       </a>
@@ -515,7 +515,7 @@ frameworks/base/core/java/android/FrameLayout.java
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -537,7 +537,7 @@ frameworks/base/core/java/android/FrameLayout.java
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/22/View的工作原理/&title=《View的工作原理》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/&title=《View的工作原理》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -547,22 +547,22 @@ frameworks/base/core/java/android/FrameLayout.java
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/22/View的工作原理/&title=《View的工作原理》 — jianyu的博客&source=前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/&title=《View的工作原理》 — jianyu的博客&source=前言在Android中View一直扮演着一个很重要的角色，它是我们开发中视觉的呈现，我平常也使用着Android提供的丰富且功能强大的控件，有时候遇到一个..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/22/View的工作原理/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的工作原理》 — jianyu的博客&url=http://yoursite.com/2019/07/22/View的工作原理/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《View的工作原理》 — jianyu的博客&url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/22/View的工作原理/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/07/22/View%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -573,7 +573,7 @@ frameworks/base/core/java/android/FrameLayout.java
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3a0WrDMAwF0P7/T2ewp0GX9spKNiofP5USHJ88CFnS4xGv43s9//NzPT95nKxkz8cdCwMD42MZx8uVHCjZ8/Wnqb73lz0xMDA2YKy95ixQriHzfTAwMDDOGP3wmnwIDAwMjD4jP27yz78FXAwMjA9k5KWxfOv+PrfcxTEwMD6QUW0M/OXvG/sbGBgYH8I4iqvfPbzlVBgYGKMZnVJXfq29diqkkOFiYGCMYHSGuvJL7GtAXoY7fSMGBsZoRvL6coG+WG6rtjxPeRgYGEMZVw1GrJXyq23OUxIGBsYGjPxS2kkQ84NWU0kMDIzZjLUSfyex64+dRc9gYGAMYuQ33WqSVy23dRoSGBgYuzHWwmLePMgLdoVUEgMDYzQjD3lrqV615ZCf5LS/gYGBMZRxbQDNWwidZBQDA2MfRufQSSk/b1KujYhhYGDsw8jLYdWSWZ4IVt/+S26LgYExlJFcWZOi2Nr4abW49qbBiYGBsQEjb0PmwxbJcEYOe/MWDAyMoYwOYO24ycpJGBgYuzGqZbJqMa6z3uyGgYExmpGPU1RTwLWDXoDBwMAYxziKq1pK67cZopQUAwNjNKMfEPNA2RqnCHbDwMCYzagG2bW0shpYq0kqBgbGDoxOoKyOfyXHLV+2MTAwMC4arehEyDf7Y2BgYMSBtZoUrrExMDD2ZKxdYqujGPnz5Q+EgYExmlFtDKwV16oX1H5DAgMDYwTjC41qjnTUHIlnAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwUlEQVR42u3a0WrDMAwF0P7/T2+wp0GJcyXZ6QYnTyWkro8HsXbl1yu+vn6u35/f77x/fh9h/eT7M+v72y48PDy81tSvrvUzV0uwXpoEf/W7+Zzx8PDwTvOq01q/rJNtYH1/PYfCaHh4eHgf5a1/bH2nN+n1xoCHh4f3v3jrEZIieO9C4OHh4T3PS8KI3oTyMaufN2cteHh4eDGv1wD77Ofj/T08PDy8Vlc9b3rlwcSkoVWeJx4eHt4BXlKq9srl/FvJ71aXsvzzeHh4eDEvKVKTFcpf6L2jVHkTrnAqAQ8PD6/Fqx6BmmOS9lVv+aL54+Hh4Y151YGSYLcaAU/+Gjej4eHh4T3CywHzYjdZ3OT5yzt4eHh4x3jVFtf81d/j5RsDHh4e3jO8/MU9Z1ePc/VCEzw8PLwTvDxUPfGKrwYT1agXDw8P7wQvb03lccBk46m+9G+WHg8PD+8Ar7eT5IdKqwFHL/C9WRQ8PDy8rbxJq6k6Tu+46qgEx8PDwzvGyyedH9KaHNvqHVloHrrCw8PDa/F6BWtv89hVxK8XEQ8PD+8075mmV6/srsa4r+oU8fDw8Iq8XiRRbfOPjkwFG0P5y3h4eHgDXq9ZlUcYu2LZXiCCh4eHd5rXa+rnYWsy3WozrJy14OHh4W3lTY5GTUrtKrVQZOPh4eEd4JUj0SAy6LX8e5FuodzHw8PD28RLMHkQsHcbqBbchZMReHh4eANezsgPP+XbTF7EV7el8l8JDw8PL+Z9Fa/8W0mc0Qs1Rv8l4OHh4Y15k9dur6lfjYnzeGKExMPDwyvyJpvBvFmVN7GaB7Pw8PDwjvGSeKI8dDz+fAe7XBo8PDy8P8DLy99euFCNkm8Kbjw8PLyP8vINo1c67w0v8PDw8E7z5q2s3jL1oo08qsDDw8M7was2wHoxa/XoQL40G7p8eHh4eCnvGxMO2k+ZVLHoAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

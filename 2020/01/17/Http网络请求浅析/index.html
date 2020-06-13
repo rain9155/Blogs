@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -21,35 +21,35 @@
     
     
     <meta name="keywords" content="http,https">
-    <meta name="description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
-<meta name="keywords" content="http,https">
+    <meta name="description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP&#x2F;IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="这是一份关于HTTP协议的学习总结">
-<meta property="og:url" content="http://yoursite.com/2020/01/17/Http网络请求浅析/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/index.html">
 <meta property="og:site_name" content="jianyu的博客">
-<meta property="og:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http1.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http2.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http3.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http4.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http5.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http6.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http7.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http8.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http11.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http12.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http13.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http14.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http15.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http16.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http17.png">
-<meta property="og:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http18.png">
-<meta property="og:updated_time" content="2020-03-05T15:02:04.376Z">
+<meta property="og:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP&#x2F;IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http1.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http2.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http3.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http4.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http5.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http6.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http7.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http8.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http11.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http12.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http13.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http14.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http15.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http16.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http17.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http18.png">
+<meta property="article:published_time" content="2020-01-17T07:33:15.000Z">
+<meta property="article:modified_time" content="2020-03-05T15:02:04.376Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="http">
+<meta property="article:tag" content="https">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="这是一份关于HTTP协议的学习总结">
-<meta name="twitter:description" content="前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系结构中，HTTP协议位于应用层，它是应用层主要使用的协议，应用层往下一层就是运输层，HTTP在运输层采用的是TCP协议来保证可靠传输，知道这些后，接下来详细介绍一下 Http。">
-<meta name="twitter:image" content="http://yoursite.com/2020/01/17/Http网络请求浅析/http1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/http1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -60,7 +60,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -157,7 +157,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -181,7 +181,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/计算机网络/">计算机网络</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
 
             
         </h5>
@@ -212,7 +212,7 @@
             <time class="post-time" title="2020-01-17 15:33:15" datetime="2020-01-17T07:33:15.000Z"  itemprop="datePublished">2020-01-17</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/计算机网络/">计算机网络</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></li></ul>
 
 
 
@@ -868,7 +868,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-03-05T15:02:04.376Z" itemprop="dateUpdated">2020-03-05 23:02:04</time>
+    Last updated: <time datetime="2020-03-05T15:02:04.376Z" itemprop="dateUpdated">2020-03-05 23:02:04</time>
 </span><br>
 
 
@@ -894,7 +894,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/">https</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/" rel="tag">https</a></li></ul>
 
 
             
@@ -904,7 +904,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/17/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -914,22 +914,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/17/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/17/Http网络请求浅析/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&url=http://yoursite.com/2020/01/17/Http网络请求浅析/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/17/Http网络请求浅析/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -952,7 +952,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2020/03/19/java反射/" id="post-prev" class="post-nav-link">
+      <a href="/2020/03/19/java%E5%8F%8D%E5%B0%84/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">java学习总结之反射</h4>
       </a>
@@ -961,7 +961,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/11/16/单例模式/" id="post-next" class="post-nav-link">
+      <a href="/2019/11/16/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">你知道有多少种方式实现单例模式？</h4>
       </a>
@@ -1032,7 +1032,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -1054,7 +1054,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/17/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -1064,22 +1064,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/17/Http网络请求浅析/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/&title=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&source=前言随着互联网的发展，网络已经越来越普及了，绝大多数的网络请求都是基于HTTP协议的，因此在开发中，了解HTTP的基本原理是必要的，在TCP/IP四层体系..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/17/Http网络请求浅析/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&url=http://yoursite.com/2020/01/17/Http网络请求浅析/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《这是一份关于HTTP协议的学习总结》 — jianyu的博客&url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/17/Http网络请求浅析/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2020/01/17/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%B5%85%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -1090,7 +1090,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3a0W7DIAwF0Pz/T2fSniZ1Ta4NnRY4PFVpEzh5cI3NccTj/B4/P/+88nr9+tvru15/M21gYGA8lnFejlfG9ZXk3mQN+dowMDD2YSRBtgq4DtbJ85O1YWBgYFSn7yWIyevDwMDAGH9cnj5WU0MMDAyMfBObF8Wuf3MG44N7cQwMjAcyeo2Bv/n88f4GBgbGv2eck0bekhwJr2/vxcDAWJqRl8BmNS+TEt67Vd2sEAMDYxvGdRAcmaZajMuPaGBgYOzAiL4Itp3V4lqvtXD0/hMwMDAey6ges6gml3kzsvr8X/biGBgYGzBGErXeoYpeQH9baMPAwFiUkS+xmsyNhNpmiMfAwFiUMdKYTJqOs17KTcKKgYGxASMpkM0Nnb2W501nAwMDY1FGEtR6W8q8DZCE6aEdOQYGxsMZvQl6pbfrZkOvwTlUpcPAwHgI4xMHL6pb3zy8Ns+SYGBgLMQYCb5J6MxfQYI8qm8XAwNjIUYeCm+K9UHboAqO/jEwMDAWZYwE02RZI/lpIbnEwMDYgFFtOo4kcDm1MAsGBsY2jLmNxl6RrtyDxcDA2ICRb1CrBbKEVA3cGBgYuzFGymGzDlX0jpRF8RgDA2MJxtwGZ7W4lrygfF4MDIy1GdXifm/6PHQ2GwwYGBgbMHqlsRzT3FXn7QQMDAyMeCN6DoxpzQAMDIyNGXlSmMN6Bz4wMDD2ZMwNo7MaBoVKIQYGxtKMWY2BfMo87FZDPwYGxnKMLzaPGQYP5HBjAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADH0lEQVR42u3aUVLcQAwEUO5/aXKAZDfdkqHW4+cvCrz2vKEKodZ8fcXX94sr/+nm+e+fkzx/eGFjY2PfhP399vr7nvbJr57wnvce+WpbEws2Njb2qezZojdPSEizzY2KHDY2NvaD2b+5Te/fnrc92NjY2Nj5v/h52NSS8g3CxsbGfiY7j/jbxeVNSNtg/FKWho2Njf3x7E1w82lf/8h8GxsbG/uD2d+jq20V2kXnAdZw/djY2NgHsfOQfVM8NsWm/TUUDQk2Njb2EewLysAPDGs3BTL6FDY2NvZB7OIHZanbjIQ338lLKTY2NvYZ7PywS/L6/CDObDgxC5j+8QRsbGzsg9hXDX3zRqI9uDMrn/kzsbGxsU9itzFNEty0y8qj/2TN9e8QGxsb+7bsWbCetzGzUcGsNcLGxsZ+GrsN9zcD4Fkrsr//5ZEdbGxs7CPYbRCfhzvtZzfD47wQYmNjYz+HnSxoVszaDd0PfS+YeGBjY2N/PHsWvs9CpaveNYuisLGxsZ/JbtuMtnVph7vtG18qsLGxsQ9lzyKhpFWYtSsbcFHAsLGxsW/ObgtJO9BNltK2N7M2BhsbG/tU9uyV7ctmw+N80/PjO9jY2NgnsWelJRn0/lxZyhuSoqPCxsbGvi372gKWl5kNINnoaM3Y2NjYx7Fnj05C/1mc1J4erQfG2NjY2MexZ6F/GwC144dNtBQd2cHGxsa+OXt28HHGyxuMTeyVXNjY2NjPYe8P7myKVhtv5eMKbGxs7PPYefvRBk+zEW+7NXVbhY2NjX0QO28M8hAnyW3a0WxRnPLDPdjY2NhHsJPFXTXibe9sBxUXh0rY2NjYN2G3YX0bMO0HwG3YVDRU2NjY2Eewh3/6F+de8lgqOm1U3oONjY19HrstAG0LkXyqjftnbUw7nMbGxsa+F3sWvm8alfyNbdOSlExsbGzsU9mb8Kgd9G6CpLwC/+d+bGxs7Eeyhy8YtRyzxqMYdWBjY2M/kr0Z6M42pR0eFMNgbGxs7OPYbcRz1Ui1ja42h3uGWRo2Njb2x7M3i9tETvuiNRtXYGNjYx/E/gPY+MldSymFTgAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

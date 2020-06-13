@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -20,21 +20,21 @@
     <meta name="theme-color" content="#009688">
     
     
-    <meta name="keywords" content="源码,ThreadLocal">
+    <meta name="keywords" content="ThreadLocal,源码">
     <meta name="description" content="概述ThreadLocal，线程本地存储区（Thread Local Storage，简称为TLS），通过它可以在指定的线程中存储数据，数据存储之后，只能在指定的线程中可以获取到存储的数据，对于其他线程来说则无法获取到数据。 使用ThreadLocal 提供了 get()，set(T value)，remove() 3个对外方法，来看一个简单的例子： 12345678910111213141516">
-<meta name="keywords" content="源码,ThreadLocal">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThreadLocal原理解析">
-<meta property="og:url" content="http://yoursite.com/2019/02/21/ThreadLocal解析/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="概述ThreadLocal，线程本地存储区（Thread Local Storage，简称为TLS），通过它可以在指定的线程中存储数据，数据存储之后，只能在指定的线程中可以获取到存储的数据，对于其他线程来说则无法获取到数据。 使用ThreadLocal 提供了 get()，set(T value)，remove() 3个对外方法，来看一个简单的例子： 12345678910111213141516">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/02/21/ThreadLocal解析/threadlocal1.png">
-<meta property="og:updated_time" content="2019-12-08T10:28:37.515Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/threadlocal1.png">
+<meta property="article:published_time" content="2019-02-21T05:55:50.000Z">
+<meta property="article:modified_time" content="2019-12-08T10:28:37.515Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="ThreadLocal">
+<meta property="article:tag" content="源码">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ThreadLocal原理解析">
-<meta name="twitter:description" content="概述ThreadLocal，线程本地存储区（Thread Local Storage，简称为TLS），通过它可以在指定的线程中存储数据，数据存储之后，只能在指定的线程中可以获取到存储的数据，对于其他线程来说则无法获取到数据。 使用ThreadLocal 提供了 get()，set(T value)，remove() 3个对外方法，来看一个简单的例子： 12345678910111213141516">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/21/ThreadLocal解析/threadlocal1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/threadlocal1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -45,7 +45,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -142,7 +142,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -282,7 +282,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2019-12-08T10:28:37.515Z" itemprop="dateUpdated">2019-12-08 18:28:37</time>
+    Last updated: <time datetime="2019-12-08T10:28:37.515Z" itemprop="dateUpdated">2019-12-08 18:28:37</time>
 </span><br>
 
 
@@ -308,7 +308,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadLocal/">ThreadLocal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -318,7 +318,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/ThreadLocal解析/&title=《ThreadLocal原理解析》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/&title=《ThreadLocal原理解析》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -328,22 +328,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/ThreadLocal解析/&title=《ThreadLocal原理解析》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/&title=《ThreadLocal原理解析》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/ThreadLocal解析/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadLocal原理解析》 — jianyu的博客&url=http://yoursite.com/2019/02/21/ThreadLocal解析/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadLocal原理解析》 — jianyu的博客&url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/ThreadLocal解析/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -366,7 +366,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/03/01/RecyclerView之布局设计/" id="post-prev" class="post-nav-link">
+      <a href="/2019/03/01/RecyclerView%E4%B9%8B%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">RecyclerView之布局设计</h4>
       </a>
@@ -375,7 +375,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/02/21/Android消息机制native层/" id="post-next" class="post-nav-link">
+      <a href="/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6native%E5%B1%82/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">Android消息机制(native层)</h4>
       </a>
@@ -446,7 +446,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -468,7 +468,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/ThreadLocal解析/&title=《ThreadLocal原理解析》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/&title=《ThreadLocal原理解析》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -478,22 +478,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/ThreadLocal解析/&title=《ThreadLocal原理解析》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/&title=《ThreadLocal原理解析》 — jianyu的博客&source=记录我学习的点点滴滴" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/ThreadLocal解析/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadLocal原理解析》 — jianyu的博客&url=http://yoursite.com/2019/02/21/ThreadLocal解析/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ThreadLocal原理解析》 — jianyu的博客&url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/ThreadLocal解析/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -504,7 +504,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACGUlEQVR42u3aQY7DIBAEwP3/p73XrCJb3UBWChSnyLHNlA+jgeHnJx7Xy3i98vzv+3h/9nmWxQMDA+NrGdfjSCbIn7rikceGgYFxDuMuuLt78hSc85J5b69jYGBgxKQ24bafDwMDA6Nl5GHd3fN8BQMDA6NdxOZPtaGPLXoxMDDOYeS77v//+yP9DQwMjK9ijCXNtWGNtQ3+RIWBgbE1I09weUHW3jmWcDEwMM5kJAvOscXtTGoulqwYGBjHMGbWie0sybGzBImBgXEO4zncPE2vLSLzFgIGBsbejLEEl5eM+edYAMDAwNia8fy6mSVum47bY2cYGBgnMNrHxjbxx+7Pt/AwMDDOYYwdhkjSa3uktS4oMTAwNmVEiWzVxn38Idq0i4GBcQ5jbHE7E26+xF3cg8XAwPgqRr6ttrZYzNsMbULHwMDYlZG/rm1htsjFZ0YwMDC2YMxvgSVvaBufbWrGwMDYm9GGkhdtSaZvP9NUbYuBgbEdI9/eyovCvD3ZFogYGBinMdqd9pmkOVNcYmBgYLRX2mKxTbhRKsfAwNiUcZUjKdryVmj7htt0j4GBsTVjLNnlk41tnEVtAAwMjMMY81v/+cRrE25UOWJgYGzEGAsumWasedBGi4GBgdGm0bZtkD/7kYSLgYGxHWOmBMxbm+3nwMDAOIGRLGLHDkMk4bbFIgYGxmmMmaVj/aI4iJmyEgMDYyPGLx0+S6njEUkbAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aQYrDMAwF0N7/0hmY1SymyZfUFGI/r0IIcR4FVbL0esXr+F3Jnb/3jzfrfJfzZ0YLAwPjsYzjdJ1/Yv6e6vP5MxgYGPswzoPsHJnvmLwHAwMD4x2jGi6rgTXZFwMDAyNh9IrS/A0YGBgYkyK2d/TWO5i7sRbHwMB4IKPaGPjm9Y39DQwMjIcwjuLKk79Je7L8VRgYGEszkrQsP76fNAbyIFvIcDEwMLZhVMNuEjp7pezFjhgYGIsy8mOypEnQG56oJpT/XGNgYCzN6JWR1QGyPNGsDmpgYGDswKhaq6TPNhgu/jcwMDAWZVSTsyogSezyZPQiJcXAwFiUkYTXJJhOyt15kwADA2MHRq89mX9Wzu6NXGBgYOzAuK+wzEmTBBEDA2NtRm/YotqwrA5bNI/2MDAwNmD0Ervq6h3tRQEdAwNjA0a1mKyOTSTNg9HMCAYGxqKMqMNZbE9O0sdRDxYDA2NRRq+InY9WVJPIW2pxDAyMhzDyNK5aXvZCZ17iYmBg7MlIysi8GZkH5WrYxcDA2I2Rp2L5gMW8edAby8DAwFiVcRRXDsvbAHmroDAQhoGBsRCjNyTR2yBvJFQLYwwMjB0Y+VHavCid8C5+AQwMjA0Y1SZifuj/qeO8CyQGBgZG/BHVNDFP/qIZNwwMDIw4gasik7B7Eb4xMDA2YORFbF5YzpsHhUQTAwNjaUavMVCe5hjv9YH3Y2BgPI/xA7QKzFK54xrZAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

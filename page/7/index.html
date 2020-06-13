@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,16 +22,14 @@
     
     <meta name="keywords" content="android">
     <meta name="description" content="记录我学习的点点滴滴">
-<meta name="keywords" content="android">
 <meta property="og:type" content="website">
 <meta property="og:title" content="jianyu的博客">
 <meta property="og:url" content="http://yoursite.com/page/7/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="记录我学习的点点滴滴">
-<meta property="og:locale" content="default">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="android">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jianyu的博客">
-<meta name="twitter:description" content="记录我学习的点点滴滴">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -42,7 +40,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -139,7 +137,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -173,14 +171,14 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-Android消息机制native层"
+            <article id="post-ThreadLocal解析"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-02-21 13:51:51" datetime="2019-02-21T05:51:51.000Z"  itemprop="datePublished">2019-02-21</time>
+        <time class="post-time" title="2019-02-21 13:55:50" datetime="2019-02-21T05:55:50.000Z"  itemprop="datePublished">2019-02-21</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
 
 
 
@@ -191,7 +189,56 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/02/21/Android消息机制native层/">Android消息机制(native层)</a>
+      <a class="post-title-link" href="/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/">ThreadLocal原理解析</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        概述ThreadLocal，线程本地存储区（Thread Local Storage，简称为TLS），通过它可以在指定的线程中存储数据，数据存储之后，只能在指定的线程中可以获取到存储的数据，对于其他线程来说则无法获取到数据。
+使用ThreadLocal 提供了 get()，set(T value)，remove() 3个对外方法，来看一个简单的例子：
+12345678910111213141...
+    
+
+        <a href="/2019/02/21/ThreadLocal%E8%A7%A3%E6%9E%90/" class="post-more waves-effect waves-button">
+            Continue reading...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadLocal/" rel="tag">ThreadLocal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Android消息机制native层"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-02-21 13:51:51" datetime="2019-02-21T05:51:51.000Z"  itemprop="datePublished">2019-02-21</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/">消息机制</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6native%E5%B1%82/">Android消息机制(native层)</a>
     </h3>
   
 
@@ -207,14 +254,14 @@
 MessageQueue中有多个native方法，MessaeQueue是Android消息机制的Java层和native层的连接纽带，Android的java层和native层通过JNI调用打通，java层和native各有一套消息机制，实现不一样，本文讲解native层的Android消息机制，了解了native层的消息机制，你就能明...
     
 
-        <a href="/2019/02/21/Android消息机制native层/" class="post-more waves-effect waves-button">
-            続きを読む…
+        <a href="/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6native%E5%B1%82/" class="post-more waves-effect waves-button">
+            Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/native/">native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/" rel="tag">handler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/native/" rel="tag">native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
     </div>
     
@@ -230,7 +277,7 @@ MessageQueue中有多个native方法，MessaeQueue是Android消息机制的Java�
         <time class="post-time" title="2019-02-21 13:33:11" datetime="2019-02-21T05:33:11.000Z"  itemprop="datePublished">2019-02-21</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/消息机制/">消息机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/">消息机制</a></li></ul>
 
 
 
@@ -241,7 +288,7 @@ MessageQueue中有多个native方法，MessaeQueue是Android消息机制的Java�
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/02/21/Android消息机制java层/">Android消息机制(java层)</a>
+      <a class="post-title-link" href="/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/">Android消息机制(java层)</a>
     </h3>
   
 
@@ -254,14 +301,14 @@ MessageQueue中有多个native方法，MessaeQueue是Android消息机制的Java�
         前言Android的消息机制用于同进程的线程间通信，它是由MessageQueue，Message，Looper，Handler共同组成，Android中大量的交互都是通过消息机制，比如四大组件启动过程与服务的交互、View的绘制、更新等都离不开消息机制，所以Android在某种意义上也可以说成是一个以消息驱动的系统，在Android中消息机制的运作分为java层和native层，它们之间的...
     
 
-        <a href="/2019/02/21/Android消息机制java层/" class="post-more waves-effect waves-button">
-            続きを読む…
+        <a href="/2019/02/21/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6java%E5%B1%82/" class="post-more waves-effect waves-button">
+            Continue reading...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/">handler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/handler/" rel="tag">handler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
     </div>
     
@@ -289,7 +336,7 @@ MessageQueue中有多个native方法，MessaeQueue是Android消息机制的Java�
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">

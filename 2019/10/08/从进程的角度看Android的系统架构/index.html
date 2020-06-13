@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,20 +22,19 @@
     
     <meta name="keywords" content="进程">
     <meta name="description" content="前言 上一篇文章Android的系统架构概述  上一篇文章从5个层次简述了Android的系统架构，那么这5个层次是怎么联系起来的呢？本文从进程的角度看Android的系统架构，简述一下Android系统启动的过程中，各大进程的启动顺序是如何的，本文并不会涉及到任何源码，只是为了让读者对Android的进程有个大概的了解。">
-<meta name="keywords" content="进程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从进程的角度看Android的系统架构">
-<meta property="og:url" content="http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言 上一篇文章Android的系统架构概述  上一篇文章从5个层次简述了Android的系统架构，那么这5个层次是怎么联系起来的呢？本文从进程的角度看Android的系统架构，简述一下Android系统启动的过程中，各大进程的启动顺序是如何的，本文并不会涉及到任何源码，只是为了让读者对Android的进程有个大概的了解。">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/android1.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/android2.png">
-<meta property="og:updated_time" content="2020-01-13T07:56:05.369Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/android1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/android2.png">
+<meta property="article:published_time" content="2019-10-08T08:32:55.000Z">
+<meta property="article:modified_time" content="2020-01-13T07:56:05.369Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="进程">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从进程的角度看Android的系统架构">
-<meta name="twitter:description" content="前言 上一篇文章Android的系统架构概述  上一篇文章从5个层次简述了Android的系统架构，那么这5个层次是怎么联系起来的呢？本文从进程的角度看Android的系统架构，简述一下Android系统启动的过程中，各大进程的启动顺序是如何的，本文并不会涉及到任何源码，只是为了让读者对Android的进程有个大概的了解。">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/android1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/android1.jpg">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -46,7 +45,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -143,7 +142,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -184,7 +183,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、系统启动（Loader）"><span class="post-toc-text">1、系统启动（Loader）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-Boot-ROM"><span class="post-toc-text">1.1 Boot ROM</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-Boot-Loader"><span class="post-toc-text">1.2 Boot Loader</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、Linux内核启动（Kernel）"><span class="post-toc-text">2、Linux内核启动（Kernel）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1、swapper（pid-0）"><span class="post-toc-text">2.1、swapper（pid=0）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-2、kthreadd（pid-2）"><span class="post-toc-text">2.2、kthreadd（pid=2）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3、init进程启动（Native）"><span class="post-toc-text">3、init进程启动（Native）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、Zygote进程启动（Native-gt-java-Framework）"><span class="post-toc-text">4、Zygote进程启动（Native -&gt; java Framework）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5、SystemServer进程启动（java-Framework）"><span class="post-toc-text">5、SystemServer进程启动（java Framework）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6、Launcher进程启动（Application）"><span class="post-toc-text">6、Launcher进程启动（Application）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、系统启动（Loader）"><span class="post-toc-text">1、系统启动（Loader）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-Boot-ROM"><span class="post-toc-text">1.1 Boot ROM</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-Boot-Loader"><span class="post-toc-text">1.2 Boot Loader</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、Linux内核启动（Kernel）"><span class="post-toc-text">2、Linux内核启动（Kernel）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-1、swapper（pid-0）"><span class="post-toc-text">2.1、swapper（pid&#x3D;0）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-2、kthreadd（pid-2）"><span class="post-toc-text">2.2、kthreadd（pid&#x3D;2）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3、init进程启动（Native）"><span class="post-toc-text">3、init进程启动（Native）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、Zygote进程启动（Native-gt-java-Framework）"><span class="post-toc-text">4、Zygote进程启动（Native -&gt; java Framework）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5、SystemServer进程启动（java-Framework）"><span class="post-toc-text">5、SystemServer进程启动（java Framework）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6、Launcher进程启动（Application）"><span class="post-toc-text">6、Launcher进程启动（Application）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-text">总结</span></a></li></ol>
         </nav>
     </aside>
 
@@ -253,7 +252,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-01-13T07:56:05.369Z" itemprop="dateUpdated">2020-01-13 15:56:05</time>
+    Last updated: <time datetime="2020-01-13T07:56:05.369Z" itemprop="dateUpdated">2020-01-13 15:56:05</time>
 </span><br>
 
 
@@ -279,7 +278,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/进程/">进程</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B/" rel="tag">进程</a></li></ul>
 
 
             
@@ -289,7 +288,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -299,7 +298,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&source=前言
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&source=前言
 上一篇文章Android的系统架构概述
 
 上一篇文章从5个层次简述了Android的系统架构，那么这5个层次是怎么联系起来的呢？本文从进程的角度看A..." data-title=" QQ">
@@ -307,17 +306,17 @@
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从进程的角度看Android的系统架构》 — jianyu的博客&url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从进程的角度看Android的系统架构》 — jianyu的博客&url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -340,7 +339,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/10/15/代理模式/" id="post-prev" class="post-nav-link">
+      <a href="/2019/10/15/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">静态和动态代理模式</h4>
       </a>
@@ -349,7 +348,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/09/07/工厂模式/" id="post-next" class="post-nav-link">
+      <a href="/2019/09/07/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">工厂模式</h4>
       </a>
@@ -420,7 +419,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -442,7 +441,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -452,7 +451,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&source=前言
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/&title=《从进程的角度看Android的系统架构》 — jianyu的博客&source=前言
 上一篇文章Android的系统架构概述
 
 上一篇文章从5个层次简述了Android的系统架构，那么这5个层次是怎么联系起来的呢？本文从进程的角度看A..." data-title=" QQ">
@@ -460,17 +459,17 @@
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从进程的角度看Android的系统架构》 — jianyu的博客&url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从进程的角度看Android的系统架构》 — jianyu的博客&url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/08/从进程的角度看Android的系统架构/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/10/08/%E4%BB%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%A7%92%E5%BA%A6%E7%9C%8BAndroid%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -481,7 +480,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuklEQVR42u3a0WrkMBAEwPz/T+fgng7CrrtHmiQH5afgGEelgDRuzcdHfH3+vb7e+fd+cufr/Ve/TZ68duHh4eGNhv7qannJQNuRJOyX78fDw8Nb473fDJLFOge0f/39eB7ehoeHh/ejvJaUDGg2EXh4eHj/Cy+JGNpnTjYhPDw8vJ/lJUFADs6D1/w961kLHh4eXsxrC9zf8PPi+R4eHh7ewal6exzVbjaz6SvGiYeHh7fAa8vf86OstnB/v9pHGwYeHh7eVd7JR34b455EscODNzw8PLwF3t3WgXxSkjcn2UIUWODh4eEt8Nq2qiR6yJfvdlKSKcPDw8Pb47WBQg7IN5IE3JbaeHh4eN/DmxXQbfRw3ulQTCgeHh7eAi//mM+DgJPYYlaCP+Dx8PDwrvKSw602Nm2L4JOA4+E9eHh4eAu8vFX0vCyetSDUjQJtJIGHh4d3lZd//J9MU15M56s9Hh4e3h4v6iloZys+8p8FDXlMjIeHh7fBm33859PRHrC1oUayheDh4eHd5eXL/XkMMSvTZ4FF0RmBh4eHNzlRGh44tQf5J+1W7ZEbHh4e3h6vbQs4WfTbZ2ZsPDw8vG1ewmgPuuoUZPR3izfj4eHhXeXthQu3wtm2ZC96IvDw8PBGvPcP5W0BJ0dW+UL/fmwP/0M8PDy8q7z2Uz8vxGdDnL3zWpKBh4eHF4cReaHcxhNF5DraqB6mCQ8PD2+NN1tL86X/JMKYhSN4eHh4G7zP8ppFtG38enK/DnDx8PDwSt61vaUMMvJWg1lMXFPx8PDwSt75ZtAens0mLt8w8PDw8L6Hl5fIsxgiH9ZJJIGHh4f3O3mzhfukrm8PyeqOAzw8PLw13iw8zUOHvNWgaMDCw8PDW+Pl5e/J4JLpa2EPE42Hh4e3wGuL2nZ7yAeUxMcrDQR4eHh4Ke8POrTkKc+G2KcAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEk0lEQVR42u3aS44bORAFwL7/pWVgVgZsqd/LZGNEOWolyNUlMsoA8/f1FV+P/67fP/9+Pfs+uefZ8//8/HpVr7/Jn7m6MGHChAnTWzK120uWmywxh06enKwneeVPn4wJEyZMmC5nSh6XLDS/c7Po5KUmQUMBjQkTJkyY/gGm9idzgg1H8k2bBmPChAkTJkz7Im9bXN6nspgwYcKE6V9mmj1uf3i/bnPOishJYPGDtXBMmDBhwvRmTLPBnc/4/OPzTZgwYcKE6X9leiyu/KCdreTUmvf7xYQJEyZM9zLNUtC2SDpLpM8GJW3C/E0tHBMmTJgwXcK0b1i+Htn5iSZou57Z57/ETZgwYcKE6VqmvB2YNyZnzc4NSp42t0EGJkyYMGG6l6nddls23Yz4JK/n9S42yfzTIi8mTJgwYbqKKXlEe7ie2vbsUG9XGO0REyZMmDBdy5QfqHlTsEVsw4u2GTkbQoomjDBhwoQJ09sztX8wS0Rnv7I55tvRn6I2gAkTJkyYrmKq68GHRkjz4CB5Ae2LaUeIMGHChAnTZzC1294M6+TNzlnb8lRhFxMmTJgwfQZTvtxHfCXpZRIunPq+/du8vYoJEyZMmN6ZKW9e7luJeXq8P/jz8CL6H4QJEyZMmK5lmrUPN2FEno7OBm5md0YamDBhwoTpQqZZQLDJsPOFblqksyLvN/+PMGHChAnThUztgXq25NoWgk/hHoibMGHChAnThUybRLdtWM6en3PnQcCwIo4JEyZMmC5kyg/+zXMS3P3oz2xf3+wXEyZMmDBdyDRLIDdF4c2d+QvbBCh1LRwTJkyYML09U9smTIZy2qbppiXZlmvzYjEmTJgwYfoMpk35tW1qzn4rCUGKbbdFXkyYMGHCdC1TEhzMEtH94M6m5XmqKFzEUJgwYcKE6e2ZzgYBp1qhs3tysuRFYsKECROme5lm5d1Tg6E5btvsTFZSlIwxYcKECdO1TKcKrHmzcL+UvBmZp7LHkl5MmDBhwvT2TI/4OouSj8DOxnRmJWBMmDBhwvRJTO3Q56bYmm/s7PcHqt2YMGHChOkqprYxOXtmjpgXZ5P78118E+JgwoQJE6bLmdrDtf2r2TBNu568MZkHK1+zDWPChAkTprdk2hyl7eDLbEynrVi37cynnzFhwoQJ08cxtQltO1S6CS9mJelZ+/arfT+YMGHChOnNmNqi7azgmy9of//sJdXzTZgwYcKE6RKm2bBpfqC2rcf8FzdjQHU6jQkTJkyYPoLp9ebbRedJadvsPAVdBBOYMGHChOlaphyoHbtpG5x58jwcvhldmDBhwoTpdqZHeeVJ7OabWYLdFnmLJigmTJgwYbqWaRNBtJvcNyDbF7YJMo4FWpgwYcKE6Q2Y2iAg/8n2X/Nmap5at2Xip0/DhAkTJkyXM+VjPTnu2dikbZ22gcJqfAcTJkyYMH0QUzu+07Y/21Ulq521Zv9SEceECRMmTB/NlG87L9HuA5F25clqMWHChAnT5zFtirw/d+VdxTbdrZ+ACRMmTJiuZTpVYM2P/5zg1ABQu+FhMRoTJkyYML0X0y/sg5t0yuWgjAAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 

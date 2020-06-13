@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     
 
     
@@ -22,22 +22,22 @@
     
     <meta name="keywords" content="源码,okhttp">
     <meta name="description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
-<meta name="keywords" content="源码,okhttp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="okhttp3源码分析之拦截器">
-<meta property="og:url" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/index.html">
 <meta property="og:site_name" content="jianyu的博客">
 <meta property="og:description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp1.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp2.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp3.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp4.png">
-<meta property="og:updated_time" content="2020-01-15T13:44:07.306Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/okhttp1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/okhttp2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/okhttp3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/okhttp4.png">
+<meta property="article:published_time" content="2019-09-07T07:01:40.000Z">
+<meta property="article:modified_time" content="2020-01-15T13:44:07.306Z">
+<meta property="article:author" content="rain9155">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="okhttp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="okhttp3源码分析之拦截器">
-<meta name="twitter:description" content="前言 上一篇文章：okhttp3源码分析之请求流程  本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送到服务器之前有一系列的拦截器对请求做了处理后才发送出去，在服务器返回响应之后，同样的有一系列拦截器对响应做了处理后才返回给发起请求的调用者，可见，拦截器是okhttp的一个重要的核心功能，在分析各个拦截器功能的同时又会牵扯出okhttp的缓存机制">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/okhttp1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/okhttp1.png">
     
         <link rel="alternate" type="application/atom+xml" title="jianyu的博客" href="/atom.xml">
     
@@ -48,7 +48,7 @@
     <!-- custom head -->
     
 
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -145,7 +145,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="検索">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -169,7 +169,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/优秀开源库分析/">优秀开源库分析</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E4%BC%98%E7%A7%80%E5%BC%80%E6%BA%90%E5%BA%93%E5%88%86%E6%9E%90/">优秀开源库分析</a></li></ul>
 
             
         </h5>
@@ -200,7 +200,7 @@
             <time class="post-time" title="2019-09-07 15:01:40" datetime="2019-09-07T07:01:40.000Z"  itemprop="datePublished">2019-09-07</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/优秀开源库分析/">优秀开源库分析</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E4%BC%98%E7%A7%80%E5%BC%80%E6%BA%90%E5%BA%93%E5%88%86%E6%9E%90/">优秀开源库分析</a></li></ul>
 
 
 
@@ -354,7 +354,7 @@
     <div class="content">
         
 <span class="post-time">
-    最終更新：<time datetime="2020-01-15T13:44:07.306Z" itemprop="dateUpdated">2020-01-15 21:44:07</time>
+    Last updated: <time datetime="2020-01-15T13:44:07.306Z" itemprop="dateUpdated">2020-01-15 21:44:07</time>
 </span><br>
 
 
@@ -380,7 +380,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/okhttp/">okhttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/okhttp/" rel="tag">okhttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
 
 
             
@@ -390,7 +390,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -400,7 +400,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&source=前言
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&source=前言
 上一篇文章：okhttp3源码分析之请求流程
 
 本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送..." data-title=" QQ">
@@ -408,17 +408,17 @@
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《okhttp3源码分析之拦截器》 — jianyu的博客&url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《okhttp3源码分析之拦截器》 — jianyu的博客&url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -441,7 +441,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2019/09/07/责任链模式/" id="post-prev" class="post-nav-link">
+      <a href="/2019/09/07/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">责任链模式</h4>
       </a>
@@ -450,7 +450,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/09/03/okhttp3源码分析之请求流程/" id="post-next" class="post-nav-link">
+      <a href="/2019/09/03/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">okhttp3源码分析之请求流程</h4>
       </a>
@@ -521,7 +521,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>このブログの内容物は<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja">クリエイティブ・コモンズ 表示 - 非営利 - 継承 4.0 国際ライセンスの下に提供されています</a></span>
+            <span>This blog is licensed under a <a rel="license noopener" href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -543,7 +543,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&pic=http://yoursite.com/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -553,7 +553,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&source=前言
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/&title=《okhttp3源码分析之拦截器》 — jianyu的博客&source=前言
 上一篇文章：okhttp3源码分析之请求流程
 
 本篇文章继续通过源码来探讨okhttp的另外一个重要知识点：拦截器，在上一篇文章我们知道，在请求发送..." data-title=" QQ">
@@ -561,17 +561,17 @@
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《okhttp3源码分析之拦截器》 — jianyu的博客&url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/&via=http://yoursite.com" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《okhttp3源码分析之拦截器》 — jianyu的博客&url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/&via=http://yoursite.com" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/okhttp3源码分析之拦截器/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2019/09/07/okhttp3%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%A6%E6%88%AA%E5%99%A8/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -582,7 +582,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsUlEQVR42u3aQW7DMAwEwPz/0ynQa+p4SYpBCoxPQVrXGh1MdcnHI76ev9frN1fX6++8v/fqWVefD194eHh4raUnC33PTu59/3fybUrWjIeHh7fNS5Y+WW5SYJJSlK8ZDw8P7xt4Z2E5Bg8PD+//8pL/9xPA3mbh4eHhfZLXC2TzQKH6us/XcyxrwcPDw4t51QbYN3xe7O/h4eHhDbrqyZUHsvld1VJxuTY8PDy8BV5+XK4GEPnLPfkm345mUoKHh4cX86qv42pEmw9y9UYNbjYXDw8Pb43Xa3T1FloNiKsR881hGg8PD+8Qrzo00IsVevjJXXh4eHif4fVe0wkyGRqYjB388Q0eHh7eAm/juDwZyZrEx1GRwMPDwxvzeqFAEvXO21qTDcLDw8Pb5uWv+17ZmB/Nq0f/6DF4eHh4Ld4khshj32pkPI8t8PDw8D7Pyw/H1cJQPWr3BhqaWQseHh5ewHsG16QFdTbqLW8EHh4e3gIvb2vlxSAPOCaxb+FAj4eHh7fMm7yCextRDTuSaOOy+uHh4eGNeXloOzl897Yvf/Vf/hQPDw9vgVdtU+Wv9d5AQB7a5p/x8PDwzvLyo3N1MKu66BxTiC3w8PDw1nh59cgflmch89GEaBoCDw8P7xCvx6iWhxxcPYhHQTAeHh7eAq/XvM8HpAq9uOAp1YQWDw8Pb4M3by/lx+u8wPT+2k2XDw8PD2+ZV40eqkWiOoKQx754eHh4e7zeWFU1Ts1HDap33RQMPDw8vAXe2RZ+L+StPndy9MfDw8M7xesdi3uLzmPZ/N6bleDh4eGt8aqdo0ks2xvnyktI9AM8PDy8j/PORrfVsYDkWI+Hh4f3DbxexJAvfdIqK1cMPDw8vDFv3vTqNcbyw3d15AsPDw9vj3e2eJzdvmqRaCLx8PDwUt4PnZwDJ8QD71sAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD7ElEQVR42u3ayW4bQQwFQP//TzuXHAIkkt8jOYYDlE7CeJbuGgMUl4+P+PP59vPqzPfX5vdvn/LnkY8nPjhw4MCBY73V9w9Lvv/9xFd3Ttb26q/tK/nHc3HgwIEDxxFHsuj3y03umd95Fh/boIsDBw4cOH4Cx2f8mW0gwU02jAMHDhw4/heO/Mg+rCZr2P9QwIEDBw4cT3AkZbhkEW3psG1TtY2rB2ulOHDgwIEjza1W2/uZ3x+Z78CBAwcOHPG4wGZYbfP0/bWzIubvq3DgwIEDx5oj30ZO0w43tGE+fyXtvnDgwIEDx56jLQK242hJAXFTyGt/ChQNJxw4cODAccSxHztICov5EpMBuGLD78udOHDgwIHjiKMt+bXja5twuxlWyMlw4MCBA8cVR/Lg586ZjU3kaV4LhwMHDhw4bjny4tqmkNcSbEL+7GcBDhw4cODYcLRjam2LqKW8akcNByZw4MCBA8fp7Fm7gbbYdzUGERX4yvXjwIEDB44rjrZ4l5fqks1vyGYlwi+Kjzhw4MCBY82RDwS0Zb52KOHq/ASr+MWBAwcOHDhKjpbgiTA5C8BXad7LthMOHDhw4Fhz5CMFs8SvLQ7OXkCbsOHAgQMHjluOvHmTp2qze+Zh+Gq44YvzceDAgQPHgiNv6rQp2SZs56W9tuEU1Upx4MCBA8cRR9TyL6/Nm1Lty8ifWKwNBw4cOHAs1rYZMsuHD/b3z4N6G2g/9nEbBw4cOHDMaodxoXB//02ad7ZyHDhw4MBxufKoydQG2pwmT97aAL9HxIEDBw4c7zmSpk7eRmqD5azANyOIyoU4cODAgeOUow1ObYNqtqVZWTN5nVGWiQMHDhw4RhyzwlmyiKvj+bUrGhw4cODAsebIH9COQeRhNU8X21XNwjMOHDhw4LjiSJbbEiQluXYkYhNQi3QRBw4cOHCMONqmURvk2rJj+2LaZPKLveDAgQMHjiOOPMObLfG59GzWJCvmO3DgwIEDx4LjNhnLafap3TCs5vMdOHDgwIFjxJEvNzmSFxnzZ83SvyIM48CBAweOI46rYbh2Y20QnYX5IqXEgQMHDhxrjs22N42r2eBCHlBz3C8mO3DgwIEDR8kxa9vk5+RFwPesReso/y/IBxpw4MCBA0fMsU+i8pGFWdspfzF5MrlvceHAgQMHjrwatgmc+ZG6YLceaCjuhgMHDhw4jjieiNtXxbur9lWU/uHAgQMHjm/naEcKZqlXsuEcru7C4cCBAweOb+TIQ+CsXZSXJvP1F6MbOHDgwIHjiKNt8Dw3uJYXKPdp3qrthAMHDhw41gMNbaupHXdI6PNkrH2dOHDgwIFjzfELHvTO4V/X1iYAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
