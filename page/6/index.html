@@ -171,14 +171,14 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-Android8.0的Activity启动流程2"
+            <article id="post-java线程"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-05-19 16:12:34" datetime="2019-05-19T08:12:34.000Z"  itemprop="datePublished">2019-05-19</time>
+        <time class="post-time" title="2019-07-19 12:25:50" datetime="2019-07-19T04:25:50.000Z"  itemprop="datePublished">2019-07-19</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/">四大组件</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
 
 
 
@@ -189,7 +189,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B2/">Android8.0的Activity启动流程(2)</a>
+      <a class="post-title-link" href="/2019/07/19/java%E7%BA%BF%E7%A8%8B/">java学习总结之线程</a>
     </h3>
   
 
@@ -199,20 +199,17 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言
-上一篇文章Android8.0的Activity启动流程(1)
-
-上一篇文章讲了应用进程请求AMS启动Activity过程和Activity在AMS中的启动过程，然后Activity启动的代码逻辑就从AMS所在进程，又重新回到了应用进程所在的ApplicationThread中。我们还留下了一个问题，Activity的生命周期方法是如何被回调的？，下面我们就带着这个疑问，去走一遍源码，看一下在应用进程中ApplicationThread启动Activity的过程。
+        前言在java中，线程非常重要，我们要分清楚进程和线程的区别：进程是操作系统中资源分配的基本单位，进程是指一个内存中运行的应用程序，每个进程都拥有自己的一块独立的内存空间，进程之间的资源不共享；而线程是CPU调度的最小单元，一个进程可以有多个线程，线程之间的堆空间是共享的，但栈空间是独立的，java程序的进程至少包含主线程和后台线程(垃圾回收线程)。了解这些知识后，来看下文有关线程的知识。
     
 
-        <a href="/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B2/" class="post-more waves-effect waves-button">
+        <a href="/2019/07/19/java%E7%BA%BF%E7%A8%8B/" class="post-more waves-effect waves-button">
             続きを読む…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/" rel="tag">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag">线程</a></li></ul>
 
     </div>
     
@@ -221,14 +218,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-Android8.0的Activity启动流程1"
+            <article id="post-java基础"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-05-19 16:11:17" datetime="2019-05-19T08:11:17.000Z"  itemprop="datePublished">2019-05-19</time>
+        <time class="post-time" title="2019-07-19 12:24:58" datetime="2019-07-19T04:24:58.000Z"  itemprop="datePublished">2019-07-19</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/">四大组件</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/java/">java</a></li></ul>
 
 
 
@@ -239,7 +236,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B1/">Android8.0的Activity启动流程(1)</a>
+      <a class="post-title-link" href="/2019/07/19/java%E5%9F%BA%E7%A1%80/">java学习总结之基础</a>
     </h3>
   
 
@@ -249,17 +246,17 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言Activity的启动流程有俩种过程，一种是根Activity的启动过程，即在Launch界面点击一个应用图标启动应用程序，根Activity指的是应用程序启动的第一个Activity；另一种是普通Activity的启动流程，即我们平时调用startActivity方法来启动一个Activity。本文讨论第二种，startActivity方法大家都知道是用来启动一个Activity的，那么大家有没有想过它在底层是怎么启动的呢？Activity的生命周期方法是如何被回调的？它启动过程中涉及到多少个进程？接下来我们通过撸一篇源码来了解Activity的大概启动流程，然后解答这几个问题。
+        前言万事开头难，准备从零把java相关知识点捡起来，把自己所学的Java知识点归纳，下面是关于java的一些基本知识点。
     
 
-        <a href="/2019/05/19/Android8.0%E7%9A%84Activity%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B1/" class="post-more waves-effect waves-button">
+        <a href="/2019/07/19/java%E5%9F%BA%E7%A1%80/" class="post-more waves-effect waves-button">
             続きを読む…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activity/" rel="tag">activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/" rel="tag">java</a></li></ul>
 
     </div>
     
@@ -268,14 +265,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-Window, WindowManager和WindowManagerService之间的关系"
+            <article id="post-搞定两种场景下的Fragment懒加载"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-03-22 22:36:32" datetime="2019-03-22T14:36:32.000Z"  itemprop="datePublished">2019-03-22</time>
+        <time class="post-time" title="2019-07-14 18:33:57" datetime="2019-07-14T10:33:57.000Z"  itemprop="datePublished">2019-07-14</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Window%E6%9C%BA%E5%88%B6/">Window机制</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/android/">android</a></li></ul>
 
 
 
@@ -286,7 +283,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/">Window,WindowManager和WindowManagerService之间的关系</a>
+      <a class="post-title-link" href="/2019/07/14/%E6%90%9E%E5%AE%9A%E4%B8%A4%E7%A7%8D%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84Fragment%E6%87%92%E5%8A%A0%E8%BD%BD/">搞定两种场景下的Fragment懒加载</a>
     </h3>
   
 
@@ -296,17 +293,19 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言上面3个名词在开发中经常听到，在Android开发中，Window是所有视图的载体，如Activity，Dialog和Toast的视图，我们想要对Window进行添加和删除就要通过WindowManager来操作，而WindowManager就是通过Binder与WindowManagerService进行跨进程通信，把具体的实现工作交给WindowManagerService（下面简称WMS）。下面分别介绍它们，理清它们的基本脉络。
+        前言我对懒加载的定义是：数据的加载要等到页面对用户可见时才加载，否则的话会浪费用户流量。网上实现懒加载的方案非常多，但大多数都是解决了我下面说到的场景一的懒加载，本文还解决场景二的懒加载方式。
+如果不想看下面的分析，直接这个类导入你的项目中，需要懒加载的Fragment继承这个类，并重写相应的方法就行：传送门。
+场景一： Viewpager + Tablayout + Fragment什么？...
     
 
-        <a href="/2019/03/22/Window,%20WindowManager%E5%92%8CWindowManagerService%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/" class="post-more waves-effect waves-button">
+        <a href="/2019/07/14/%E6%90%9E%E5%AE%9A%E4%B8%A4%E7%A7%8D%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84Fragment%E6%87%92%E5%8A%A0%E8%BD%BD/" class="post-more waves-effect waves-button">
             続きを読む…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WMS/" rel="tag">WMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/window/" rel="tag">window</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windowManager/" rel="tag">windowManager</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fragment/" rel="tag">fragment</a></li></ul>
 
     </div>
     
@@ -315,14 +314,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-RecyclerView之观察者模式"
+            <article id="post-如何获取Android应用与系统信息"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-03-09 17:39:00" datetime="2019-03-09T09:39:00.000Z"  itemprop="datePublished">2019-03-09</time>
+        <time class="post-time" title="2019-07-12 22:36:32" datetime="2019-07-12T14:36:32.000Z"  itemprop="datePublished">2019-07-12</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/recyclerView/">recyclerView</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/android/">android</a></li></ul>
 
 
 
@@ -333,7 +332,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/">RecyclerView之观察者模式</a>
+      <a class="post-title-link" href="/2019/07/12/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96Android%E5%BA%94%E7%94%A8%E4%B8%8E%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF/">如何获取Android应用和系统信息</a>
     </h3>
   
 
@@ -343,17 +342,17 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言RecyclerView是Android开发中的一个重要的模式，通常我们往RecyclerView添加数据时，都会调用Adapter的notifiyXX函数，这是为什么呢，今天我们就从源码来探究一下，对观察者模式不熟悉的读者，可以看一下这一篇博客观察者模式, RecyclerView在更新数据时也算是对观察者模式的一种应用。
+        前言本主要了解一下Android系统信息的获取，apk应用信息的获取。
     
 
-        <a href="/2019/03/09/RecyclerView%E4%B9%8B%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="post-more waves-effect waves-button">
+        <a href="/2019/07/12/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96Android%E5%BA%94%E7%94%A8%E4%B8%8E%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF/" class="post-more waves-effect waves-button">
             続きを読む…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/" rel="tag">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActivityManager/" rel="tag">ActivityManager</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PackageManager/" rel="tag">PackageManager</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/" rel="tag">android</a></li></ul>
 
     </div>
     
@@ -362,14 +361,14 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-RecyclerView之缓存设计"
+            <article id="post-基于P2P的局域网即时通信应用"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-03-08 14:56:50" datetime="2019-03-08T06:56:50.000Z"  itemprop="datePublished">2019-03-08</time>
+        <time class="post-time" title="2019-07-12 19:25:30" datetime="2019-07-12T11:25:30.000Z"  itemprop="datePublished">2019-07-12</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/recyclerView/">recyclerView</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">开源项目</a></li></ul>
 
 
 
@@ -380,7 +379,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/">RecyclerView之缓存设计</a>
+      <a class="post-title-link" href="/2019/07/12/%E5%9F%BA%E4%BA%8EP2P%E7%9A%84%E5%B1%80%E5%9F%9F%E7%BD%91%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1%E5%BA%94%E7%94%A8/">基于P2P的局域网即时通信应用</a>
     </h3>
   
 
@@ -390,20 +389,19 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        前言
-上一篇文章RecyclerView之布局设计
-
-RecyclerView，见名之义，这个View代表了可循环使用的视图集合控件，封装了View的缓存逻辑判断，RecyclerView的基本单元是ViewHolder，里面有一个itemView代表了视图上的子View，所以RecyclerView的缓存基本单元也是ViewHolder。本文将从源码的角度来讲解RecyclerView的缓存设计。
+        前言这是一个使用java语言开发的基于P2P的局域网即时通信Android应用，界面是高仿微信的聊天界面，在里面你将会学到java多线程并发编程、Socket编程、UDP广播、TCP连接、还有图片加载相关知识等。
+项目地址：P2P
+设计思路P2P不同于C/S方式，它没有集中式的服务器，在P2P中，程序既是服务器又是客户端，在同一个局域网内，每个用户发送的消息不会经过路由器转发到其他局域网，那...
     
 
-        <a href="/2019/03/08/RecyclerView%E4%B9%8B%E7%BC%93%E5%AD%98%E8%AE%BE%E8%AE%A1/" class="post-more waves-effect waves-button">
+        <a href="/2019/07/12/%E5%9F%BA%E4%BA%8EP2P%E7%9A%84%E5%B1%80%E5%9F%9F%E7%BD%91%E5%8D%B3%E6%97%B6%E9%80%9A%E4%BF%A1%E5%BA%94%E7%94%A8/" class="post-more waves-effect waves-button">
             続きを読む…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/recyclerView/" rel="tag">recyclerView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/p2p/" rel="tag">p2p</a></li></ul>
 
     </div>
     
@@ -416,7 +414,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
     </div>
 </nav>
 
@@ -435,7 +433,7 @@ RecyclerView，见名之义，这个View代表了可循环使用的视图集合�
         </p>
     </div>
     <div class="bottom">
-        <p><span>rain9155 &copy; 2018 - 2020</span>
+        <p><span>rain9155 &copy; 2018 - 2021</span>
             <span>
                 
                 Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
